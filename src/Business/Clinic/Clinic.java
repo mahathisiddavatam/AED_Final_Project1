@@ -13,7 +13,9 @@ public class Clinic {
     int id;
     int count =1;
     //name, email, phone, address, city, country, zipcode
-    String name;
+    String username;
+    String password;
+    String employeename;
     String email;
     String phone;
     String address;
@@ -31,12 +33,12 @@ public class Clinic {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeename() {
+        return employeename;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.employeename = name;
     }
 
     public String getEmail() {
