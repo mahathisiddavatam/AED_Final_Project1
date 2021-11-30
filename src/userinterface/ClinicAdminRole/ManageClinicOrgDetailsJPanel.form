@@ -50,7 +50,10 @@
                           <Component id="txtZip" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnDeleteOrg" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnDeleteOrg" max="32767" attributes="0"/>
+                          <Component id="btnBack" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -105,7 +108,10 @@
                   <Component id="txtZip" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnCreateOrg" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnCreateOrg" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -282,6 +288,11 @@
     <Component class="javax.swing.JButton" name="btnDeleteOrg">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete Org"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBack">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;&lt; Back"/>
       </Properties>
     </Component>
   </SubComponents>
