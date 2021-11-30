@@ -11,4 +11,17 @@ package Business.University;
  */
 public class Student {
     
+    int id;
+    int count =1;
+    
+    public Student(){
+        
+        id = count;
+        count++;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
 }

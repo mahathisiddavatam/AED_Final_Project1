@@ -65,17 +65,17 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Manage Clinic Organization Details");
+        jLabel1.setText("Manage Clinic Enterprise Details");
 
         tblClinicOrg.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Contact No", "University", "City", "Zipcode"
+                "ID", "Name", "Contact No", "Address", "Zipcode"
             }
         ));
         jScrollPane1.setViewportView(tblClinicOrg);
@@ -105,6 +105,11 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         lblZip.setText("Zipcode:");
 
         cmbOrgType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbOrgType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbOrgTypeActionPerformed(evt);
+            }
+        });
 
         btnCreateOrg.setText("Create Org");
 
@@ -188,6 +193,10 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbOrgTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOrgTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbOrgTypeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

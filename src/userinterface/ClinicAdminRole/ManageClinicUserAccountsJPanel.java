@@ -4,16 +4,22 @@
  */
 package userinterface.ClinicAdminRole;
 
+import Business.EcoSystem;
+
 /**
  *
  * @author krish
  */
 public class ManageClinicUserAccountsJPanel extends javax.swing.JPanel {
+    
+    EcoSystem system;
 
     /**
      * Creates new form ManageClinicUserAccountsJPanel
      */
-    public ManageClinicUserAccountsJPanel() {
+    public ManageClinicUserAccountsJPanel(EcoSystem system) {
+        
+        this.system = system;
         initComponents();
     }
 

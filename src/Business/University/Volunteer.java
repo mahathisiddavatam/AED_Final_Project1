@@ -11,4 +11,17 @@ package Business.University;
  */
 public class Volunteer {
     
+    int id;
+    int count =1;
+    
+    public Volunteer(){
+        
+        id = count;
+        count++;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
 }

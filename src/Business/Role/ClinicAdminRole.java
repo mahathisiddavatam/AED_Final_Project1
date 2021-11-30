@@ -8,8 +8,7 @@ package Business.Role;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import userinterface.ClinicAdminRole.ManageClinicOrgDetailsJPanel;
-import userinterface.ClinicStaffRole.ClinicStaffWorkAreaJPanel;
+import userinterface.ClinicAdminRole.ClinicAdminWorkArea;
 
 /**
  *
@@ -19,7 +18,7 @@ public class ClinicAdminRole extends Role  {
     
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
-        return new ManageClinicOrgDetailsJPanel(userProcessContainer,account,business);
+        return new ClinicAdminWorkArea(userProcessContainer,account,business);
     
 }
 }

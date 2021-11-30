@@ -1,7 +1,6 @@
 package Business;
 
-import Business.MindFitness.MindFitness;
-import Business.Role.SystemAdminRole;
+import Business.Role.ClinicAdminRole;
 import Business.UserAccount.UserAccount;
 
 /**
@@ -23,7 +22,8 @@ public class ConfigureASystem {
         
         //MindFitness employee = system.getEmployeeDirectory().createEmployee("RRH");
         
-        UserAccount ua = system.getUserAccountDirectory().createUserAccount("sysadmin", "sysadmin", new SystemAdminRole());
+        UserAccount ua = system.getUserAccountDirectory().createUserAccount("sysadmin", "sysadmin", new ClinicAdminRole());
+        
         
         return system;
     }
