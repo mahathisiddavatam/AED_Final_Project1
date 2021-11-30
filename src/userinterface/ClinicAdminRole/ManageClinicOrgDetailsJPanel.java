@@ -60,6 +60,7 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         txtZip = new javax.swing.JTextField();
         btnCreateOrg = new javax.swing.JButton();
         btnDeleteOrg = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -110,6 +111,8 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
 
         btnDeleteOrg.setText("Delete Org");
 
+        btnBack.setText("<< Back");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,7 +144,9 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                             .addComponent(txtCountry)
                             .addComponent(txtZip))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDeleteOrg)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDeleteOrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,13 +189,16 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                     .addComponent(lblZip)
                     .addComponent(txtZip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCreateOrg)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreateOrg)
+                    .addComponent(btnBack))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreateOrg;
     private javax.swing.JButton btnDeleteOrg;
     private javax.swing.JComboBox<String> cmbOrgType;
