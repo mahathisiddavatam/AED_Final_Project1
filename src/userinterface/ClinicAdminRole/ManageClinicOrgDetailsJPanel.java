@@ -58,34 +58,40 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         txtCity = new javax.swing.JTextField();
         txtCountry = new javax.swing.JTextField();
         txtZip = new javax.swing.JTextField();
-        btnCreateOrg = new javax.swing.JButton();
-        btnDeleteOrg = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        pwdPassword = new javax.swing.JPasswordField();
+        txtUserName = new javax.swing.JTextField();
+        btnSubmit = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Manage Clinic Organization Details");
+        jLabel1.setText("Manage Clinic Employees");
 
         tblClinicOrg.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Contact No", "University", "City", "Zipcode"
+                "Name", "Clinic name", "Contact No", "City", "Zipcode"
             }
         ));
         jScrollPane1.setViewportView(tblClinicOrg);
 
         lblOrgType.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblOrgType.setText("Organization type:");
+        lblOrgType.setText("Employee:");
 
         lblOrgName.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblOrgName.setText("Name:");
+        lblOrgName.setText("Employee Name:");
 
         lblEmail.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblEmail.setText("Email:");
@@ -107,11 +113,28 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
 
         cmbOrgType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnCreateOrg.setText("Create Org");
+        btnCreate.setText("Create");
 
-        btnDeleteOrg.setText("Delete Org");
+        btnDelete.setText("Delete");
 
         btnBack.setText("<< Back");
+
+        lblUsername.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblUsername.setText("UserName:");
+
+        lblPassword.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblPassword.setText("Password:");
+
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
+            }
+        });
+
+        btnSubmit.setText("Submit");
+
+        jLabel2.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel2.setText("*** 8-10 characters, including numbers and special characters");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,10 +144,9 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblOrgType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblOrgName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblPhoneNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -134,19 +156,34 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                             .addComponent(lblZip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCreateOrg, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                            .addComponent(cmbOrgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtClinicName)
-                            .addComponent(txtEmail)
-                            .addComponent(txtPhoneNo)
-                            .addComponent(txtAddress)
-                            .addComponent(txtCity)
+                            .addComponent(btnCreate, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(txtZip)
                             .addComponent(txtCountry)
-                            .addComponent(txtZip))
+                            .addComponent(txtCity)
+                            .addComponent(txtAddress)
+                            .addComponent(txtPhoneNo)
+                            .addComponent(txtEmail)
+                            .addComponent(txtClinicName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblOrgType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                            .addComponent(lblPassword))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnDeleteOrg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(cmbOrgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtUserName)
+                            .addComponent(pwdPassword))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -159,8 +196,19 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrgType)
                     .addComponent(cmbOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeleteOrg))
+                    .addComponent(btnDelete))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsername)
+                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pwdPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPassword)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSubmit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrgName)
                     .addComponent(txtClinicName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -190,19 +238,25 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                     .addComponent(txtZip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreateOrg)
+                    .addComponent(btnCreate)
                     .addComponent(btnBack))
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnCreateOrg;
-    private javax.swing.JButton btnDeleteOrg;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbOrgType;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblCity;
@@ -210,8 +264,11 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblOrgName;
     private javax.swing.JLabel lblOrgType;
+    private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPhoneNo;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblZip;
+    private javax.swing.JPasswordField pwdPassword;
     private javax.swing.JTable tblClinicOrg;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
@@ -219,6 +276,7 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtPhoneNo;
+    private javax.swing.JTextField txtUserName;
     private javax.swing.JTextField txtZip;
     // End of variables declaration//GEN-END:variables
 }
