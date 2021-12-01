@@ -4,16 +4,22 @@
  */
 package userinterface.ClinicAdminRole;
 
+import Business.EcoSystem;
+
 /**
  *
  * @author krish
  */
 public class ManageClinicUserAccountsJPanel extends javax.swing.JPanel {
+    
+    EcoSystem system;
 
     /**
      * Creates new form ManageClinicUserAccountsJPanel
      */
-    public ManageClinicUserAccountsJPanel() {
+    public ManageClinicUserAccountsJPanel(EcoSystem system) {
+        
+        this.system = system;
         initComponents();
     }
 
@@ -39,7 +45,6 @@ public class ManageClinicUserAccountsJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUserName = new javax.swing.JTable();
-        btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -76,8 +81,6 @@ public class ManageClinicUserAccountsJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblUserName);
 
-        btnBack.setText("<< Back");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,16 +101,13 @@ public class ManageClinicUserAccountsJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCreateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(btnDeleteUser, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
+                                .addComponent(btnCreateUser)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                                .addComponent(btnDeleteUser))
                             .addComponent(txtUserID)
                             .addComponent(txtPassword)
                             .addComponent(cmbOrg, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBack)))
+                            .addComponent(cmbRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -136,15 +136,12 @@ public class ManageClinicUserAccountsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreateUser)
                     .addComponent(btnDeleteUser))
-                .addGap(24, 24, 24)
-                .addComponent(btnBack)
-                .addContainerGap())
+                .addGap(58, 58, 58))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreateUser;
     private javax.swing.JButton btnDeleteUser;
     private javax.swing.JComboBox<String> cmbOrg;
