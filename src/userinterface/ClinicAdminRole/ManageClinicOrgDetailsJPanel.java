@@ -92,7 +92,7 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Name", "Employee Type", "Contact No", "Address", "Zipcode"
+                "UserName", "Employee Type", "Contact No", "Address", "Zipcode"
             }
         ));
         jScrollPane1.setViewportView(tblClinicOrg);
@@ -140,6 +140,11 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("<< Back");
 
@@ -496,6 +501,44 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblClinicOrg.getModel();
+        int selectedIndex = tblClinicOrg.getSelectedRow();
+        if(selectedIndex!=-1){
+            
+            String order = modelOrder.getValueAt(selectedIndex, 0).toString();
+            String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            if(type=="Therapist"){
+                
+                system.getClinicdirectory().getTherapistdir().DeleteTherapist(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                
+                
+                
+            }
+            
+            if(type=="Clinic Staff"){
+                
+                system.getClinicdirectory().getClinicstaffdir().DeleteClinicStaff(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                
+                
+                
+            }
+            
+            
+            
+            
+            
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

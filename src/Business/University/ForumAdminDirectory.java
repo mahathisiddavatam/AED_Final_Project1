@@ -26,6 +26,10 @@ public class ForumAdminDirectory {
         return forumadminlist;
     }
 
+    public void setForumadminlist(ArrayList<ForumAdmin> forumadminlist) {
+        this.forumadminlist = forumadminlist;
+    }
+
    
 
     public ForumAdmin AddForumAdmin(){
@@ -35,9 +39,9 @@ public class ForumAdminDirectory {
         return forumadmin;
     }
     
-    public boolean DeleteForumAdmin(int id){
+    public boolean DeleteForumAdmin(String id){
          for(ForumAdmin forumadmin: forumadminlist){
-             if(id==forumadmin.getId()){
+             if(id.equals(forumadmin.getId())){
                  forumadminlist.remove(forumadmin);
                  return true;
              }
@@ -46,11 +50,11 @@ public class ForumAdminDirectory {
          return false;
     }
     
-    public ForumAdmin RetrieveForumAdmin(int id){
+    public ForumAdmin RetrieveForumAdmin(String id){
         
         for(ForumAdmin forumadmin: forumadminlist){
             
-            if(id==forumadmin.getId()){
+            if(id.equals(forumadmin.getId())){
                 
                 return forumadmin;
             }

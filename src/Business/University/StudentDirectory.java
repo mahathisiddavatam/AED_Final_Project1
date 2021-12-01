@@ -25,18 +25,22 @@ public class StudentDirectory {
         return studentlist;
     }
 
+    public void setStudentlist(ArrayList<Student> studentlist) {
+        this.studentlist = studentlist;
+    }
+
    
 
     public Student AddStudent(){
-        
+       
         Student student = new Student();
         studentlist.add(student);
         return student;
     }
     
-    public boolean DeleteStudent(int id){
+    public boolean DeleteStudent(String id){
          for(Student student: studentlist){
-             if(id==student.getId()){
+             if(id.equals(student.getId())){
                  studentlist.remove(student);
                  return true;
              }
@@ -45,11 +49,11 @@ public class StudentDirectory {
          return false;
     }
     
-    public Student RetrieveStudent(int id){
+    public Student RetrieveStudent(String id){
         
         for(Student student: studentlist){
             
-            if(id==student.getId()){
+            if(id.equals(student.getId())){
                 
                 return student;
             }
