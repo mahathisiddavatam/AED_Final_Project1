@@ -29,16 +29,17 @@ public class ClinicStaffDirectory {
 
    
 
-    public ClinicStaff AddClinicStaff(){
+    public ClinicStaff AddClinicStaff(String id){
         
         ClinicStaff clinicstaff = new ClinicStaff();
+        clinicstaff.setId(id);
         clinicstafflist.add(clinicstaff);
         return clinicstaff;
     }
     
-    public boolean DeleteClinicStaff(int id){
+    public boolean DeleteClinicStaff(String id){
          for(ClinicStaff clinicstaff: clinicstafflist){
-             if(id==clinicstaff.getId()){
+             if(id.equals(clinicstaff.getId())){
                  clinicstafflist.remove(clinicstaff);
                  return true;
              }
@@ -47,11 +48,11 @@ public class ClinicStaffDirectory {
          return false;
     }
     
-    public ClinicStaff RetrieveClinicStaff(int id){
+    public ClinicStaff RetrieveClinicStaff(String id){
         
         for(ClinicStaff clinicstaff: clinicstafflist){
             
-            if(id==clinicstaff.getId()){
+            if(id.equals(clinicstaff.getId())){
                 
                 return clinicstaff;
             }

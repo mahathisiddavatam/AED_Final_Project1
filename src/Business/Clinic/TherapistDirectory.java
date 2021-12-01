@@ -27,16 +27,17 @@ public class TherapistDirectory {
 
    
 
-    public Therapist AddTherapist(){
+    public Therapist AddTherapist(String id){
         
         Therapist therapist = new Therapist();
+        therapist.setId(id);
         therapistlist.add(therapist);
         return therapist;
     }
     
-    public boolean DeleteTherapist(int id){
+    public boolean DeleteTherapist(String id){
          for(Therapist therapist: therapistlist){
-             if(id==therapist.getId()){
+             if(id.equals(therapist.getId())){
                  therapistlist.remove(therapist);
                  return true;
              }
@@ -45,11 +46,11 @@ public class TherapistDirectory {
          return false;
     }
     
-    public Therapist RetrieveTherapist(int id){
+    public Therapist RetrieveTherapist(String id){
         
         for(Therapist therapist: therapistlist){
             
-            if(id==therapist.getId()){
+            if(id.equals(therapist.getId())){
                 
                 return therapist;
             }

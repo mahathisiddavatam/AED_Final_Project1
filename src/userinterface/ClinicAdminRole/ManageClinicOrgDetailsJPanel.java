@@ -5,9 +5,18 @@
  */
 package userinterface.ClinicAdminRole;
 
+import Business.Clinic.ClinicStaff;
+import Business.Clinic.Therapist;
 import Business.EcoSystem;
+import Business.Role.ClinicStaffRole;
+import Business.Role.TherapistRole;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +37,7 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         this.userProcessContainer=userProcessContainer;
         this.system = system;
         this.account = account;
+        populateTable();
     }
 
     /**
@@ -51,7 +61,7 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         lblCountry = new javax.swing.JLabel();
         lblZip = new javax.swing.JLabel();
         cmbOrgType = new javax.swing.JComboBox<>();
-        txtClinicName = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtPhoneNo = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
@@ -63,8 +73,8 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
-        pwdPassword = new javax.swing.JPasswordField();
-        txtUserName = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -82,10 +92,14 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Name", "Clinic name", "Contact No", "City", "Zipcode"
+                "Name", "Employee Type", "Contact No", "Address", "Zipcode"
             }
         ));
         jScrollPane1.setViewportView(tblClinicOrg);
+        if (tblClinicOrg.getColumnModel().getColumnCount() > 0) {
+            tblClinicOrg.getColumnModel().getColumn(1).setResizable(false);
+            tblClinicOrg.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         lblOrgType.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblOrgType.setText("Employee:");
@@ -111,9 +125,19 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         lblZip.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblZip.setText("Zipcode:");
 
-        cmbOrgType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbOrgType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Therapist", "Clinic Staff" }));
+        cmbOrgType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbOrgTypeActionPerformed(evt);
+            }
+        });
 
         btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
 
@@ -125,13 +149,18 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         lblPassword.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblPassword.setText("Password:");
 
-        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserNameActionPerformed(evt);
+                txtUsernameActionPerformed(evt);
             }
         });
 
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
         jLabel2.setText("*** 8-10 characters, including numbers and special characters");
@@ -163,7 +192,7 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                             .addComponent(txtAddress)
                             .addComponent(txtPhoneNo)
                             .addComponent(txtEmail)
-                            .addComponent(txtClinicName))
+                            .addComponent(txtName))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
@@ -176,8 +205,8 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                             .addComponent(cmbOrgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtUserName)
-                            .addComponent(pwdPassword))
+                            .addComponent(txtUsername)
+                            .addComponent(txtPassword))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -200,10 +229,10 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pwdPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPassword)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -211,7 +240,7 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrgName)
-                    .addComponent(txtClinicName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail)
@@ -244,9 +273,229 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserNameActionPerformed
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        
+        if((txtUsername.getText().isEmpty())|| (txtPassword.getText().isEmpty())
+                ){
+
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        
+        String reg = "^(?=.*[0-9])"
+        + "(?=.*[a-z])(?=.*[A-Z])"
+        + "(?=.*[@#$%^&+=])"
+        + "(?=\\S+$).{8,20}$";
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(password);
+        int f = 0;
+        if(mat.matches()){
+            f=1;
+
+        }
+        if(f==0){
+
+            JOptionPane.showMessageDialog(this, "Invalid Password!");
+            return;
+
+        }
+        
+        if(system.getUserAccountDirectory().checkIfUsernameIsUnique(username)==false){
+
+            JOptionPane.showMessageDialog(this, "Username already taken!");
+            return;
+
+        }
+        
+        if(cmbOrgType.getSelectedItem().toString()=="Therapist"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new TherapistRole());
+            system.getClinicdirectory().getTherapistdir().AddTherapist(username);
+            JOptionPane.showMessageDialog(this, "User Added!");
+            return;
+            
+            
+            
+            
+        }
+        
+        if(cmbOrgType.getSelectedItem().toString()=="Clinic Staff"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new ClinicStaffRole());
+            system.getClinicdirectory().getClinicstaffdir().AddClinicStaff(username);
+            JOptionPane.showMessageDialog(this, "User added!");
+            return;
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void cmbOrgTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOrgTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbOrgTypeActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+        
+        if(system.getClinicdirectory().getTherapistdir().RetrieveTherapist(txtUsername.getText())!=null){
+            Therapist therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhno(phno);
+            therapist.setZip(zipcode);
+            JOptionPane.showMessageDialog(this, "Therapist added!");
+            return;
+            
+            
+            
+            
+            
+            
+        }
+        
+        if(system.getClinicdirectory().getClinicstaffdir().RetrieveClinicStaff(txtUsername.getText())!=null){
+            ClinicStaff therapist = system.getClinicdirectory().getClinicstaffdir().RetrieveClinicStaff(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zip = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zip==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhno(phno);
+            therapist.setZip(zip);
+            JOptionPane.showMessageDialog(this, "Clinic Staff Added!");
+            return;
+            
+            
+            
+            
+            
+            
+        }
+        
+        if(system.getClinicdirectory().getClinicstaffdir().RetrieveClinicStaff(txtUsername.getText())==null || system.getClinicdirectory().getTherapistdir().RetrieveTherapist(txtUsername.getText())==null){
+            
+            JOptionPane.showMessageDialog(this, "Create User Account First!");
+            return;
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -268,15 +517,60 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblPhoneNo;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblZip;
-    private javax.swing.JPasswordField pwdPassword;
     private javax.swing.JTable tblClinicOrg;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
-    private javax.swing.JTextField txtClinicName;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPhoneNo;
-    private javax.swing.JTextField txtUserName;
+    private javax.swing.JTextField txtUsername;
     private javax.swing.JTextField txtZip;
     // End of variables declaration//GEN-END:variables
+
+    private void populateTable() {
+        //To change body of generated methods, choose Tools | Templates.
+        
+        DefaultTableModel model = (DefaultTableModel) tblClinicOrg.getModel();
+        model.setRowCount(0);
+        
+       
+       
+        
+       for(Therapist therapist: system.getClinicdirectory().getTherapistdir().gettherapistlist()){
+            
+            Object[] row = new Object[5];
+            row[0]= therapist.getId();
+            row[1]= "Therapist";
+            row[2]= therapist.getPhno();
+            row[3]= therapist.getAddress();
+            row[4]=therapist.getZip();
+            
+            model.insertRow(0, row);
+                
+            
+            
+            
+        }
+       
+       for(ClinicStaff clinicstaff: system.getClinicdirectory().getClinicstaffdir().getclinicstafflist()){
+            
+            Object[] row = new Object[5];
+            row[0]= clinicstaff.getId();
+            row[1]= "Clinic Staff";
+            row[2]= clinicstaff.getPhno();
+            row[3]= clinicstaff.getAddress();
+            row[4]=clinicstaff.getZip();
+            
+            model.insertRow(0, row);
+                
+            
+            
+            
+        }
+        
+         
+         
+    }
 }

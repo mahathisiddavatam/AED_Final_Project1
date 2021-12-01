@@ -22,6 +22,17 @@ public class Clinic {
     String city;
     String country;
     int zipcode;
+    ClinicAdmin clinicadmin;
+
+    public ClinicAdmin getClinicadmin() {
+        return clinicadmin;
+    }
+
+    public void setClinicadmin(ClinicAdmin clinicadmin) {
+        this.clinicadmin = clinicadmin;
+    }
+    
+    
     
     public Clinic(){
         
