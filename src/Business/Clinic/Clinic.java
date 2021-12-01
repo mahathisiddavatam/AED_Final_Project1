@@ -21,8 +21,18 @@ public class Clinic {
     String address;
     String city;
     String country;
-    String zipcode;
+    int zipcode;
+    ClinicAdmin clinicadmin;
 
+    public ClinicAdmin getClinicadmin() {
+        return clinicadmin;
+    }
+
+    public void setClinicadmin(ClinicAdmin clinicadmin) {
+        this.clinicadmin = clinicadmin;
+    }
+    
+    
     
     public Clinic(){
         
@@ -82,11 +92,11 @@ public class Clinic {
         this.country = country;
     }
 
-    public String getZipcode() {
+    public int getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(String zipcode) {
+    public void setZipcode(int zipcode) {
         this.zipcode = zipcode;
     }
 
