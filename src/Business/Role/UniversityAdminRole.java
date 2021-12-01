@@ -9,7 +9,7 @@ import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 import userinterface.TherapistRole.TherapistAreaJPanel;
-import userinterface.UniversityAdminRole.UniversityAdminWorkAreaJPanel;
+import userinterface.UniversityAdminRole.ManageUniversityOrgDetailsJPanel;
 
 /**
  *
@@ -19,7 +19,7 @@ public class UniversityAdminRole extends Role {
     
      @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
-        return new UniversityAdminWorkAreaJPanel(userProcessContainer, account,business);
+        return new ManageUniversityOrgDetailsJPanel(userProcessContainer, account, business);
     }
     
 }
