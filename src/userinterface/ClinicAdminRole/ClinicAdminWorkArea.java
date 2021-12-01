@@ -50,6 +50,11 @@ public class ClinicAdminWorkArea extends javax.swing.JPanel {
         jLabel1.setText("Welcome, Clinic Admin!");
 
         btnManageClinicOrgDetails.setText("Manage Organization Details");
+        btnManageClinicOrgDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageClinicOrgDetailsActionPerformed(evt);
+            }
+        });
 
         btnManageClinicUserAccount.setText("Manage User Account");
 
@@ -76,6 +81,10 @@ public class ClinicAdminWorkArea extends javax.swing.JPanel {
                 .addGap(0, 326, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnManageClinicOrgDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageClinicOrgDetailsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnManageClinicOrgDetailsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
