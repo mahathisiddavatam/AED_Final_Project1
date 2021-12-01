@@ -40,9 +40,9 @@ public class PetTherapyDirectory {
         return pet;
     }
     
-    public boolean DeletePetTherapy(int id){
+    public boolean DeletePetTherapy(String id){
          for(PetTherapy pet: pettherapylist){
-             if(id==pet.getId()){
+             if(id.equals(pet.getId())){
                  pettherapylist.remove(pet);
                  return true;
              }
@@ -51,11 +51,11 @@ public class PetTherapyDirectory {
          return false;
     }
     
-    public PetTherapy RetrievePetTherapy(int id){
+    public PetTherapy RetrievePetTherapy(String id){
         
         for(PetTherapy pet: pettherapylist){
             
-            if(id==pet.getId()){
+            if(id.equals(pet.getId())){
                 
                 return pet;
             }
@@ -63,4 +63,8 @@ public class PetTherapyDirectory {
         return null;
     
 }
+
+    public void setPettherapylist(ArrayList<PetTherapy> pettherapylist) {
+        this.pettherapylist = pettherapylist;
+    }
 }

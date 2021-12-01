@@ -11,10 +11,9 @@ package Business.University;
  */
 public class University {
     
-    int id;
-    int count =1;
     
-    String username;
+    
+    String Id;
     String password;
     String name;
     String email;
@@ -22,24 +21,22 @@ public class University {
     String address;
     String city;
     String country;
-    int zipcode;
+    String zipcode;
+    
     
     public University(){
         
-        id = count;
-        count++;
+        
     }
 
-    public int getId() {
-        return id;
+    
+
+    public String getId() {
+        return Id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(String username) {
+        this.Id = username;
     }
 
     public String getPassword() {
@@ -98,11 +95,11 @@ public class University {
         this.country = country;
     }
 
-    public int getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
     

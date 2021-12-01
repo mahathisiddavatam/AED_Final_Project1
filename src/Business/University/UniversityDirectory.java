@@ -53,9 +53,9 @@ public class UniversityDirectory {
         return uni;
     }
     
-    public boolean deleteUniversity(int id){
+    public boolean deleteUniversity(String id){
          for(University uni: unilist){
-             if(id==uni.getId()){
+             if(id.equals(uni.getId())){
                  unilist.remove(uni);
                  return true;
              }
@@ -63,12 +63,16 @@ public class UniversityDirectory {
          }
          return false;
     }
+
+    public void setUnilist(ArrayList<University> unilist) {
+        this.unilist = unilist;
+    }
     
-    public University RetrieveUniversity(int id){
+    public University RetrieveUniversity(String id){
         
         for(University uni: unilist){
             
-            if(id==uni.getId()){
+            if(id.equals(uni.getId())){
                 
                 return uni;
             }

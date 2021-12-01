@@ -35,9 +35,9 @@ public class MindFitStaffDirectory {
         return mindfitstaff;
     }
     
-    public boolean DeleteMindFitStaff(int id){
+    public boolean DeleteMindFitStaff(String id){
          for(MindFitStaff mindfitstaff: mindfitstafflist){
-             if(id==mindfitstaff.getId()){
+             if(id.equals(mindfitstaff.getId())){
                  mindfitstafflist.remove(mindfitstaff);
                  return true;
              }
@@ -46,11 +46,11 @@ public class MindFitStaffDirectory {
          return false;
     }
     
-    public MindFitStaff RetrieveMindFitStaff(int id){
+    public MindFitStaff RetrieveMindFitStaff(String id){
         
         for(MindFitStaff mindfitstaff: mindfitstafflist){
             
-            if(id==mindfitstaff.getId()){
+            if(id.equals(mindfitstaff.getId())){
                 
                 return mindfitstaff;
             }
