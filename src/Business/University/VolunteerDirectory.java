@@ -25,6 +25,11 @@ public class VolunteerDirectory {
         return volunteerlist;
     }
 
+    public void setVolunteerlist(ArrayList<Volunteer> volunteerlist) {
+        this.volunteerlist = volunteerlist;
+    }
+    
+
    
 
     public Volunteer AddVolunteer(){
@@ -34,9 +39,9 @@ public class VolunteerDirectory {
         return volunteer;
     }
     
-    public boolean DeleteVolunteer(int id){
+    public boolean DeleteVolunteer(String id){
          for(Volunteer volunteer: volunteerlist){
-             if(id==volunteer.getId()){
+             if(id.equals(volunteer.getId())){
                  volunteerlist.remove(volunteer);
                  return true;
              }
@@ -45,11 +50,11 @@ public class VolunteerDirectory {
          return false;
     }
     
-    public Volunteer RetrieveVolunteer(int id){
+    public Volunteer RetrieveVolunteer(String id){
         
         for(Volunteer volunteer: volunteerlist){
             
-            if(id==volunteer.getId()){
+            if(id.equals(volunteer.getId())){
                 
                 return volunteer;
             }
