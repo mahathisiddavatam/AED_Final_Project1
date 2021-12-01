@@ -6,8 +6,19 @@
 package userinterface.UniversityAdminRole;
 
 import Business.EcoSystem;
+import Business.Role.ForumAdminRole;
+import Business.Role.StudentRole;
+import Business.Role.VolunteerRole;
+import Business.University.ForumAdmin;
+import Business.University.Student;
+import Business.University.Volunteer;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +39,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         this.account=account;
         this.system=system;
         initComponents();
+        populateTable();
         
     }
 
@@ -62,16 +74,16 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         lblEmail = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblUserName = new javax.swing.JLabel();
-        txtUserName = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         lblPassword = new javax.swing.JLabel();
-        pwdPassword = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
         btnSubmit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
-        cmbOrgType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbOrgType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Student", "Forum Admin", "Volunteer" }));
         cmbOrgType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbOrgTypeActionPerformed(evt);
@@ -83,13 +95,13 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
 
         tblStudentDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Name", "Contact No", "City", "Zipcode"
+                "Name", "Student Type", "Contact No", "Address", "Zipcode"
             }
         ));
         jScrollPane1.setViewportView(tblStudentDetails);
@@ -110,6 +122,11 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         lblOrgType.setText("User type:");
 
         btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         lblCountry.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblCountry.setText("Country:");
@@ -118,6 +135,11 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         lblOrgName.setText("Name:");
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         lblZip.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblZip.setText("Zipcode:");
@@ -136,6 +158,11 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         lblPassword.setText("Password:");
 
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
         jLabel2.setText("*** 8-10 characters, including numbers and special characters");
@@ -186,8 +213,8 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
                                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(cmbOrgType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtUserName, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(pwdPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)))
+                                        .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -199,7 +226,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCreate, btnSubmit, pwdPassword, txtAddress, txtCity, txtClinicName, txtCountry, txtEmail, txtPhoneNo, txtZip});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCreate, btnSubmit, txtAddress, txtCity, txtClinicName, txtCountry, txtEmail, txtPassword, txtPhoneNo, txtZip});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,12 +242,13 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUserName)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPassword)
-                    .addComponent(jLabel2)
-                    .addComponent(pwdPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSubmit)
                 .addGap(18, 18, 18)
@@ -267,6 +295,362 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbOrgTypeActionPerformed
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        
+        if((txtName.getText().isEmpty())|| (txtPassword.getText().isEmpty())
+                ){
+
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+        String username = txtName.getText();
+        String password = txtPassword.getText();
+        
+        String reg = "^(?=.*[0-9])"
+        + "(?=.*[a-z])(?=.*[A-Z])"
+        + "(?=.*[@#$%^&+=])"
+        + "(?=\\S+$).{8,20}$";
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(password);
+        int f = 0;
+        if(mat.matches()){
+            f=1;
+
+        }
+        if(f==0){
+
+            JOptionPane.showMessageDialog(this, "Invalid Password!");
+            return;
+
+        }
+        
+        if(system.getUserAccountDirectory().checkIfUsernameIsUnique(username)==false){
+
+            JOptionPane.showMessageDialog(this, "Username already taken!");
+            return;
+
+        }
+        
+        if(cmbOrgType.getSelectedItem().toString()=="Student"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new StudentRole());
+            Student student = system.getUniversitydirectory().getStudentdir().AddStudent();
+            student.setId(txtName.getText());
+            JOptionPane.showMessageDialog(this, "User Added!");
+            return;
+            
+            
+            
+            
+        }
+        
+        if(cmbOrgType.getSelectedItem().toString()=="Forum Admin"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new ForumAdminRole());
+            ForumAdmin fa = system.getUniversitydirectory().getForumdir().AddForumAdmin();
+            fa.setId(txtName.getText());
+            JOptionPane.showMessageDialog(this, "User added!");
+            return;
+            
+            
+            
+        }
+        
+        if(cmbOrgType.getSelectedItem().toString()=="Volunteer"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new VolunteerRole());
+            Volunteer vol = system.getUniversitydirectory().getVolunteerdir().AddVolunteer();
+            vol.setId(txtName.getText());
+            JOptionPane.showMessageDialog(this, "User added!");
+            return;
+            
+            
+            
+        }
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        if(system.getUniversitydirectory().getForumdir().RetrieveForumAdmin(txtName.getText())!=null){
+            ForumAdmin therapist = system.getUniversitydirectory().getForumdir().RetrieveForumAdmin(txtName.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhno(phno);
+            therapist.setZip(zipcode);
+            JOptionPane.showMessageDialog(this, "Forum Admin added!");
+            populateTable();
+            return;
+            
+            
+            
+            
+            
+            
+        }
+        
+        if(system.getUniversitydirectory().getStudentdir().RetrieveStudent(txtName.getText())!=null){
+            Student therapist = system.getUniversitydirectory().getStudentdir().RetrieveStudent(txtName.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhno(phno);
+            therapist.setZip(zipcode);
+            JOptionPane.showMessageDialog(this, "Student added!");
+            populateTable();
+            return;
+            
+            
+            
+            
+            
+            
+        }
+        
+        if(system.getUniversitydirectory().getVolunteerdir().RetrieveVolunteer(txtName.getText())!=null){
+            Volunteer therapist = system.getUniversitydirectory().getVolunteerdir().RetrieveVolunteer(txtName.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhno(phno);
+            therapist.setZip(zipcode);
+            JOptionPane.showMessageDialog(this, "Volunteer added!");
+            populateTable();
+            return;
+            
+            
+            
+            
+            
+            
+        }
+        
+        if(system.getUniversitydirectory().getVolunteerdir().RetrieveVolunteer(txtName.getText())==null || system.getUniversitydirectory().getStudentdir().RetrieveStudent(txtName.getText())==null || 
+                 system.getUniversitydirectory().getForumdir().RetrieveForumAdmin(txtName.getText())==null){
+            
+            JOptionPane.showMessageDialog(this, "Create User Account First!");
+            return;
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblStudentDetails.getModel();
+        int selectedIndex = tblStudentDetails.getSelectedRow();
+        if(selectedIndex!=-1){
+            
+            String order = modelOrder.getValueAt(selectedIndex, 0).toString();
+            String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            if(type=="Student"){
+                
+                system.getUniversitydirectory().getStudentdir().DeleteStudent(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                
+                
+                
+            }
+            
+            if(type=="Forum Admin"){
+                
+                system.getUniversitydirectory().getForumdir().DeleteForumAdmin(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                
+                
+                
+            }
+            
+            if(type=="Volunteer"){
+                
+                system.getUniversitydirectory().getVolunteerdir().DeleteVolunteer(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -287,15 +671,96 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblPhoneNo;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JLabel lblZip;
-    private javax.swing.JPasswordField pwdPassword;
     private javax.swing.JTable tblStudentDetails;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtClinicName;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPhoneNo;
-    private javax.swing.JTextField txtUserName;
     private javax.swing.JTextField txtZip;
     // End of variables declaration//GEN-END:variables
+
+    private void populateTable() {
+         //To change body of generated methods, choose Tools | Templates.
+         
+         DefaultTableModel model = (DefaultTableModel) tblStudentDetails.getModel();
+         model.setRowCount(0);
+         
+         if(system.getUniversitydirectory().getStudentdir().getstudentlist()==null){
+             
+             ArrayList <Student> studentlist = new ArrayList();
+             system.getUniversitydirectory().getStudentdir().setStudentlist(studentlist);
+             
+         }
+         
+         if(system.getUniversitydirectory().getVolunteerdir().getvolunteerlist()==null){
+             
+             ArrayList <Volunteer> volunteerlist = new ArrayList();
+             system.getUniversitydirectory().getVolunteerdir().setVolunteerlist(volunteerlist);
+             
+         }
+         
+         if(system.getUniversitydirectory().getForumdir().getforumadminlist()==null){
+             
+             ArrayList <ForumAdmin> volunteerlist = new ArrayList();
+             system.getUniversitydirectory().getForumdir().setForumadminlist(volunteerlist);
+             
+         }
+         
+         
+        
+       
+       
+       
+       for(Student therapist: system.getUniversitydirectory().getStudentdir().getstudentlist()){
+            
+            Object[] row = new Object[5];
+            row[0]= therapist.getId();
+            row[1]= "Therapist";
+            row[2]= therapist.getPhno();
+            row[3]= therapist.getAddress();
+            row[4]=therapist.getZip();
+            
+            model.insertRow(0, row);
+                
+            
+            
+            
+        }
+       
+       for(Volunteer clinicstaff: system.getUniversitydirectory().getVolunteerdir().getvolunteerlist()){
+            
+            Object[] row = new Object[5];
+            row[0]= clinicstaff.getId();
+            row[1]= "Volunteer";
+            row[2]= clinicstaff.getPhno();
+            row[3]= clinicstaff.getAddress();
+            row[4]=clinicstaff.getZip();
+            
+            model.insertRow(0, row);
+                
+            
+            
+            
+        }
+       
+       for(ForumAdmin clinicstaff: system.getUniversitydirectory().getForumdir().getforumadminlist()){
+            
+            Object[] row = new Object[5];
+            row[0]= clinicstaff.getId();
+            row[1]= "Forum Admin";
+            row[2]= clinicstaff.getPhno();
+            row[3]= clinicstaff.getAddress();
+            row[4]=clinicstaff.getZip();
+            
+            model.insertRow(0, row);
+                
+       
+            
+            
+        }
+    }
 }
