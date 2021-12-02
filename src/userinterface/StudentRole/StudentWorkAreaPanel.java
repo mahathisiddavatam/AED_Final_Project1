@@ -5,12 +5,13 @@
 package userinterface.StudentRole;
 
 import Business.EcoSystem;
+import Business.University.Student;
 
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.Therapy;
-import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -19,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
-    private EcoSystem business;
+    private EcoSystem system;
     private UserAccount userAccount;
     
     
@@ -31,7 +32,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
-        this.business = business;
+        this.system = business;
       
         
         populateTable();
@@ -159,15 +160,25 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblCountry.setText("Country of origin:");
         jPanel1.add(lblCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 20));
 
-        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Non-Binary", "Transgender", "Intersex","Other" }));
+        cmbGender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGenderActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 160, -1));
 
-        cmbEthnicity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEthnicity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "American Indian", "African Descent", "East Asian", "Hispanic","Middle Eastern","South Asian","Caucasian","Other" }));
         jPanel1.add(cmbEthnicity, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 160, -1));
         jPanel1.add(txtCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 160, -1));
 
         btnSave.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 120, -1));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -210,6 +221,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         btnSubmitResponse.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         btnSubmitResponse.setText("Submit Response");
+        btnSubmitResponse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitResponseActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnSubmitResponse, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 460, 150, -1));
 
         cmbQues1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Joy", "Anger", "Sadness", "Anxiety", "Fear", "Mixed Emotion", " " }));
@@ -399,12 +415,91 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnSaveResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveResponseActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handlif(ing code here:
+        
+        String id = MainJFrame.txtUsernameMain.getText();
+        Therapy the=null;
+        for(Therapy therapy: system.getClinicdirectory().getTherapyqueue().getTherapylist()){
+            
+            if(id.equals(therapy.getStudentid())){
+                
+                the = therapy;
+                
+                
+            }
+        }
+        
+        if(the==null){
+            
+            JOptionPane.showMessageDialog(this, "Please wait until a therapist has been assigned to answer these questions!");
+            return;
+            
+        }
+        the.setQues11(cmbQues11.getSelectedItem().toString());
+        the.setQues12(cmbQues12.getSelectedItem().toString());
+        the.setQues13(cmbQues13.getSelectedItem().toString());
+        the.setQues14(cmbQues14.getSelectedItem().toString());
+        the.setQues15(cmbQues15.getSelectedItem().toString());
+        
+        JOptionPane.showMessageDialog(this, "Thank you! Your answers have been recorded!");
+        
+        
+        
+        
     }//GEN-LAST:event_btnSaveResponseActionPerformed
 
     private void cmbQues1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbQues1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbQues1ActionPerformed
+
+    private void cmbGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGenderActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        
+        String name = txtName.getText();
+        String age =txtAge.getText();
+        String gender = cmbGender.getSelectedItem().toString();
+        String ethnicity = cmbEthnicity.getSelectedItem().toString();
+        String org = txtCountry.getText();
+        
+        if(name==null || age==null || gender==null || ethnicity==null || org==null){
+            
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+        
+        String id = MainJFrame.txtUsernameMain.getText();
+        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        student.setAge(age);
+        student.setEthnicity(ethnicity);
+        student.setGender(gender);
+        student.setOrigin(org);
+        
+        JOptionPane.showMessageDialog(this, "Your details have been saved! You can now proceed to the next tab");
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnSubmitResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitResponseActionPerformed
+        // TODO add your handling code here:
+        
+        String id = MainJFrame.txtUsernameMain.getText();
+        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        student.setQues1(cmbQues1.getSelectedItem().toString());
+        student.setQues2(cmbQues2.getSelectedItem().toString());
+        student.setQues3(cmbQues3.getSelectedItem().toString());
+        student.setQues4(cmbQues4.getSelectedItem().toString());
+        student.setQues5(cmbQues5.getSelectedItem().toString());
+
+        student.setQues6(cmbQues6.getSelectedItem().toString());
+        student.setQues7(cmbQues7.getSelectedItem().toString());
+        student.setQues8(cmbQues8.getSelectedItem().toString());
+        student.setQues9(cmbQues9.getSelectedItem().toString());
+        student.setQues10(cmbQues10.getSelectedItem().toString());
+        JOptionPane.showMessageDialog(this, "Thank you! A therapist will be assigned to you shortly!");
+        
+    }//GEN-LAST:event_btnSubmitResponseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPost;
