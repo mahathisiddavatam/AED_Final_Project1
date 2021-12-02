@@ -110,6 +110,14 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         btnView = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblTopic = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtStudentPost = new javax.swing.JTextField();
+        btnPost = new javax.swing.JButton();
+        lblComment = new javax.swing.JLabel();
+        txtComment = new javax.swing.JTextField();
+        btnRequestForumAccess = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
 
@@ -332,33 +340,58 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Date", "Topic", "Heading"
+                "Date", "Post"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 710, 110));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 370, 110));
 
         btnView.setText("View");
-        jPanel4.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 210, -1, -1));
+        jPanel4.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 250, 100, -1));
 
         jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 304, 800, 430));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
 
         jLabel6.setText("IMAGE HERE!");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 60, 240, 50));
+
+        jLabel12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel12.setText("Add your own post here!");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, -1, 20));
+
+        lblTopic.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblTopic.setText("Post:");
+        jPanel4.add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 70, 20));
+
+        jLabel14.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(153, 0, 102));
+        jLabel14.setText("No access? Request access below!");
+        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 260, 20));
+        jPanel4.add(txtStudentPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 270, 60));
+
+        btnPost.setText("Post");
+        jPanel4.add(btnPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, 100, -1));
+
+        lblComment.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblComment.setText("Comment:");
+        jPanel4.add(lblComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 510, 70, 20));
+        jPanel4.add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 510, 270, 60));
+
+        btnRequestForumAccess.setText("Request Access");
+        jPanel4.add(btnRequestForumAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 580, -1, -1));
 
         jTabbedPane1.addTab("Connect iN.U", jPanel4);
         jTabbedPane1.addTab("MindFit", jPanel5);
         jTabbedPane1.addTab("Pet Therapy", jPanel6);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 370));
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 730));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -374,6 +407,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbQues1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPost;
+    private javax.swing.JButton btnRequestForumAccess;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveResponse;
     private javax.swing.JButton btnSubmitResponse;
@@ -398,6 +433,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -416,6 +453,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAge;
+    private javax.swing.JLabel lblComment;
     private javax.swing.JLabel lblCountry;
     private javax.swing.JLabel lblEthnicity;
     private javax.swing.JLabel lblGender;
@@ -432,9 +470,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues6;
     private javax.swing.JLabel lblQues8;
     private javax.swing.JLabel lblQues9;
+    private javax.swing.JLabel lblTopic;
     private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtName;
     private javax.swing.JLabel txtQues14;
+    private javax.swing.JTextField txtStudentPost;
     // End of variables declaration//GEN-END:variables
 }
