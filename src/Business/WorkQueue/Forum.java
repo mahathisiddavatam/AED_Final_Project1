@@ -5,6 +5,8 @@
  */
 package Business.WorkQueue;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Varakumar
@@ -13,10 +15,42 @@ public class Forum {
     
     int id;
     int count =1;
+    private ArrayList <Article> articlelist;
+    String title;
+    String description;
+    private ArrayList <String> studentidlist;
+    
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     public void Forum(){
         
         id = count;
         count++;
+        articlelist = new ArrayList();
+        studentidlist = new ArrayList();
+    }
+
+    public ArrayList<String> getStudentidlist() {
+        return studentidlist;
+    }
+
+    public void setStudentidlist(ArrayList<String> studentidlist) {
+        this.studentidlist = studentidlist;
     }
 
     public int getId() {
@@ -26,5 +60,50 @@ public class Forum {
     public void setId(int id) {
         this.id = id;
     }
+
+    public ArrayList<Article> getArticlelist() {
+        return articlelist;
+    }
+
+    public void setArticlelist(ArrayList<Article> articlelist) {
+        this.articlelist = articlelist;
+    }
+    
+    public Article addArticle(){
+        
+        Article article = new Article();
+        articlelist.add(article);
+        return article;
+        
+    }
+    
+    public Article retrieveArticle(int id){
+        
+        for(Article article: articlelist){
+            
+            if(article.getId()==id){
+                return article;
+            }
+        }
+        return null;
+        
+        
+    }
+    
+    public boolean deleteArticle(int id){
+        
+        Article article = retrieveArticle(id);
+        if(article==null){
+            
+            return false;
+        }
+        articlelist.remove(article);
+        return true;
+        
+        
+        
+    }
+    
+    
     
 }

@@ -15,9 +15,10 @@ public class Article {
     
     int id;
     int count=1;
-    String forum;
+    String post;
     String title;
     Date date;
+    
 
     public Date getDate() {
         return date;
@@ -27,12 +28,12 @@ public class Article {
         this.date = date;
     }
 
-    public String getForum() {
-        return forum;
+    public String getPost() {
+        return post;
     }
 
-    public void setForum(String forum) {
-        this.forum = forum;
+    public void setPost(String forum) {
+        this.post = post;
     }
 
     public String getTitle() {

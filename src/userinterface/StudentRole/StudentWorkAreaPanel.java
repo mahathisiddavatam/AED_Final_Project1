@@ -8,11 +8,14 @@ import Business.EcoSystem;
 import Business.University.Student;
 
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.AccessRequest;
 import Business.WorkQueue.Article;
+import Business.WorkQueue.Forum;
 import Business.WorkQueue.Therapy;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import userinterface.MainJFrame;
 
 /**
@@ -37,7 +40,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         this.system = business;
       
         
-        populateTable();
+        
     }
     
     public void populateTable(){
@@ -107,11 +110,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         cmbQues15 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lblWelcome = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPosts = new javax.swing.JTable();
         btnView = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        lblPost = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lblTopic = new javax.swing.JLabel();
@@ -123,8 +126,16 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         btnRequestForumAccess = new javax.swing.JButton();
         lblTopic1 = new javax.swing.JLabel();
         txtTitle = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        lblCreated = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblForumID = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblForums = new javax.swing.JTable();
+        jLabel17 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -353,31 +364,36 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(204, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Welcome to the Connect iN.U Forum!");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 830, -1));
+        lblWelcome.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWelcome.setText("Welcome to the Connect iN.U Forum!");
+        jPanel4.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 830, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPosts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Date", "Post"
+                "Post ID", "Post Title", "Date posted"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPosts);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 370, 110));
 
         btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 250, 100, -1));
 
-        jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
+        lblPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel4.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
 
         jLabel6.setText("IMAGE HERE!");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 60, 240, 50));
@@ -422,9 +438,64 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel4.add(lblTopic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 70, 20));
         jPanel4.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 190, -1));
 
+        jLabel4.setText("Created by");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+        jPanel4.add(lblCreated, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 100, 20));
+
+        jLabel5.setText("Forum ID:");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, -1, -1));
+        jPanel4.add(lblForumID, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 60, 20));
+
         jTabbedPane1.addTab("Connect iN.U", jPanel4);
-        jTabbedPane1.addTab("MindFit", jPanel5);
         jTabbedPane1.addTab("Pet Therapy", jPanel6);
+
+        tblForums.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Forum ID", "Forum Name", "Created By", "Created On"
+            }
+        ));
+        jScrollPane3.setViewportView(tblForums);
+
+        jLabel17.setText("Select the forum you want to view");
+
+        jButton1.setText("Select");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addContainerGap(350, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addContainerGap(493, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Select Forum", jPanel5);
 
         add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 830, 730));
     }// </editor-fold>//GEN-END:initComponents
@@ -518,22 +589,102 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
     private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostActionPerformed
         // TODO add your handling code here:
-        
-       Article article=system.getUniversitydirectory().getArticlequeue().addArticle();
+       
+       int forumid = Integer.parseInt(lblForumID.getText());
+       Article article=system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).addArticle();
        String forum = txtStudentPost.getText();
        
-       article.setForum(forum);
+       article.setPost(forum);
        article.setTitle(txtTitle.getText());
        Date date = new Date();
        article.setDate(date);
+       populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(forumid));
+       JOptionPane.showMessageDialog(this, "Posted!");
+       
+        
        
     }//GEN-LAST:event_btnPostActionPerformed
 
     private void btnRequestForumAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestForumAccessActionPerformed
         // TODO add your handling code here:
+        int forumid = Integer.parseInt(lblForumID.getText());
+        for(String id: system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).getStudentidlist()){
+            
+            if(id.equals(MainJFrame.txtUsernameMain.getText())){
+                JOptionPane.showMessageDialog(this, "You have access! Continue Posting!");
+                return;
+                
+            }
+        }
+        AccessRequest acc=system.getUniversitydirectory().getReqaccessq().addAccessRequest();
+        
+        acc.setDescription(txtComment.getText());
+        acc.setStudentid(MainJFrame.txtUsernameMain.getText());
+        JOptionPane.showMessageDialog(this, "Access Requested!");
         
         
     }//GEN-LAST:event_btnRequestForumAccessActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
+        int selectedIndex = tblForums.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a post!");
+            return;
+            
+        }
+        String forumid=null;
+        String createdby=null;
+        if(selectedIndex!=-1){
+            
+             forumid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid));
+        
+        lblForumID.setText(forumid);
+        lblCreated.setText(createdby);
+        lblWelcome.setText("Welcome to "+ forum.getTitle());
+        
+        
+        populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)));
+        JOptionPane.showMessageDialog(this, "Switch to the next tab to view forum!");
+        
+
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPosts.getModel();
+        int selectedIndex = tblPosts.getSelectedRow();
+        String postid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a post!");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             postid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        int forumid  = Integer.parseInt(lblForumID.getText());
+        int posttid = Integer.parseInt(postid);
+        String post = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid).getPost();
+        
+        String parsedPost = post.replaceAll("(.{10000})", "$1\n");
+        lblPost.setText(parsedPost);
+        
+    }//GEN-LAST:event_btnViewActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPost;
@@ -559,11 +710,13 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbQues7;
     private javax.swing.JComboBox<String> cmbQues8;
     private javax.swing.JComboBox<String> cmbQues9;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -579,14 +732,17 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblComment;
     private javax.swing.JLabel lblCountry;
+    private javax.swing.JLabel lblCreated;
     private javax.swing.JLabel lblEthnicity;
+    private javax.swing.JLabel lblForumID;
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPost;
     private javax.swing.JLabel lblQues1;
     private javax.swing.JLabel lblQues10;
     private javax.swing.JLabel lblQues11;
@@ -601,6 +757,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues9;
     private javax.swing.JLabel lblTopic;
     private javax.swing.JLabel lblTopic1;
+    private javax.swing.JLabel lblWelcome;
+    private javax.swing.JTable tblForums;
+    private javax.swing.JTable tblPosts;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCountry;
@@ -609,4 +768,24 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtStudentPost;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
+
+    private void populatePostTable(Forum forum) {
+        DefaultTableModel model = (DefaultTableModel) tblPosts.getModel();
+        model.setRowCount(0);
+        
+        for(Article article: forum.getArticlelist()){
+            
+            Object[] row = new Object[3];
+            row[0]= article.getId();
+            row[1]= article.getTitle();
+            row[2] = article.getDate();
+            
+            model.insertRow(0, row);
+            
+            
+        }
+        
+            
+            //To change body of generated methods, choose Tools | Templates.
+    }
 }

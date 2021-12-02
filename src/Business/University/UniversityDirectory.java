@@ -5,7 +5,8 @@
  */
 package Business.University;
 
-import Business.WorkQueue.ArticleQueue;
+import Business.WorkQueue.AccessRequestQueue;
+import Business.WorkQueue.ForumQueue;
 import Business.WorkQueue.EventQueue;
 import java.util.ArrayList;
 
@@ -20,8 +21,9 @@ public class UniversityDirectory {
     private StudentDirectory studentdir;
     private VolunteerDirectory volunteerdir;
     private ForumAdminDirectory forumdir;
-    private ArticleQueue articlequeue;
+    private ForumQueue articlequeue;
     private EventQueue eventqueue;
+    private AccessRequestQueue reqaccessq;
     
     
     
@@ -47,17 +49,20 @@ public class UniversityDirectory {
         studentdir = new StudentDirectory();
         volunteerdir = new VolunteerDirectory();
         forumdir = new ForumAdminDirectory();
-        articlequeue = new ArticleQueue();
+        articlequeue = new ForumQueue();
         eventqueue = new EventQueue();
+        reqaccessq = new AccessRequestQueue();
     }
 
-    public ArticleQueue getArticlequeue() {
+    public ForumQueue getForumqueue() {
         return articlequeue;
     }
 
-    public void setArticlequeue(ArticleQueue articlequeue) {
+    public void setForumqueue(ForumQueue articlequeue) {
         this.articlequeue = articlequeue;
     }
+    
+    
 
     public EventQueue getEventqueue() {
         return eventqueue;
@@ -65,6 +70,14 @@ public class UniversityDirectory {
 
     public void setEventqueue(EventQueue eventqueue) {
         this.eventqueue = eventqueue;
+    }
+
+    public AccessRequestQueue getReqaccessq() {
+        return reqaccessq;
+    }
+
+    public void setReqaccessq(AccessRequestQueue reqaccessq) {
+        this.reqaccessq = reqaccessq;
     }
 
     public University addNewUniversity(){
