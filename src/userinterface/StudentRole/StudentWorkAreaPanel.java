@@ -109,6 +109,15 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         cmbQues15 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAppointment = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        lblTherapistName = new javax.swing.JLabel();
+        lblTherapistContact = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -360,6 +369,50 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, -1, -1));
 
         jTabbedPane1.addTab("How are you feeling today?", jPanel3);
+
+        jPanel7.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Counselor and Appointment Details");
+        jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 5, 840, -1));
+
+        jLabel15.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel15.setText("Counselor Name:");
+        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 120, 20));
+
+        tblAppointment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Session no.", "Date", "Time", "Location"
+            }
+        ));
+        jScrollPane2.setViewportView(tblAppointment);
+
+        jPanel7.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, -1, 110));
+
+        jLabel16.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel16.setText("Contact no.:");
+        jPanel7.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, -1, 20));
+
+        lblTherapistName.setText("<therapist name>");
+        jPanel7.add(lblTherapistName, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 300, 20));
+
+        lblTherapistContact.setText("<therapist phone number>");
+        jPanel7.add(lblTherapistContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 300, 20));
+
+        jLabel17.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel17.setText("** Services are appointment based ONLY. Please call your therapist or the clinic to reschedule.");
+        jPanel7.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 840, 20));
+
+        jTabbedPane1.addTab("Counselor details", jPanel7);
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -715,7 +768,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -731,8 +789,13 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+
+    private javax.swing.JScrollPane jScrollPane2;
+
     private javax.swing.JScrollPane jScrollPane3;
+
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblComment;
@@ -755,11 +818,17 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues6;
     private javax.swing.JLabel lblQues8;
     private javax.swing.JLabel lblQues9;
+    private javax.swing.JLabel lblTherapistContact;
+    private javax.swing.JLabel lblTherapistName;
     private javax.swing.JLabel lblTopic;
+
+    private javax.swing.JTable tblAppointment;
+
     private javax.swing.JLabel lblTopic1;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JTable tblForums;
     private javax.swing.JTable tblPosts;
+
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCountry;
