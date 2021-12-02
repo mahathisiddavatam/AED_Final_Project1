@@ -8,7 +8,9 @@ import Business.EcoSystem;
 import Business.University.Student;
 
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.Article;
 import Business.WorkQueue.Therapy;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import userinterface.MainJFrame;
@@ -119,6 +121,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblComment = new javax.swing.JLabel();
         txtComment = new javax.swing.JTextField();
         btnRequestForumAccess = new javax.swing.JButton();
+        lblTopic1 = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
 
@@ -380,20 +384,25 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         jLabel12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel12.setText("Add your own post here!");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, -1, 20));
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, -1, 20));
 
         lblTopic.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblTopic.setText("Post:");
-        jPanel4.add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 70, 20));
+        lblTopic.setText("Title:");
+        jPanel4.add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 70, 20));
 
         jLabel14.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 0, 102));
         jLabel14.setText("No access? Request access below!");
         jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 260, 20));
-        jPanel4.add(txtStudentPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 270, 60));
+        jPanel4.add(txtStudentPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 270, 60));
 
         btnPost.setText("Post");
-        jPanel4.add(btnPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, 100, -1));
+        btnPost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPostActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, 100, -1));
 
         lblComment.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblComment.setText("Comment:");
@@ -401,89 +410,62 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel4.add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 510, 270, 60));
 
         btnRequestForumAccess.setText("Request Access");
+        btnRequestForumAccess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestForumAccessActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnRequestForumAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 580, -1, -1));
+
+        lblTopic1.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblTopic1.setText("Post:");
+        jPanel4.add(lblTopic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 70, 20));
+        jPanel4.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 190, -1));
 
         jTabbedPane1.addTab("Connect iN.U", jPanel4);
         jTabbedPane1.addTab("MindFit", jPanel5);
         jTabbedPane1.addTab("Pet Therapy", jPanel6);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 730));
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 830, 730));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnSaveResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveResponseActionPerformed
         // TODO add your handlif(ing code here:
-        
-        String id = MainJFrame.txtUsernameMain.getText();
-        Therapy the=null;
-        for(Therapy therapy: system.getClinicdirectory().getTherapyqueue().getTherapylist()){
-            
-            if(id.equals(therapy.getStudentid())){
-                
-                the = therapy;
-                
-                
+
+            String id = MainJFrame.txtUsernameMain.getText();
+            Therapy the=null;
+            for(Therapy therapy: system.getClinicdirectory().getTherapyqueue().getTherapylist()){
+
+                if(id.equals(therapy.getStudentid())){
+
+                    the = therapy;
+
+                }
             }
-        }
-        
-        if(the==null){
-            
-            JOptionPane.showMessageDialog(this, "Please wait until a therapist has been assigned to answer these questions!");
-            return;
-            
-        }
-        the.setQues11(cmbQues11.getSelectedItem().toString());
-        the.setQues12(cmbQues12.getSelectedItem().toString());
-        the.setQues13(cmbQues13.getSelectedItem().toString());
-        the.setQues14(cmbQues14.getSelectedItem().toString());
-        the.setQues15(cmbQues15.getSelectedItem().toString());
-        
-        JOptionPane.showMessageDialog(this, "Thank you! Your answers have been recorded!");
-        
-        
-        
-        
+
+            if(the==null){
+
+                JOptionPane.showMessageDialog(this, "Please wait until a therapist has been assigned to answer these questions!");
+                return;
+
+            }
+            the.setQues11(cmbQues11.getSelectedItem().toString());
+            the.setQues12(cmbQues12.getSelectedItem().toString());
+            the.setQues13(cmbQues13.getSelectedItem().toString());
+            the.setQues14(cmbQues14.getSelectedItem().toString());
+            the.setQues15(cmbQues15.getSelectedItem().toString());
+
+            JOptionPane.showMessageDialog(this, "Thank you! Your answers have been recorded!");
+
     }//GEN-LAST:event_btnSaveResponseActionPerformed
 
     private void cmbQues1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbQues1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbQues1ActionPerformed
 
-    private void cmbGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGenderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbGenderActionPerformed
-
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
-        
-        String name = txtName.getText();
-        String age =txtAge.getText();
-        String gender = cmbGender.getSelectedItem().toString();
-        String ethnicity = cmbEthnicity.getSelectedItem().toString();
-        String org = txtCountry.getText();
-        
-        if(name==null || age==null || gender==null || ethnicity==null || org==null){
-            
-            JOptionPane.showMessageDialog(this, "Field left Blank!");
-        }
-        
-        String id = MainJFrame.txtUsernameMain.getText();
-        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
-        student.setAge(age);
-        student.setEthnicity(ethnicity);
-        student.setGender(gender);
-        student.setOrigin(org);
-        
-        JOptionPane.showMessageDialog(this, "Your details have been saved! You can now proceed to the next tab");
-        
-    }//GEN-LAST:event_btnSaveActionPerformed
-
     private void btnSubmitResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitResponseActionPerformed
         // TODO add your handling code here:
-        
+
         String id = MainJFrame.txtUsernameMain.getText();
         Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
         student.setQues1(cmbQues1.getSelectedItem().toString());
@@ -498,8 +480,60 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         student.setQues9(cmbQues9.getSelectedItem().toString());
         student.setQues10(cmbQues10.getSelectedItem().toString());
         JOptionPane.showMessageDialog(this, "Thank you! A therapist will be assigned to you shortly!");
-        
+
     }//GEN-LAST:event_btnSubmitResponseActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+
+        String name = txtName.getText();
+        String age =txtAge.getText();
+        String gender = cmbGender.getSelectedItem().toString();
+        String ethnicity = cmbEthnicity.getSelectedItem().toString();
+        String org = txtCountry.getText();
+
+        if(name==null || age==null || gender==null || ethnicity==null || org==null){
+
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+
+        String id = MainJFrame.txtUsernameMain.getText();
+        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        student.setAge(age);
+        student.setEthnicity(ethnicity);
+        student.setGender(gender);
+        student.setOrigin(org);
+
+        JOptionPane.showMessageDialog(this, "Your details have been saved! You can now proceed to the next tab");
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void cmbGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGenderActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostActionPerformed
+        // TODO add your handling code here:
+        
+       Article article=system.getUniversitydirectory().getArticlequeue().addArticle();
+       String forum = txtStudentPost.getText();
+       
+       article.setForum(forum);
+       article.setTitle(txtTitle.getText());
+       Date date = new Date();
+       article.setDate(date);
+       
+    }//GEN-LAST:event_btnPostActionPerformed
+
+    private void btnRequestForumAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestForumAccessActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_btnRequestForumAccessActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPost;
@@ -566,11 +600,13 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues8;
     private javax.swing.JLabel lblQues9;
     private javax.swing.JLabel lblTopic;
+    private javax.swing.JLabel lblTopic1;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtName;
     private javax.swing.JLabel txtQues14;
     private javax.swing.JTextField txtStudentPost;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }

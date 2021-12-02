@@ -5,6 +5,8 @@
  */
 package Business.WorkQueue;
 
+import java.util.Date;
+
 /**
  *
  * @author Varakumar
@@ -13,6 +15,33 @@ public class Article {
     
     int id;
     int count=1;
+    String forum;
+    String title;
+    Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getForum() {
+        return forum;
+    }
+
+    public void setForum(String forum) {
+        this.forum = forum;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
     
     public void Article(){
         
@@ -27,5 +56,7 @@ public class Article {
     public void setId(int id) {
         this.id = id;
     }
+    
+    
     
 }
