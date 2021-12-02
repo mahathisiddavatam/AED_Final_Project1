@@ -44,7 +44,7 @@ public class MainJFrame extends javax.swing.JFrame {
         splitPane = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         loginJButton = new javax.swing.JButton();
-        txtUsernm = new javax.swing.JTextField();
+        txtUsernameMain = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         lblUsernm = new javax.swing.JLabel();
         lblPwd = new javax.swing.JLabel();
@@ -66,7 +66,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        txtUsernm.setForeground(new java.awt.Color(153, 153, 255));
+        txtUsernameMain.setForeground(new java.awt.Color(153, 153, 255));
 
         lblUsernm.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblUsernm.setForeground(new java.awt.Color(0, 204, 51));
@@ -96,7 +96,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsernm)
+                            .addComponent(txtUsernameMain)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -118,7 +118,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGap(152, 152, 152)
                 .addComponent(lblUsernm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtUsernm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsernameMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(lblPwd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,7 +172,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
         // Get user name
         
-        String username = txtUsernm.getText();
+        String username = txtUsernameMain.getText();
         String password = txtPassword.getText();
         
         //system.getWorkQueue().GetOrder(264).setRestaurant(system.getRestaurantdirectory().RetrieveRestaurant("mahathimanager"));
@@ -201,11 +201,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed
         logoutJButton.setEnabled(false);
-        txtUsernm.setEnabled(true);
+        txtUsernameMain.setEnabled(true);
         txtPassword.setEnabled(true);
         loginJButton.setEnabled(true);
 
-        txtUsernm.setText("");
+        txtUsernameMain.setText("");
         txtPassword.setText("");
 
         container.removeAll();
@@ -262,6 +262,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton logoutJButton;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUsernm;
+    public static javax.swing.JTextField txtUsernameMain;
     // End of variables declaration//GEN-END:variables
 }

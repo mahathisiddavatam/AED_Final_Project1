@@ -11,64 +11,87 @@ import java.util.Date;
  *
  * @author raunak
  */
-public abstract class Therapy {
+public class Therapy {
 
-    private String message;
-    private UserAccount sender;
-    private UserAccount receiver;
-    private String status;
-    private Date requestDate;
-    private Date resolveDate;
+    int id;
+    int count=1;
+    String studentid;
+    String therapistid;
+    String ques11;
+    String ques12;
+    String ques13;
+    String ques14;
+    String ques15;
+
+    public String getStudentid() {
+        return studentid;
+    }
+
+    public void setStudentid(String studentid) {
+        this.studentid = studentid;
+    }
+
+    public String getTherapistid() {
+        return therapistid;
+    }
+
+    public void setTherapistid(String therapistid) {
+        this.therapistid = therapistid;
+    }
+
+    public String getQues11() {
+        return ques11;
+    }
+
+    public void setQues11(String ques11) {
+        this.ques11 = ques11;
+    }
+
+    public String getQues12() {
+        return ques12;
+    }
+
+    public void setQues12(String ques12) {
+        this.ques12 = ques12;
+    }
+
+    public String getQues13() {
+        return ques13;
+    }
+
+    public void setQues13(String ques13) {
+        this.ques13 = ques13;
+    }
+
+    public String getQues14() {
+        return ques14;
+    }
+
+    public void setQues14(String ques14) {
+        this.ques14 = ques14;
+    }
+
+    public String getQues15() {
+        return ques15;
+    }
+
+    public void setQues15(String ques15) {
+        this.ques15 = ques15;
+    }
     
-    public Therapy(){
-        requestDate = new Date();
+    public void Therapy(){
+        
+        id = count;
+        count++;
     }
 
-    public String getMessage() {
-        return message;
+    public int getId() {
+        return id;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setId(int id) {
+        this.id = id;
     }
-
-    public UserAccount getSender() {
-        return sender;
-    }
-
-    public void setSender(UserAccount sender) {
-        this.sender = sender;
-    }
-
-    public UserAccount getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(UserAccount receiver) {
-        this.receiver = receiver;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getRequestDate() {
-        return requestDate;
-    }
-
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
-    }
-
-    public Date getResolveDate() {
-        return resolveDate;
-    }
-
-    public void setResolveDate(Date resolveDate) {
-        this.resolveDate = resolveDate;
-    }
+    
+    
 }

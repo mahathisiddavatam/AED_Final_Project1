@@ -17,6 +17,14 @@ public class Event {
     String location;
     Date date;
     String time;
+    int id;
+    int count =1;
+    
+    public Event(){
+        
+        id=count;
+        count++;
+    }
 
     public String getForum() {
         return forum;
@@ -56,6 +64,14 @@ public class Event {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

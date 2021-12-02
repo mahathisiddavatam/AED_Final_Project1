@@ -9,6 +9,6 @@ package Business.WorkQueue;
  *
  * @author Varakumar
  */
-public class ArticleQueue {
+public class PTherapy {
     
 }

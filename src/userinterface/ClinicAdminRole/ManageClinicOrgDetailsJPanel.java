@@ -411,6 +411,7 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
             therapist.setPhno(phno);
             therapist.setZip(zipcode);
             JOptionPane.showMessageDialog(this, "Therapist added!");
+            populateTable();
             return;
             
             
@@ -477,6 +478,8 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
             therapist.setPhno(phno);
             therapist.setZip(zip);
             JOptionPane.showMessageDialog(this, "Clinic Staff Added!");
+            
+            populateTable();
             return;
             
             

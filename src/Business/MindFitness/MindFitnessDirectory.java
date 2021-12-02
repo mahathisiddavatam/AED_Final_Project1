@@ -17,6 +17,10 @@ public class MindFitnessDirectory {
     private NutrionistDirectory nutridir;
     private MindFitStaffDirectory mindstaffdir;
 
+    public void setMindfitlist(ArrayList<MindFitness> mindfitlist) {
+        this.mindfitlist = mindfitlist;
+    }
+
     public MindFitnessDirectory() {
         mindfitlist = new ArrayList();
         yogadir = new YogaInstructorDirectory();
@@ -47,9 +51,9 @@ public class MindFitnessDirectory {
         return mind;
     }
     
-    public boolean deleteMindFitness(int id){
+    public boolean deleteMindFitness(String id){
          for(MindFitness mind: mindfitlist){
-             if(id==mind.getId()){
+             if(id.equals(mind.getId())){
                  mindfitlist.remove(mind);
                  return true;
              }
@@ -58,11 +62,11 @@ public class MindFitnessDirectory {
          return false;
     }
     
-    public MindFitness RetrieveMindFitness(int id){
+    public MindFitness RetrieveMindFitness(String id){
         
         for(MindFitness mind: mindfitlist){
             
-            if(id==mind.getId()){
+            if(id.equals(mind.getId())){
                 
                 return mind;
             }

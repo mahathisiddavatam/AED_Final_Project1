@@ -5,6 +5,7 @@
  */
 package Business.Clinic;
 
+import Business.WorkQueue.TherapyQueue;
 import java.util.ArrayList;
 
 /**
@@ -16,13 +17,23 @@ public class ClinicDirectory {
     private ArrayList<Clinic> cliniclist;
     private TherapistDirectory therapistdir;
     private ClinicStaffDirectory clinicstaffdir;
+    private TherapyQueue therapyqueue;
     
 
     public ClinicDirectory() {
         cliniclist = new ArrayList();
         therapistdir = new TherapistDirectory();
         clinicstaffdir = new ClinicStaffDirectory();
+        therapyqueue = new TherapyQueue();
        
+    }
+
+    public TherapyQueue getTherapyqueue() {
+        return therapyqueue;
+    }
+
+    public void setTherapyqueue(TherapyQueue therapyqueue) {
+        this.therapyqueue = therapyqueue;
     }
 
     public ArrayList<Clinic> getCliniclist() {
@@ -44,9 +55,9 @@ public class ClinicDirectory {
         return clinic;
     }
     
-    public boolean deleteClinic(int id){
+    public boolean deleteClinic(String id){
          for(Clinic clinic: cliniclist){
-             if(id==clinic.getId()){
+             if(id.equals(clinic.getId())){
                  cliniclist.remove(clinic);
                  return true;
              }
@@ -55,11 +66,11 @@ public class ClinicDirectory {
          return false;
     }
     
-    public Clinic RetrieveClinic(int id){
+    public Clinic RetrieveClinic(String id){
         
         for(Clinic clinic: cliniclist){
             
-            if(id==clinic.getId()){
+            if(id.equals(clinic.getId())){
                 
                 return clinic;
             }
@@ -67,6 +78,10 @@ public class ClinicDirectory {
         return null;
         
         
+    }
+
+    public void setCliniclist(ArrayList<Clinic> cliniclist) {
+        this.cliniclist = cliniclist;
     }
     
     

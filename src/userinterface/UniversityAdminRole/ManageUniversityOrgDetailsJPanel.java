@@ -250,7 +250,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSubmit)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrgName)
@@ -363,7 +363,6 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
             vol.setId(txtName.getText());
             JOptionPane.showMessageDialog(this, "User added!");
             return;
-            
             
             
         }

@@ -5,12 +5,18 @@
 package userinterface.StudentRole;
 
 import Business.EcoSystem;
+import Business.University.Student;
 
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.AccessRequest;
+import Business.WorkQueue.Article;
+import Business.WorkQueue.Forum;
 import Business.WorkQueue.Therapy;
-import java.awt.CardLayout;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -19,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
-    private EcoSystem business;
+    private EcoSystem system;
     private UserAccount userAccount;
     
     
@@ -31,10 +37,10 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
-        this.business = business;
+        this.system = business;
       
         
-        populateTable();
+        
     }
     
     public void populateTable(){
@@ -113,11 +119,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblTherapistContact = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lblWelcome = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPosts = new javax.swing.JTable();
         btnView = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        lblPost = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lblTopic = new javax.swing.JLabel();
@@ -127,8 +133,18 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblComment = new javax.swing.JLabel();
         txtComment = new javax.swing.JTextField();
         btnRequestForumAccess = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        lblTopic1 = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        lblCreated = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblForumID = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblForums = new javax.swing.JTable();
+        jLabel17 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -168,15 +184,25 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblCountry.setText("Country of origin:");
         jPanel1.add(lblCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 20));
 
-        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Non-Binary", "Transgender", "Intersex","Other" }));
+        cmbGender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGenderActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 160, -1));
 
-        cmbEthnicity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEthnicity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "American Indian", "African Descent", "East Asian", "Hispanic","Middle Eastern","South Asian","Caucasian","Other" }));
         jPanel1.add(cmbEthnicity, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 160, -1));
         jPanel1.add(txtCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 160, -1));
 
         btnSave.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 120, -1));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -219,6 +245,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         btnSubmitResponse.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         btnSubmitResponse.setText("Submit Response");
+        btnSubmitResponse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitResponseActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnSubmitResponse, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 460, 150, -1));
 
         cmbQues1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Joy", "Anger", "Sadness", "Anxiety", "Fear", "Mixed Emotion", " " }));
@@ -386,51 +417,61 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(204, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Welcome to the Connect iN.U Forum!");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 830, -1));
+        lblWelcome.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWelcome.setText("Welcome to the Connect iN.U Forum!");
+        jPanel4.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 830, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPosts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Date", "Post"
+                "Post ID", "Post Title", "Date posted"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPosts);
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 370, 110));
 
         btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 250, 100, -1));
 
-        jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
+        lblPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel4.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
 
         jLabel6.setText("IMAGE HERE!");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 60, 240, 50));
 
         jLabel12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel12.setText("Add your own post here!");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, -1, 20));
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, -1, 20));
 
         lblTopic.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblTopic.setText("Post:");
-        jPanel4.add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 70, 20));
+        lblTopic.setText("Title:");
+        jPanel4.add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 70, 20));
 
         jLabel14.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 0, 102));
         jLabel14.setText("No access? Request access below!");
         jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 260, 20));
-        jPanel4.add(txtStudentPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 270, 60));
+        jPanel4.add(txtStudentPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 270, 60));
 
         btnPost.setText("Post");
-        jPanel4.add(btnPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, 100, -1));
+        btnPost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPostActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, 100, -1));
 
         lblComment.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblComment.setText("Comment:");
@@ -438,26 +479,265 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel4.add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 510, 270, 60));
 
         btnRequestForumAccess.setText("Request Access");
+        btnRequestForumAccess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestForumAccessActionPerformed(evt);
+            }
+        });
         jPanel4.add(btnRequestForumAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 580, -1, -1));
 
+        lblTopic1.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblTopic1.setText("Post:");
+        jPanel4.add(lblTopic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 70, 20));
+        jPanel4.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 190, -1));
+
+        jLabel4.setText("Created by");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+        jPanel4.add(lblCreated, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 100, 20));
+
+        jLabel5.setText("Forum ID:");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, -1, -1));
+        jPanel4.add(lblForumID, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 60, 20));
+
         jTabbedPane1.addTab("Connect iN.U", jPanel4);
-        jTabbedPane1.addTab("MindFit", jPanel5);
         jTabbedPane1.addTab("Pet Therapy", jPanel6);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 730));
+        tblForums.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Forum ID", "Forum Name", "Created By", "Created On"
+            }
+        ));
+        jScrollPane3.setViewportView(tblForums);
+
+        jLabel17.setText("Select the forum you want to view");
+
+        jButton1.setText("Select");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addContainerGap(350, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addContainerGap(493, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Select Forum", jPanel5);
+
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 830, 730));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
-
     private void btnSaveResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveResponseActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handlif(ing code here:
+
+            String id = MainJFrame.txtUsernameMain.getText();
+            Therapy the=null;
+            for(Therapy therapy: system.getClinicdirectory().getTherapyqueue().getTherapylist()){
+
+                if(id.equals(therapy.getStudentid())){
+
+                    the = therapy;
+
+                }
+            }
+
+            if(the==null){
+
+                JOptionPane.showMessageDialog(this, "Please wait until a therapist has been assigned to answer these questions!");
+                return;
+
+            }
+            the.setQues11(cmbQues11.getSelectedItem().toString());
+            the.setQues12(cmbQues12.getSelectedItem().toString());
+            the.setQues13(cmbQues13.getSelectedItem().toString());
+            the.setQues14(cmbQues14.getSelectedItem().toString());
+            the.setQues15(cmbQues15.getSelectedItem().toString());
+
+            JOptionPane.showMessageDialog(this, "Thank you! Your answers have been recorded!");
+
     }//GEN-LAST:event_btnSaveResponseActionPerformed
 
     private void cmbQues1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbQues1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbQues1ActionPerformed
+
+    private void btnSubmitResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitResponseActionPerformed
+        // TODO add your handling code here:
+
+        String id = MainJFrame.txtUsernameMain.getText();
+        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        student.setQues1(cmbQues1.getSelectedItem().toString());
+        student.setQues2(cmbQues2.getSelectedItem().toString());
+        student.setQues3(cmbQues3.getSelectedItem().toString());
+        student.setQues4(cmbQues4.getSelectedItem().toString());
+        student.setQues5(cmbQues5.getSelectedItem().toString());
+
+        student.setQues6(cmbQues6.getSelectedItem().toString());
+        student.setQues7(cmbQues7.getSelectedItem().toString());
+        student.setQues8(cmbQues8.getSelectedItem().toString());
+        student.setQues9(cmbQues9.getSelectedItem().toString());
+        student.setQues10(cmbQues10.getSelectedItem().toString());
+        JOptionPane.showMessageDialog(this, "Thank you! A therapist will be assigned to you shortly!");
+
+    }//GEN-LAST:event_btnSubmitResponseActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+
+        String name = txtName.getText();
+        String age =txtAge.getText();
+        String gender = cmbGender.getSelectedItem().toString();
+        String ethnicity = cmbEthnicity.getSelectedItem().toString();
+        String org = txtCountry.getText();
+
+        if(name==null || age==null || gender==null || ethnicity==null || org==null){
+
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+
+        String id = MainJFrame.txtUsernameMain.getText();
+        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        student.setAge(age);
+        student.setEthnicity(ethnicity);
+        student.setGender(gender);
+        student.setOrigin(org);
+
+        JOptionPane.showMessageDialog(this, "Your details have been saved! You can now proceed to the next tab");
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void cmbGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGenderActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostActionPerformed
+        // TODO add your handling code here:
+       
+       int forumid = Integer.parseInt(lblForumID.getText());
+       Article article=system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).addArticle();
+       String forum = txtStudentPost.getText();
+       
+       article.setPost(forum);
+       article.setTitle(txtTitle.getText());
+       Date date = new Date();
+       article.setDate(date);
+       populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(forumid));
+       JOptionPane.showMessageDialog(this, "Posted!");
+       
+        
+       
+    }//GEN-LAST:event_btnPostActionPerformed
+
+    private void btnRequestForumAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestForumAccessActionPerformed
+        // TODO add your handling code here:
+        int forumid = Integer.parseInt(lblForumID.getText());
+        for(String id: system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).getStudentidlist()){
+            
+            if(id.equals(MainJFrame.txtUsernameMain.getText())){
+                JOptionPane.showMessageDialog(this, "You have access! Continue Posting!");
+                return;
+                
+            }
+        }
+        AccessRequest acc=system.getUniversitydirectory().getReqaccessq().addAccessRequest();
+        
+        acc.setDescription(txtComment.getText());
+        acc.setStudentid(MainJFrame.txtUsernameMain.getText());
+        JOptionPane.showMessageDialog(this, "Access Requested!");
+        
+        
+    }//GEN-LAST:event_btnRequestForumAccessActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
+        int selectedIndex = tblForums.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a post!");
+            return;
+            
+        }
+        String forumid=null;
+        String createdby=null;
+        if(selectedIndex!=-1){
+            
+             forumid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid));
+        
+        lblForumID.setText(forumid);
+        lblCreated.setText(createdby);
+        lblWelcome.setText("Welcome to "+ forum.getTitle());
+        
+        
+        populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)));
+        JOptionPane.showMessageDialog(this, "Switch to the next tab to view forum!");
+        
+
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPosts.getModel();
+        int selectedIndex = tblPosts.getSelectedRow();
+        String postid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a post!");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             postid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        int forumid  = Integer.parseInt(lblForumID.getText());
+        int posttid = Integer.parseInt(postid);
+        String post = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid).getPost();
+        
+        String parsedPost = post.replaceAll("(.{10000})", "$1\n");
+        lblPost.setText(parsedPost);
+        
+    }//GEN-LAST:event_btnViewActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPost;
@@ -483,14 +763,17 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbQues7;
     private javax.swing.JComboBox<String> cmbQues8;
     private javax.swing.JComboBox<String> cmbQues9;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -508,15 +791,21 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+
     private javax.swing.JScrollPane jScrollPane2;
+
+    private javax.swing.JScrollPane jScrollPane3;
+
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblComment;
     private javax.swing.JLabel lblCountry;
+    private javax.swing.JLabel lblCreated;
     private javax.swing.JLabel lblEthnicity;
+    private javax.swing.JLabel lblForumID;
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPost;
     private javax.swing.JLabel lblQues1;
     private javax.swing.JLabel lblQues10;
     private javax.swing.JLabel lblQues11;
@@ -532,12 +821,40 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTherapistContact;
     private javax.swing.JLabel lblTherapistName;
     private javax.swing.JLabel lblTopic;
+
     private javax.swing.JTable tblAppointment;
+
+    private javax.swing.JLabel lblTopic1;
+    private javax.swing.JLabel lblWelcome;
+    private javax.swing.JTable tblForums;
+    private javax.swing.JTable tblPosts;
+
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtName;
     private javax.swing.JLabel txtQues14;
     private javax.swing.JTextField txtStudentPost;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
+
+    private void populatePostTable(Forum forum) {
+        DefaultTableModel model = (DefaultTableModel) tblPosts.getModel();
+        model.setRowCount(0);
+        
+        for(Article article: forum.getArticlelist()){
+            
+            Object[] row = new Object[3];
+            row[0]= article.getId();
+            row[1]= article.getTitle();
+            row[2] = article.getDate();
+            
+            model.insertRow(0, row);
+            
+            
+        }
+        
+            
+            //To change body of generated methods, choose Tools | Templates.
+    }
 }
