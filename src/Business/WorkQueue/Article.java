@@ -11,4 +11,21 @@ package Business.WorkQueue;
  */
 public class Article {
     
+    int id;
+    int count=1;
+    
+    public void Article(){
+        
+        id = count;
+        count++;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 }

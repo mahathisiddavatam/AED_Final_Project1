@@ -11,64 +11,24 @@ import java.util.Date;
  *
  * @author raunak
  */
-public abstract class Therapy {
+public class Therapy {
 
-    private String message;
-    private UserAccount sender;
-    private UserAccount receiver;
-    private String status;
-    private Date requestDate;
-    private Date resolveDate;
+    int id;
+    int count=1;
     
-    public Therapy(){
-        requestDate = new Date();
+    public void Therapy(){
+        
+        id = count;
+        count++;
     }
 
-    public String getMessage() {
-        return message;
+    public int getId() {
+        return id;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setId(int id) {
+        this.id = id;
     }
-
-    public UserAccount getSender() {
-        return sender;
-    }
-
-    public void setSender(UserAccount sender) {
-        this.sender = sender;
-    }
-
-    public UserAccount getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(UserAccount receiver) {
-        this.receiver = receiver;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getRequestDate() {
-        return requestDate;
-    }
-
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
-    }
-
-    public Date getResolveDate() {
-        return resolveDate;
-    }
-
-    public void setResolveDate(Date resolveDate) {
-        this.resolveDate = resolveDate;
-    }
+    
+    
 }

@@ -5,6 +5,7 @@
  */
 package Business.Clinic;
 
+import Business.WorkQueue.TherapyQueue;
 import java.util.ArrayList;
 
 /**
@@ -16,13 +17,23 @@ public class ClinicDirectory {
     private ArrayList<Clinic> cliniclist;
     private TherapistDirectory therapistdir;
     private ClinicStaffDirectory clinicstaffdir;
+    private TherapyQueue therapyqueue;
     
 
     public ClinicDirectory() {
         cliniclist = new ArrayList();
         therapistdir = new TherapistDirectory();
         clinicstaffdir = new ClinicStaffDirectory();
+        therapyqueue = new TherapyQueue();
        
+    }
+
+    public TherapyQueue getTherapyqueue() {
+        return therapyqueue;
+    }
+
+    public void setTherapyqueue(TherapyQueue therapyqueue) {
+        this.therapyqueue = therapyqueue;
     }
 
     public ArrayList<Clinic> getCliniclist() {

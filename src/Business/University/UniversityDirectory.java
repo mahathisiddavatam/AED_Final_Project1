@@ -5,10 +5,8 @@
  */
 package Business.University;
 
-import Business.MindFitness.MindFitStaffDirectory;
-import Business.MindFitness.MindFitness;
-import Business.MindFitness.NutrionistDirectory;
-import Business.MindFitness.YogaInstructorDirectory;
+import Business.WorkQueue.ArticleQueue;
+import Business.WorkQueue.EventQueue;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +20,11 @@ public class UniversityDirectory {
     private StudentDirectory studentdir;
     private VolunteerDirectory volunteerdir;
     private ForumAdminDirectory forumdir;
+    private ArticleQueue articlequeue;
+    private EventQueue eventqueue;
+    
+    
+    
 
     public ArrayList<University> getUnilist() {
         return unilist;
@@ -44,6 +47,24 @@ public class UniversityDirectory {
         studentdir = new StudentDirectory();
         volunteerdir = new VolunteerDirectory();
         forumdir = new ForumAdminDirectory();
+        articlequeue = new ArticleQueue();
+        eventqueue = new EventQueue();
+    }
+
+    public ArticleQueue getArticlequeue() {
+        return articlequeue;
+    }
+
+    public void setArticlequeue(ArticleQueue articlequeue) {
+        this.articlequeue = articlequeue;
+    }
+
+    public EventQueue getEventqueue() {
+        return eventqueue;
+    }
+
+    public void setEventqueue(EventQueue eventqueue) {
+        this.eventqueue = eventqueue;
     }
 
     public University addNewUniversity(){

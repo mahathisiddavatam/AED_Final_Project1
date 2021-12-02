@@ -9,6 +9,6 @@ package Business.WorkQueue;
  *
  * @author Varakumar
  */
-public class PetTherapy {
+public class PTherapy {
     
 }
