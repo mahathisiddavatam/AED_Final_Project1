@@ -56,6 +56,8 @@ public class VolunteerRoleWorkArea extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         lblDate1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        lblLocation = new javax.swing.JLabel();
+        txtLocation = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -90,6 +92,9 @@ public class VolunteerRoleWorkArea extends javax.swing.JPanel {
         lblDate1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDate1.setText("TIME");
 
+        lblLocation.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLocation.setText("LOCATION");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,12 +124,14 @@ public class VolunteerRoleWorkArea extends javax.swing.JPanel {
                         .addGap(94, 94, 94)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(62, 62, 62)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSave))))
+                            .addComponent(btnSave)
+                            .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -157,9 +164,13 @@ public class VolunteerRoleWorkArea extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addComponent(btnSave)
-                .addGap(296, 296, 296))
+                .addGap(256, 256, 256))
         );
     }// </editor-fold>//GEN-END:initComponents
  
@@ -199,7 +210,9 @@ String image = txtFilenm.getText();
     private javax.swing.JLabel lblForum;
     private javax.swing.JLabel lblForum1;
     private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblLocation;
     private javax.swing.JTextField txtFilenm;
     private javax.swing.JTextArea txtForum;
+    private javax.swing.JTextField txtLocation;
     // End of variables declaration//GEN-END:variables
 }
