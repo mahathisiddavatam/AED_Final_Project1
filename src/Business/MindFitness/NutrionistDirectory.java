@@ -28,16 +28,17 @@ public class NutrionistDirectory {
 
    
 
-    public Nutritionist AddNutritionist(){
+    public Nutritionist AddNutritionist(String id){
         
         Nutritionist nutritionist = new Nutritionist();
+        nutritionist.setId(id);
         nutritionistlist.add(nutritionist);
         return nutritionist;
     }
     
-    public boolean DeleteNutritionist(int id){
+    public boolean DeleteNutritionist(String id){
          for(Nutritionist nutritionist: nutritionistlist){
-             if(id==nutritionist.getId()){
+             if(id.equals(nutritionist.getId())){
                  nutritionistlist.remove(nutritionist);
                  return true;
              }
@@ -46,11 +47,11 @@ public class NutrionistDirectory {
          return false;
     }
     
-    public Nutritionist RetrieveNutritionist(int id){
+    public Nutritionist RetrieveNutritionist(String id){
         
         for(Nutritionist nutritionist: nutritionistlist){
             
-            if(id==nutritionist.getId()){
+            if(id.equals(nutritionist.getId())){
                 
                 return nutritionist;
             }

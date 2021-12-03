@@ -6,8 +6,18 @@
 package userinterface.MindFitnessAdminRole;
 
 import Business.EcoSystem;
+import Business.MindFitness.MindFitStaff;
+import Business.MindFitness.Nutritionist;
+import Business.MindFitness.YogaInstructor;
+import Business.Role.MindFitnessStaffRole;
+import Business.Role.NutritionistRole;
+import Business.Role.YogaInstrRole;
 import Business.UserAccount.UserAccount;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,6 +36,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
         this.UserProcessContainer=UserProcessContainer;
         this.account=account;
         this.system=system;
+        populateTable();
     }
 
     /**
@@ -39,7 +50,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblClinicOrg2 = new javax.swing.JTable();
+        tblMindfit = new javax.swing.JTable();
         btnDelete = new javax.swing.JButton();
         lblOrgType2 = new javax.swing.JLabel();
         cmbOrgType2 = new javax.swing.JComboBox<>();
@@ -56,7 +67,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
         lblCity2 = new javax.swing.JLabel();
         lblCountry2 = new javax.swing.JLabel();
         lblZip2 = new javax.swing.JLabel();
-        txtPetParentName = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtPhoneNo = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
@@ -72,7 +83,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Welcome, MindFit Admin!");
 
-        tblClinicOrg2.setModel(new javax.swing.table.DefaultTableModel(
+        tblMindfit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -83,7 +94,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                 "UserName", "Employee Type", "Contact No", "Address", "Zipcode"
             }
         ));
-        jScrollPane3.setViewportView(tblClinicOrg2);
+        jScrollPane3.setViewportView(tblMindfit);
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -186,7 +197,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                             .addComponent(txtUsername)
                             .addComponent(txtPassword)
                             .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                            .addComponent(txtPetParentName)
+                            .addComponent(txtName)
                             .addComponent(txtEmail)
                             .addComponent(txtPhoneNo)
                             .addComponent(txtAddress)
@@ -229,7 +240,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrgName2)
-                    .addComponent(txtPetParentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail2)
@@ -264,6 +275,42 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel modelOrder = (DefaultTableModel)tblMindfit.getModel();
+        int selectedIndex = tblMindfit.getSelectedRow();
+        if(selectedIndex!=-1){
+            
+            String order = modelOrder.getValueAt(selectedIndex, 0).toString();
+            String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            
+            if(type=="MindFitness Staff"){
+                
+                system.getMindfitnessdir().getMindstaffdir().DeleteMindFitStaff(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+
+            }
+            
+            if(type=="Nutritionist"){
+                
+                system.getMindfitnessdir().getNutridir().DeleteNutritionist(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                
+            }    
+            
+            if(type=="Yoga Instructor"){
+                
+                system.getMindfitnessdir().getNutridir().DeleteNutritionist(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                
+            }   
+                
+                
+            }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void cmbOrgType2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOrgType2ActionPerformed
@@ -276,10 +323,279 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        
+        if((txtUsername.getText().isEmpty())|| (txtPassword.getText().isEmpty())
+                ){
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        
+        String reg = "^(?=.*[0-9])"
+        + "(?=.*[a-z])(?=.*[A-Z])"
+        + "(?=.*[@#$%^&+=])"
+        + "(?=\\S+$).{8,20}$";
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(password);
+        int f = 0;
+        if(mat.matches()){
+            f=1;
+
+        }
+        if(f==0){
+
+            JOptionPane.showMessageDialog(this, "Invalid Password!");
+            return;
+
+        }
+        
+        if(system.getUserAccountDirectory().checkIfUsernameIsUnique(username)==false){
+
+            JOptionPane.showMessageDialog(this, "Username already taken!");
+            return;
+
+        }
+        
+        if(cmbOrgType2.getSelectedItem().toString()=="MindFitness Staff"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new MindFitnessStaffRole());
+            system.getMindfitnessdir().getMindstaffdir().AddMindFitStaff(username);
+            JOptionPane.showMessageDialog(this, "User Added!");
+            return;
+          
+            
+            
+        }
+        
+        if(cmbOrgType2.getSelectedItem().toString()=="Nutritionist"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new NutritionistRole());
+            system.getMindfitnessdir().getNutridir().AddNutritionist(username);
+            JOptionPane.showMessageDialog(this, "User added!");
+            return;
+                       
+            
+        }
+        
+        if(cmbOrgType2.getSelectedItem().toString()=="Yoga Instructor"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new YogaInstrRole());
+            system.getMindfitnessdir().getYogadir().AddYogaInstructor(username);
+            JOptionPane.showMessageDialog(this, "User added!");
+            return;
+                       
+            
+        }
+        
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        // Mindfitness staff
+        if(system.getMindfitnessdir().getMindstaffdir().RetrieveMindFitStaff(txtUsername.getText())!=null){
+            MindFitStaff mindfitstaff = system.getMindfitnessdir().getMindstaffdir().RetrieveMindFitStaff(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+       
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            mindfitstaff.setName(name);
+            mindfitstaff.setAddress(address);
+            mindfitstaff.setCountry(country);
+            mindfitstaff.setCity(city);
+            mindfitstaff.setEmail(email);
+            mindfitstaff.setPhone(phno);
+            mindfitstaff.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Mindfitness Staff added!");
+            populateTable();
+            return;
+ 
+            
+        }
+        
+        // Nutritionist
+        if(system.getMindfitnessdir().getNutridir().RetrieveNutritionist(txtUsername.getText())!=null){
+            Nutritionist nutritionist = system.getMindfitnessdir().getNutridir().RetrieveNutritionist(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+       
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            nutritionist.setName(name);
+            nutritionist.setAddress(address);
+            nutritionist.setCountry(country);
+            nutritionist.setCity(city);
+            nutritionist.setEmail(email);
+            nutritionist.setPhone(phno);
+            nutritionist.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Nutritionist added!");
+            populateTable();
+            return;
+ 
+            
+        }
+        
+        // Yoga Instructor
+        if(system.getMindfitnessdir().getYogadir().RetrieveYogaInstructor(txtUsername.getText())!=null){
+            YogaInstructor yogainst = system.getMindfitnessdir().getYogadir().RetrieveYogaInstructor(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+       
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            yogainst.setName(name);
+            yogainst.setAddress(address);
+            yogainst.setCountry(country);
+            yogainst.setCity(city);
+            yogainst.setEmail(email);
+            yogainst.setPhone(phno);
+            yogainst.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Yoga Instructor added!");
+            populateTable();
+            return;
+ 
+            
+        }
+        
+        if(system.getMindfitnessdir().getMindstaffdir().RetrieveMindFitStaff(txtUsername.getText())==null || system.getMindfitnessdir().getNutridir().RetrieveNutritionist(txtUsername.getText()) ==null || system.getMindfitnessdir().getYogadir().RetrieveYogaInstructor(txtUsername.getText()) == null){
+            
+            JOptionPane.showMessageDialog(this, "Create User Account First!");
+            return;
+            
+            
+            
+        }
+        
+        
+        
+        
+        
     }//GEN-LAST:event_btnCreateActionPerformed
 
 
@@ -302,15 +618,59 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblPhoneNo2;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblZip2;
-    private javax.swing.JTable tblClinicOrg2;
+    private javax.swing.JTable tblMindfit;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtPetParentName;
     private javax.swing.JTextField txtPhoneNo;
     private javax.swing.JTextField txtUsername;
     private javax.swing.JTextField txtZip;
     // End of variables declaration//GEN-END:variables
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblMindfit.getModel();
+        model.setRowCount(0);
+        
+       for(MindFitStaff mindfitstaff: system.getMindfitnessdir().getMindstaffdir().getmindfitstafflist()){
+            
+            Object[] row = new Object[5];
+            row[0]= mindfitstaff.getId();
+            row[1]= "Mindfitness Staff";
+            row[2]= mindfitstaff.getPhone();
+            row[3]= mindfitstaff.getAddress();
+            row[4]=mindfitstaff.getZipcode();
+            
+            model.insertRow(0, row);
+                   
+        }
+       
+       for(Nutritionist nutritionist: system.getMindfitnessdir().getNutridir().getnutritionistlist()){
+            
+            Object[] row = new Object[5];
+            row[0]= nutritionist.getId();
+            row[1]= "Nutritionist";
+            row[2]= nutritionist.getPhone();
+            row[3]= nutritionist.getAddress();
+            row[4]=nutritionist.getZipcode();
+            
+            model.insertRow(0, row);
+                  
+        }
+       
+        for(YogaInstructor yogaInst: system.getMindfitnessdir().getYogadir().getyogainstlist()){
+            
+            Object[] row = new Object[5];
+            row[0]= yogaInst.getId();
+            row[1]= "Yoga Instructor";
+            row[2]= yogaInst.getPhone();
+            row[3]= yogaInst.getAddress();
+            row[4]=yogaInst.getZipcode();
+            
+            model.insertRow(0, row);
+                  
+        }
+    }
 }
