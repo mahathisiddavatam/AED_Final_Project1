@@ -20,6 +20,7 @@ public class Student {
     String country;
     String email;
     
+    
     // questions-answers from combobox
     String ques1;
     String ques2;
@@ -39,6 +40,14 @@ public class Student {
     
     // post
     String post;
+
+    public Boolean getAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(Boolean assigned) {
+        this.assigned = assigned;
+    }
     
     //Student details
     
@@ -46,6 +55,7 @@ public class Student {
     String gender;
     String origin;
     String ethnicity;
+    Boolean assigned;
 
     public String getAge() {
         return age;
