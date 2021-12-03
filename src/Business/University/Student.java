@@ -40,6 +40,8 @@ public class Student {
     
     // post
     String post;
+    
+    String therapistid;
 
     public Boolean getAssigned() {
         return assigned;

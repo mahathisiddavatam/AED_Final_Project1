@@ -47,6 +47,35 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         //valueLabel.setText(enterprise.getName());
         populatePatientTable();
         setLabel();
+        populateSessionTable();
+    }
+    
+    public void populateSessionTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+        model.setRowCount(0);
+        
+        for(Therapy therapy: therapyqueue.getTherapylist()){
+            
+            if(therapy.getTerminate()==null){
+                
+                Object[] row = new Object[4];
+                row[0]= therapy.getId();
+                
+                row[1]= studentdirectory.RetrieveStudent(therapy.getStudentid()).getName();
+                row[2] = therapy.getDate();
+                row[3] = therapy.getTime();
+                
+                model.insertRow(0, row);
+                
+            
+            
+                
+                
+            }
+        }
+        
+        
     }
     
     public void populatePatientTable(){
@@ -141,7 +170,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblSessions = new javax.swing.JTable();
         btnTerminate = new javax.swing.JButton();
 
         jTabbedPane1.setBackground(new java.awt.Color(204, 255, 255));
@@ -452,20 +481,25 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Active Session Details");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblSessions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "SessionID", "Client name", "Date-Time"
+                "SessionID", "Client name", "Date", "Time"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblSessions);
 
         btnTerminate.setText("Terminate session");
+        btnTerminate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerminateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -528,6 +562,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         }
         therapy.setStudentid(id);
         studentdirectory.RetrieveStudent(id).setAssigned(Boolean.TRUE);
+        studentdirectory.RetrieveStudent(id).setTherapistid(therapistid);
         populatePatientTable();
         
         
@@ -590,6 +625,32 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnViewStudentActionPerformed
 
+    private void btnTerminateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminateActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPatient.getModel();
+        int selectedIndex = tblPatient.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a row!");
+            return;
+            
+        }
+        String id=null;
+        
+        if(selectedIndex!=-1){
+            
+             id = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        int intid = Integer.parseInt(id);
+        
+        Therapy therapy = therapyqueue.retrieveTherapy(intid);
+        therapy.setTerminate(Boolean.TRUE);
+        
+        
+    }//GEN-LAST:event_btnTerminateActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnSave;
@@ -605,7 +666,6 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAns1;
     private javax.swing.JLabel lblAns10;
@@ -631,6 +691,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues9;
     private javax.swing.JLabel lblViewTherapistName;
     private javax.swing.JTable tblPatient;
+    private javax.swing.JTable tblSessions;
     private javax.swing.JTextField txtDegrees;
     private javax.swing.JTextField txtExpNo;
     private javax.swing.JTextField txtMessage;

@@ -22,6 +22,33 @@ public class Therapy {
     String ques13;
     String ques14;
     String ques15;
+    Boolean terminate;
+    String date;
+    String time;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Boolean getTerminate() {
+        return terminate;
+    }
+
+    public void setTerminate(Boolean terminate) {
+        this.terminate = terminate;
+    }
 
     public String getStudentid() {
         return studentid;
