@@ -28,29 +28,29 @@ public class PetTherapyStaffDirectory {
 
    
 
-    public PetTherapyStaff AddPetTherapyStaff(){
+    public PetTherapyStaff AddPetTherapyStaff(String id){
         
         PetTherapyStaff pettherapystaff = new PetTherapyStaff();
+        pettherapystaff.setId(id);
         pettherapystafflist.add(pettherapystaff);
         return pettherapystaff;
     }
     
-    public boolean DeletePetTherapyStaff(int id){
+    public boolean DeletePetTherapyStaff(String id){
          for(PetTherapyStaff pettherapystaff: pettherapystafflist){
-             if(id==pettherapystaff.getId()){
+             if(id.equals(pettherapystaff.getId())){
                  pettherapystafflist.remove(pettherapystaff);
                  return true;
              }
-             
          }
          return false;
     }
     
-    public PetTherapyStaff RetrievePetTherapyStaff(int id){
+    public PetTherapyStaff RetrievePetTherapyStaff(String id){
         
         for(PetTherapyStaff pettherapystaff: pettherapystafflist){
             
-            if(id==pettherapystaff.getId()){
+            if(id.equals(pettherapystaff.getId())){
                 
                 return pettherapystaff;
             }
