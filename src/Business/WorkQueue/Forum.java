@@ -6,6 +6,7 @@
 package Business.WorkQueue;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -18,6 +19,24 @@ public class Forum {
     private ArrayList <Article> articlelist;
     String title;
     String description;
+    String createdby;
+    Date date;
+
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
     private ArrayList <String> studentidlist;
     
 
