@@ -27,16 +27,17 @@ public class PetParentDirectory {
 
    
 
-    public PetParent AddPetParent(){
+    public PetParent AddPetParent(String id){
         
         PetParent petparent = new PetParent();
+        petparent.setId(id);
         petparentlist.add(petparent);
         return petparent;
     }
     
-    public boolean DeletePetParent(int id){
+    public boolean DeletePetParent(String id){
          for(PetParent petparent: petparentlist){
-             if(id==petparent.getId()){
+             if(id.equals(petparent.getId())){
                  petparentlist.remove(petparent);
                  return true;
              }
@@ -45,11 +46,11 @@ public class PetParentDirectory {
          return false;
     }
     
-    public PetParent RetrievePetParent(int id){
+    public PetParent RetrievePetParent(String id){
         
         for(PetParent petparent: petparentlist){
             
-            if(id==petparent.getId()){
+            if(id.equals(petparent.getId())){
                 
                 return petparent;
             }

@@ -4,6 +4,7 @@
  */
 package userinterface.StudentRole;
 
+import Business.Clinic.Therapist;
 import Business.EcoSystem;
 import Business.University.Student;
 
@@ -12,6 +13,7 @@ import Business.WorkQueue.AccessRequest;
 import Business.WorkQueue.Article;
 import Business.WorkQueue.Forum;
 import Business.WorkQueue.Therapy;
+import Business.WorkQueue.TherapyQueue;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,7 +29,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem system;
     private UserAccount userAccount;
-    
+    Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
+    TherapyQueue therapyqueue = system.getClinicdirectory().getTherapyqueue();
     
     /**
      * Creates new form LabAssistantWorkAreaJPanel
@@ -38,12 +41,116 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.system = business;
+        populateAppointmentTable();
       
         
         
     }
     
-    public void populateTable(){
+    public void populateAppointmentTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblForums.getModel();
+        model.setRowCount(0);
+        
+        if(student.getAssigned()==null){
+            lblTherapistContact.setText("Will be updated shortly!");
+            lblMessage.setText("Will be updated shortly!");
+            lblSpecialities1.setText("Will be updated shortly!");
+            lblDegree.setText("Will be updated shortly!");
+            lblExp.setText("Will be updated shortly!");
+            lblTherapistName3.setText("Will be updated shortly!");
+            return;
+        }
+        
+        else{
+            Therapist therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(student.getTherapistid());
+            lblTherapistContact.setText(therapist.getPhno());
+            lblMessage.setText(therapist.getMessage());
+            lblSpecialities1.setText(therapist.getSpecialities());
+            lblDegree.setText(therapist.getDegrees());
+            lblExp.setText(therapist.getExperience());
+            lblTherapistName3.setText(therapist.getName());
+            
+            
+        }
+        for(Therapy therapy: therapyqueue.getTherapylist()){
+            
+            if(therapy.getStudentid().equals(student.getId())){
+                
+                Object[] row = new Object[3];
+                row[0]= therapy.getId();
+                
+                
+                if(therapy.getDate()==null){
+                    row[1]= "To be scheduled";
+                    
+                    
+                }
+                else{
+                    
+                    row[1]= therapy.getDate();
+                }
+                
+                if(therapy.getTime()==null){
+                    row[2]= "To be scheduled";
+                    
+                    
+                }
+                else{
+                    
+                    row[2]= therapy.getTime();
+                }
+                
+                
+                
+                if(therapy.getTerminate()==true){
+                    
+                    row[3] = "Session Completed";
+                    
+                    
+                }
+                
+                if(therapy.getTerminate()==false){
+                    
+                    row[3] = "To be completed";
+                    
+                    
+                }
+                
+                
+            
+                model.insertRow(0, row);
+                
+                
+            }
+        }
+        
+        
+    }
+    
+    public void populateForumTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblForums.getModel();
+        model.setRowCount(0);
+        
+        for(Forum forum: system.getUniversitydirectory().getForumqueue().getForumlist()){
+            
+            Object[] row = new Object[3];
+            row[0]= forum.getId();
+            row[1]= forum.getTitle();
+            row[2] = forum.getCreatedby();
+            row[3] = forum.getDate();
+            
+            model.insertRow(0, row);
+            
+            
+        
+        
+            
+            //To change body of generated methods, choose Tools | Templates.
+    }
+        
+        
         
     }
 
@@ -70,7 +177,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         txtCountry = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblQues1 = new javax.swing.JLabel();
@@ -108,16 +215,32 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         cmbQues14 = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cmbQues15 = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        lbl = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAppointment = new javax.swing.JTable();
-        jLabel16 = new javax.swing.JLabel();
-        lblTherapistName = new javax.swing.JLabel();
-        lblTherapistContact = new javax.swing.JLabel();
+        lblMessage = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        lblSpecialities1 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        lbl1 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblAppointment1 = new javax.swing.JTable();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        lblDegree = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        lblTherapistName3 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        lblExp = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        lblTherapistContact = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -140,11 +263,30 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         lblForumID = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jLabel33 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblForums = new javax.swing.JTable();
-        jLabel17 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        btnSelectForum = new javax.swing.JButton();
+        lblDescription = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -210,8 +352,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel1.setText("Welcome, Husky! ");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 760, -1));
 
-        jLabel7.setText("IMAGE HERE!!");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, -1, -1));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Personal Details.png"))); // NOI18N
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 280, 300));
 
         jTabbedPane1.addTab("Person Details", jPanel1);
 
@@ -307,8 +449,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         cmbQues10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
         jPanel2.add(cmbQues10, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, 150, -1));
 
-        jLabel8.setText("IMAGE HERE!");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 600, -1, -1));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/today.jpg"))); // NOI18N
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, 210));
 
         jTabbedPane1.addTab("Questionnaire ", jPanel2);
 
@@ -365,8 +507,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         cmbQues15.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No", "All the time...." }));
         jPanel3.add(cmbQues15, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, 210, -1));
 
-        jLabel11.setText("IMAGE HERE!");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, -1, -1));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/feelings.png"))); // NOI18N
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, -1, 290));
 
         jTabbedPane1.addTab("How are you feeling today?", jPanel3);
 
@@ -378,9 +520,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel13.setText("Counselor and Appointment Details");
         jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 5, 840, -1));
 
-        jLabel15.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jLabel15.setText("Counselor Name:");
-        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 120, 20));
+        lbl.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lbl.setText("Message for you:");
+        jPanel7.add(lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 120, 20));
 
         tblAppointment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -390,27 +532,101 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Session no.", "Date", "Time", "Location"
+                "Session no.", "Date", "Time", "Session status"
             }
         ));
         jScrollPane2.setViewportView(tblAppointment);
 
-        jPanel7.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, -1, 110));
+        jPanel7.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 650, 110));
 
-        jLabel16.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jLabel16.setText("Contact no.:");
-        jPanel7.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, -1, 20));
-
-        lblTherapistName.setText("<therapist name>");
-        jPanel7.add(lblTherapistName, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 300, 20));
-
-        lblTherapistContact.setText("<therapist phone number>");
-        jPanel7.add(lblTherapistContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 300, 20));
+        lblMessage.setText("<message>");
+        lblMessage.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jPanel7.add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 320, 90));
 
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(153, 0, 0));
         jLabel17.setText("** Services are appointment based ONLY. Please call your therapist or the clinic to reschedule.");
         jPanel7.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 840, 20));
+
+        jLabel20.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel20.setText("Specialities");
+        jPanel7.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 120, 20));
+
+        lblSpecialities1.setText("Specialities");
+        jPanel7.add(lblSpecialities1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 300, 20));
+
+        jLabel23.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel23.setText("Degree:");
+        jPanel7.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 120, 20));
+
+        jPanel8.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Counselor and Appointment Details");
+        jPanel8.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 5, 840, -1));
+
+        lbl1.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lbl1.setText("Message for you:");
+        jPanel8.add(lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 120, 20));
+
+        tblAppointment1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Session no.", "Date", "Time", "Location", "Session status"
+            }
+        ));
+        jScrollPane4.setViewportView(tblAppointment1);
+        if (tblAppointment1.getColumnModel().getColumnCount() > 0) {
+            tblAppointment1.getColumnModel().getColumn(3).setHeaderValue("Location");
+        }
+
+        jPanel8.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 650, 110));
+
+        jLabel25.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel25.setText("** Services are appointment based ONLY. Please call your therapist or the clinic to reschedule.");
+        jPanel8.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 840, 20));
+
+        jLabel26.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel26.setText("Specialities");
+        jPanel8.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 120, 20));
+
+        lblDegree.setText("Specialities");
+        jPanel8.add(lblDegree, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 300, 20));
+
+        jLabel27.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel27.setText("Counselor Name:");
+        jPanel8.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 120, 20));
+
+        lblTherapistName3.setText("<therapist name>");
+        jPanel8.add(lblTherapistName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 300, 20));
+
+        jLabel29.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel29.setText("Degree:");
+        jPanel8.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 120, 20));
+
+        lblExp.setText("exp");
+        jPanel8.add(lblExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 300, 20));
+
+        jLabel22.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel22.setText("Years of Experience:");
+        jPanel8.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 170, 20));
+
+        jLabel16.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel16.setText("Contact no.:");
+        jPanel8.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, -1, 20));
+
+        lblTherapistContact.setText("<therapist phone number>");
+        jPanel8.add(lblTherapistContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 300, 20));
+
+        jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jTabbedPane1.addTab("Counselor details", jPanel7);
 
@@ -435,7 +651,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblPosts);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 370, 110));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 370, 110));
 
         btnView.setText("View");
         btnView.addActionListener(new java.awt.event.ActionListener() {
@@ -443,27 +659,27 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 btnViewActionPerformed(evt);
             }
         });
-        jPanel4.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 250, 100, -1));
+        jPanel4.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 100, -1));
 
         lblPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel4.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
 
-        jLabel6.setText("IMAGE HERE!");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 60, 240, 50));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/forum.png"))); // NOI18N
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 210, 110));
 
         jLabel12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel12.setText("Add your own post here!");
-        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, -1, 20));
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, -1, 20));
 
         lblTopic.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblTopic.setText("Title:");
-        jPanel4.add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 70, 20));
+        jPanel4.add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 400, 70, 20));
 
         jLabel14.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 0, 102));
         jLabel14.setText("No access? Request access below!");
-        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 260, 20));
-        jPanel4.add(txtStudentPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 270, 60));
+        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 540, 260, 20));
+        jPanel4.add(txtStudentPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, 270, 60));
 
         btnPost.setText("Post");
         btnPost.addActionListener(new java.awt.event.ActionListener() {
@@ -471,12 +687,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 btnPostActionPerformed(evt);
             }
         });
-        jPanel4.add(btnPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, 100, -1));
+        jPanel4.add(btnPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 500, 100, -1));
 
         lblComment.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblComment.setText("Comment:");
-        jPanel4.add(lblComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 510, 70, 20));
-        jPanel4.add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 510, 270, 60));
+        jPanel4.add(lblComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 600, 70, 20));
+        jPanel4.add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 580, 270, 60));
 
         btnRequestForumAccess.setText("Request Access");
         btnRequestForumAccess.addActionListener(new java.awt.event.ActionListener() {
@@ -484,12 +700,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 btnRequestForumAccessActionPerformed(evt);
             }
         });
-        jPanel4.add(btnRequestForumAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 580, -1, -1));
+        jPanel4.add(btnRequestForumAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 650, -1, -1));
 
         lblTopic1.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblTopic1.setText("Post:");
-        jPanel4.add(lblTopic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 70, 20));
-        jPanel4.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 190, -1));
+        jPanel4.add(lblTopic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, 70, 20));
+        jPanel4.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, 190, -1));
 
         jLabel4.setText("Created by");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
@@ -500,6 +716,157 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel4.add(lblForumID, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 60, 20));
 
         jTabbedPane1.addTab("Connect iN.U", jPanel4);
+
+        jPanel6.setBackground(new java.awt.Color(204, 255, 255));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("WELCOME TO PET THERAPY !");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Pet Name", "Breed", "Gender", "Age"
+            }
+        ));
+        jScrollPane5.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Gender");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Age");
+        }
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("NAME");
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("BREED");
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel30.setText("LOVES FOOD ");
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel31.setText("PARENT NAME");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+
+        jLabel32.setText("Image of the dog chosen");
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel33.setText("Book To Pet!");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "TIME"
+            }
+        ));
+        jScrollPane6.setViewportView(jTable2);
+
+        jButton1.setText("Click to book");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(279, 279, 279)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(64, 64, 64)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                                    .addComponent(jTextField3)
+                                    .addComponent(jTextField1))
+                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(110, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(358, 358, 358))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addComponent(jButton1)
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
         jTabbedPane1.addTab("Pet Therapy", jPanel6);
 
         tblForums.setModel(new javax.swing.table.DefaultTableModel(
@@ -515,38 +882,22 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(tblForums);
 
-        jLabel17.setText("Select the forum you want to view");
+        jPanel5.add(jScrollPane3);
 
-        jButton1.setText("Select");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel18.setText("Select the forum you want to view");
+        jPanel5.add(jLabel18);
+
+        btnSelectForum.setText("Select");
+        btnSelectForum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSelectForumActionPerformed(evt);
             }
         });
+        jPanel5.add(btnSelectForum);
+        jPanel5.add(lblDescription);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17))
-                .addContainerGap(350, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel17)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jButton1)
-                .addContainerGap(493, Short.MAX_VALUE))
-        );
+        jLabel19.setText("Description:");
+        jPanel5.add(jLabel19);
 
         jTabbedPane1.addTab("Select Forum", jPanel5);
 
@@ -592,6 +943,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         String id = MainJFrame.txtUsernameMain.getText();
         Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        student.setAssigned(Boolean.FALSE);
         student.setQues1(cmbQues1.getSelectedItem().toString());
         student.setQues2(cmbQues2.getSelectedItem().toString());
         student.setQues3(cmbQues3.getSelectedItem().toString());
@@ -642,8 +994,53 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
     private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostActionPerformed
         // TODO add your handling code here:
+        
+       int flag=0;
+       
        
        int forumid = Integer.parseInt(lblForumID.getText());
+       String studid = MainJFrame.txtUsernameMain.getText();
+       for(String student: system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).getStudentidlist()){
+           
+           if(student.equals(studid)){
+               
+               flag =1;
+               
+           }
+       }
+       if(flag==0){
+           
+           for(AccessRequest acc: system.getUniversitydirectory().getReqaccessq().getAccessRequestlist()){
+               
+               if(studid.equals(acc.getStudentid())){
+               
+               if(acc.getAccept()==null){
+                   
+                   JOptionPane.showMessageDialog(this, "Your request is still waiting to be accepted");
+                   return;
+                   
+                   
+                   
+               }
+               
+               if(acc.getAccept()==false){
+                   
+                   JOptionPane.showMessageDialog(this, "Your request was rejected. You can try requesting again");
+                   return;
+                   
+                   
+               }
+               }
+               
+           }
+           
+           JOptionPane.showMessageDialog(this, "You do not have access to post. Please Request access!");
+           return;
+           
+           
+           
+           
+       }
        Article article=system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).addArticle();
        String forum = txtStudentPost.getText();
        
@@ -673,12 +1070,16 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         acc.setDescription(txtComment.getText());
         acc.setStudentid(MainJFrame.txtUsernameMain.getText());
+        acc.setForumby(lblCreated.getText());
+        Date date = new Date();
+        acc.setDate(date);
+        acc.setForumid(forumid);
         JOptionPane.showMessageDialog(this, "Access Requested!");
         
         
     }//GEN-LAST:event_btnRequestForumAccessActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSelectForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectForumActionPerformed
         // TODO add your handling code here:
         
         DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
@@ -702,6 +1103,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblForumID.setText(forumid);
         lblCreated.setText(createdby);
         lblWelcome.setText("Welcome to "+ forum.getTitle());
+        lblDescription.setText(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)).getDescription());
         
         
         populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)));
@@ -710,7 +1112,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSelectForumActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
@@ -739,11 +1141,20 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnViewActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPost;
     private javax.swing.JButton btnRequestForumAccess;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveResponse;
+    private javax.swing.JButton btnSelectForum;
     private javax.swing.JButton btnSubmitResponse;
     private javax.swing.JButton btnView;
     private javax.swing.JComboBox<String> cmbEthnicity;
@@ -764,19 +1175,34 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbQues8;
     private javax.swing.JComboBox<String> cmbQues9;
     private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -790,20 +1216,33 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-
     private javax.swing.JScrollPane jScrollPane2;
-
     private javax.swing.JScrollPane jScrollPane3;
-
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lbl;
+    private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblComment;
     private javax.swing.JLabel lblCountry;
     private javax.swing.JLabel lblCreated;
+    private javax.swing.JLabel lblDegree;
+    private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblEthnicity;
+    private javax.swing.JLabel lblExp;
     private javax.swing.JLabel lblForumID;
     private javax.swing.JLabel lblGender;
+    private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPost;
     private javax.swing.JLabel lblQues1;
@@ -818,17 +1257,16 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues6;
     private javax.swing.JLabel lblQues8;
     private javax.swing.JLabel lblQues9;
+    private javax.swing.JLabel lblSpecialities1;
     private javax.swing.JLabel lblTherapistContact;
-    private javax.swing.JLabel lblTherapistName;
+    private javax.swing.JLabel lblTherapistName3;
     private javax.swing.JLabel lblTopic;
-
-    private javax.swing.JTable tblAppointment;
-
     private javax.swing.JLabel lblTopic1;
     private javax.swing.JLabel lblWelcome;
+    private javax.swing.JTable tblAppointment;
+    private javax.swing.JTable tblAppointment1;
     private javax.swing.JTable tblForums;
     private javax.swing.JTable tblPosts;
-
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCountry;

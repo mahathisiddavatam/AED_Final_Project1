@@ -27,16 +27,17 @@ public class YogaInstructorDirectory {
 
    
 
-    public YogaInstructor AddYogaInstructor(){
+    public YogaInstructor AddYogaInstructor(String id){
         
         YogaInstructor yogainst = new YogaInstructor();
+        yogainst.setId(id);
         yogainstlist.add(yogainst);
         return yogainst;
     }
     
-    public boolean DeleteYogaInstructor(int id){
+    public boolean DeleteYogaInstructor(String id){
          for(YogaInstructor yogainst: yogainstlist){
-             if(id==yogainst.getId()){
+             if(id.equals(yogainst.getId())){
                  yogainstlist.remove(yogainst);
                  return true;
              }
@@ -45,11 +46,11 @@ public class YogaInstructorDirectory {
          return false;
     }
     
-    public YogaInstructor RetrieveYogaInstructor(int id){
+    public YogaInstructor RetrieveYogaInstructor(String id){
         
         for(YogaInstructor yogainst: yogainstlist){
             
-            if(id==yogainst.getId()){
+            if(id.equals(yogainst.getId())){
                 
                 return yogainst;
             }

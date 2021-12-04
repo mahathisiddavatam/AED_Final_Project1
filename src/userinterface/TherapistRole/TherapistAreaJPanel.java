@@ -4,13 +4,19 @@
  */
 package userinterface.TherapistRole;
 
+import Business.Clinic.Therapist;
+import Business.Clinic.TherapistDirectory;
 import Business.EcoSystem;
+import Business.University.Student;
+import Business.University.StudentDirectory;
 
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.Therapy;
-import java.awt.CardLayout;
+import Business.WorkQueue.TherapyQueue;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -22,6 +28,12 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
 
     private UserAccount userAccount;
     private EcoSystem system;
+    String therapistid = MainJFrame.txtUsernameMain.getText();
+    Therapist therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(therapistid);
+    TherapistDirectory therapistdirectory = system.getClinicdirectory().getTherapistdir();
+    StudentDirectory studentdirectory = system.getUniversitydirectory().getStudentdir();
+    TherapyQueue therapyqueue = system.getClinicdirectory().getTherapyqueue();
+    
     /**
      * Creates new form DoctorWorkAreaJPanel
      */
@@ -33,11 +45,77 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.system = system;
         //valueLabel.setText(enterprise.getName());
-        populateRequestTable();
+        populatePatientTable();
+        setLabel();
+        populateSessionTable();
     }
     
-    public void populateRequestTable(){
+    public void populateSessionTable(){
         
+        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+        model.setRowCount(0);
+        
+        for(Therapy therapy: therapyqueue.getTherapylist()){
+            
+            if(therapy.getTerminate()==null){
+                
+                Object[] row = new Object[4];
+                row[0]= therapy.getId();
+                
+                row[1]= studentdirectory.RetrieveStudent(therapy.getStudentid()).getName();
+                row[2] = therapy.getDate();
+                row[3] = therapy.getTime();
+                
+                model.insertRow(0, row);
+                
+            
+            
+                
+                
+            }
+        }
+        
+        
+    }
+    
+    public void populatePatientTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+        model.setRowCount(0);
+        
+        for(Student student:studentdirectory.getstudentlist()){
+            
+            if(student.getAssigned()==false && student.getAssigned()!=null){
+                
+                Object[] row = new Object[4];
+                row[0]= student.getId();
+                
+                row[1]= student.getName();
+                row[2] = student.getGender();
+                row[3] = student.getEthnicity();
+                row[4] = student.getOrigin();
+                model.insertRow(0, row);
+                
+            
+            
+                
+                
+            }
+            
+            
+            
+            
+        
+        
+            
+            //To change body of generated methods, choose Tools | Templates.
+    }
+        
+    }
+    
+    public void setLabel(){
+        
+        lblViewTherapistName.setText(therapist.getName());
     }
 
     
@@ -52,28 +130,21 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        txtName = new javax.swing.JTextField();
-        txtAddress = new javax.swing.JTextField();
+        txtDegrees = new javax.swing.JTextField();
+        txtExpNo = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
         lblPhoneNo = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
-        lblCountry = new javax.swing.JLabel();
-        txtCountry = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
-        lblCity = new javax.swing.JLabel();
-        lblZip = new javax.swing.JLabel();
-        txtCity = new javax.swing.JTextField();
-        txtZip = new javax.swing.JTextField();
-        txtPhoneNo = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
+        txtSpecialities = new javax.swing.JTextField();
+        txtMessage = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        btnUpdate = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblViewTherapistName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPatient = new javax.swing.JTable();
         lblQues1 = new javax.swing.JLabel();
         lblQues2 = new javax.swing.JLabel();
         lblQues3 = new javax.swing.JLabel();
@@ -85,7 +156,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         lblQues9 = new javax.swing.JLabel();
         lblQues10 = new javax.swing.JLabel();
         btnViewStudent = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnAssign = new javax.swing.JButton();
         lblAns1 = new javax.swing.JLabel();
         lblAns2 = new javax.swing.JLabel();
         lblAns3 = new javax.swing.JLabel();
@@ -99,98 +170,88 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblSessions = new javax.swing.JTable();
         btnTerminate = new javax.swing.JButton();
 
         jTabbedPane1.setBackground(new java.awt.Color(204, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 255));
 
-        txtName.setPreferredSize(new java.awt.Dimension(120, 20));
-        txtName.addActionListener(new java.awt.event.ActionListener() {
+        txtDegrees.setPreferredSize(new java.awt.Dimension(120, 20));
+        txtDegrees.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
+                txtDegreesActionPerformed(evt);
             }
         });
 
-        txtAddress.setPreferredSize(new java.awt.Dimension(120, 20));
+        txtExpNo.setPreferredSize(new java.awt.Dimension(120, 20));
 
         lblName.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblName.setText("Full Name:");
+        lblName.setText("Degrees Acquired:");
         lblName.setPreferredSize(new java.awt.Dimension(100, 20));
         lblName.setVerifyInputWhenFocusTarget(false);
 
         lblAddress.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblAddress.setText("Address:");
+        lblAddress.setText("Number of years of Experience:");
 
         lblPhoneNo.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblPhoneNo.setText("Phone No.:");
+        lblPhoneNo.setText("Specialties in:");
 
         lblEmail.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblEmail.setText("Email:");
-
-        lblCountry.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblCountry.setText("Country:");
+        lblEmail.setText("A message for the counselees:");
 
         btnSave.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
-        lblCity.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblCity.setText("City:");
+        txtSpecialities.setPreferredSize(new java.awt.Dimension(120, 20));
 
-        lblZip.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblZip.setText("Zipcode:");
-
-        txtPhoneNo.setPreferredSize(new java.awt.Dimension(120, 20));
-
-        txtEmail.setPreferredSize(new java.awt.Dimension(120, 20));
+        txtMessage.setPreferredSize(new java.awt.Dimension(120, 20));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Counsellor Details");
-
-        btnUpdate.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        btnUpdate.setText("Update");
+        jLabel3.setText("Hello! Please enter your details if you haven't already or if you wish to update them");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(233, 233, 233)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblZip, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCountry, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCountry)
-                            .addComponent(txtCity)
-                            .addComponent(txtZip, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(235, Short.MAX_VALUE))
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(259, 259, 259))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(233, 233, 233)
+                        .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(txtDegrees, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(145, 145, 145)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(lblPhoneNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(70, 70, 70))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSpecialities, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtExpNo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,36 +260,22 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                 .addGap(72, 72, 72)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDegrees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtExpNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSpecialities, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCity)
-                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblZip)
-                    .addComponent(txtZip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(139, 139, 139)
                 .addComponent(btnSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnUpdate)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Therapist Details", jPanel3);
@@ -241,7 +288,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         lblViewTherapistName.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblViewTherapistName.setText("<therapistUserName>");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPatient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -252,7 +299,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                 "ID", "Name", "Gender", "Ethnicity", "Country"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPatient);
 
         lblQues1.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblQues1.setText("1. What emotion have you been experiencing most recently? ");
@@ -285,11 +332,16 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         lblQues10.setText("10. Do you think you are fundamentally different from other people? (rate on a scale of 1-5)");
 
         btnViewStudent.setText("View");
-
-        jButton1.setText("Assign to me");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnViewStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnViewStudentActionPerformed(evt);
+            }
+        });
+
+        btnAssign.setText("Assign to me");
+        btnAssign.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignActionPerformed(evt);
             }
         });
 
@@ -363,7 +415,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnViewStudent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(btnAssign, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -417,7 +469,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                     .addComponent(lblQues10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAns10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnAssign)
                 .addContainerGap())
         );
 
@@ -429,20 +481,25 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Active Session Details");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblSessions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "SessionID", "Client name", "Date-Time"
+                "SessionID", "Client name", "Date", "Time"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblSessions);
 
         btnTerminate.setText("Terminate session");
+        btnTerminate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerminateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -483,20 +540,122 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        Therapy therapy = therapyqueue.addTherapy();
+        therapy.setTherapistid(therapistid);
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPatient.getModel();
+        int selectedIndex = tblPatient.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Patient!");
+            return;
+            
+        }
+        String id=null;
+        
+        if(selectedIndex!=-1){
+            
+             id = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        therapy.setStudentid(id);
+        studentdirectory.RetrieveStudent(id).setAssigned(Boolean.TRUE);
+        studentdirectory.RetrieveStudent(id).setTherapistid(therapistid);
+        populatePatientTable();
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnAssignActionPerformed
 
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+    private void txtDegreesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDegreesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
+    }//GEN-LAST:event_txtDegreesActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        therapist.setDegrees(txtDegrees.getText());
+        therapist.setMessage(txtMessage.getText());
+        therapist.setExperience(txtExpNo.getText());
+        therapist.setSpecialities(txtSpecialities.getText());
+        JOptionPane.showMessageDialog(this, "Saved!");
+            
+        
+        
+        
+        
+                
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnViewStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewStudentActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPatient.getModel();
+        int selectedIndex = tblPatient.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Patient!");
+            return;
+            
+        }
+        String id=null;
+        
+        if(selectedIndex!=-1){
+            
+             id = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        lblAns1.setText(student.getQues1());
+        lblAns2.setText(student.getQues2());
+        lblAns3.setText(student.getQues3());
+        lblAns4.setText(student.getQues4());
+        lblAns5.setText(student.getQues5());
+        lblAns6.setText(student.getQues6());
+        lblAns7.setText(student.getQues7());
+        lblAns8.setText(student.getQues8());
+        lblAns9.setText(student.getQues10());
+        lblAns10.setText(student.getQues10());
+        
+    }//GEN-LAST:event_btnViewStudentActionPerformed
+
+    private void btnTerminateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminateActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPatient.getModel();
+        int selectedIndex = tblPatient.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a row!");
+            return;
+            
+        }
+        String id=null;
+        
+        if(selectedIndex!=-1){
+            
+             id = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        int intid = Integer.parseInt(id);
+        
+        Therapy therapy = therapyqueue.retrieveTherapy(intid);
+        therapy.setTerminate(Boolean.TRUE);
+        
+        
+    }//GEN-LAST:event_btnTerminateActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAssign;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnTerminate;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnViewStudent;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -507,8 +666,6 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAns1;
     private javax.swing.JLabel lblAns10;
@@ -520,8 +677,6 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblAns7;
     private javax.swing.JLabel lblAns8;
     private javax.swing.JLabel lblAns9;
-    private javax.swing.JLabel lblCity;
-    private javax.swing.JLabel lblCountry;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPhoneNo;
@@ -535,13 +690,11 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues8;
     private javax.swing.JLabel lblQues9;
     private javax.swing.JLabel lblViewTherapistName;
-    private javax.swing.JLabel lblZip;
-    private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtCity;
-    private javax.swing.JTextField txtCountry;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPhoneNo;
-    private javax.swing.JTextField txtZip;
+    private javax.swing.JTable tblPatient;
+    private javax.swing.JTable tblSessions;
+    private javax.swing.JTextField txtDegrees;
+    private javax.swing.JTextField txtExpNo;
+    private javax.swing.JTextField txtMessage;
+    private javax.swing.JTextField txtSpecialities;
     // End of variables declaration//GEN-END:variables
 }

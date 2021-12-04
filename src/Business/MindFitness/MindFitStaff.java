@@ -12,8 +12,7 @@ package Business.MindFitness;
 public class MindFitStaff {
     
     String Id;
-    String password;
-    String employeename;
+    String name;
     String email;
     String phone;
     String address;
@@ -29,20 +28,13 @@ public class MindFitStaff {
         this.Id = Id;
     }
 
-    public String getPassword() {
-        return password;
+
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmployeename() {
-        return employeename;
-    }
-
-    public void setEmployeename(String employeename) {
-        this.employeename = employeename;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

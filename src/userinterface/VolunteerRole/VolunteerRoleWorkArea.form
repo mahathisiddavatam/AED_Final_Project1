@@ -23,38 +23,34 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jSeparator1" min="-2" pref="814" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblImage" min="-2" pref="363" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lblDate1" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <Component id="lblDate" min="-2" pref="96" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblForum" min="-2" pref="96" max="-2" attributes="0"/>
                                   <Component id="lblForum1" alignment="1" min="-2" pref="96" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="523" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtFilenm" min="-2" pref="208" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
                                       <Component id="btnImage" min="-2" pref="132" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField2" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
-                                      <Component id="jTextField1" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                                          <Component id="btnSave" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="txtFilenm" min="-2" pref="208" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="lblImage" min="-2" pref="363" max="-2" attributes="0"/>
                           </Group>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1874cbc3d158143d8b89977466fa27b87742623f
                       </Group>
                   </Group>
                   <Component id="jSeparator1" alignment="0" min="-2" pref="814" max="-2" attributes="0"/>
@@ -71,6 +67,7 @@
                           <Component id="jTextField1" min="-2" pref="187" max="-2" attributes="0"/>
                           <Component id="btnSave" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtLocation" min="-2" pref="187" max="-2" attributes="0"/>
+<<<<<<< HEAD
 =======
                           <Group type="102" attributes="0">
                               <Component id="lblForum" min="-2" pref="96" max="-2" attributes="0"/>
@@ -78,10 +75,12 @@
                               <Component id="jScrollPane1" min="-2" pref="523" max="-2" attributes="0"/>
                           </Group>
 >>>>>>> 17e2387d276ceacecf0e29d4ee64182918874f20
+=======
+>>>>>>> 1874cbc3d158143d8b89977466fa27b87742623f
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="811" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -96,18 +95,38 @@
                       <Component id="lblForum" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblForum1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="btnImage" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="txtFilenm" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblImage" min="-2" pref="263" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
+              <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextField1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="lblDate" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="lblDate1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="jTextField2" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1874cbc3d158143d8b89977466fa27b87742623f
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblLocation" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   <Component id="txtLocation" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -115,6 +134,7 @@
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="btnSave" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="256" max="-2" attributes="0"/>
+<<<<<<< HEAD
 =======
               <Component id="btnSave" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -129,6 +149,8 @@
               <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="467" max="-2" attributes="0"/>
 >>>>>>> 17e2387d276ceacecf0e29d4ee64182918874f20
+=======
+>>>>>>> 1874cbc3d158143d8b89977466fa27b87742623f
           </Group>
       </Group>
     </DimensionLayout>
@@ -162,7 +184,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnImage">
       <Properties>
-        <Property name="text" type="java.lang.String" value="UPLOAD IMAGE"/>
+        <Property name="text" type="java.lang.String" value="Click to Upload"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImageActionPerformed"/>
@@ -175,16 +197,13 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSave">
       <Properties>
-        <Property name="text" type="java.lang.String" value="UPLOAD TEXT"/>
+        <Property name="text" type="java.lang.String" value="SAVE"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFilenm">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFilenmActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>

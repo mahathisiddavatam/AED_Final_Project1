@@ -31,7 +31,16 @@ public class PetTherapyDirectory {
         return pettherapylist;
     }
 
-   
+    public PetParentDirectory getPetparentdir() {
+        return petparentdir;
+    }
+
+
+
+    public PetTherapyStaffDirectory getPetstaffdir() {
+        return petstaffdir;
+    }
+  
 
     public PetTherapy AddPetTherapy(){
         
