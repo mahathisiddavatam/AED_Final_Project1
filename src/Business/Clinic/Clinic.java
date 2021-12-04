@@ -13,7 +13,7 @@ public class Clinic {
     int id;
     int count =1;
     //name, email, phone, address, city, country, zipcode
-    String username;
+    String Id;
     String password;
     String employeename;
     String email;
@@ -30,13 +30,10 @@ public class Clinic {
     
     public Clinic(){
         
-        id = count;
-        count++;
+        
     }
 
-    public int getId() {
-        return id;
-    }
+   
 
     public String getEmployeename() {
         return employeename;
@@ -94,12 +91,16 @@ public class Clinic {
         this.zipcode = zipcode;
     }
 
-    public String getUsername() {
-        return username;
+    public String getId() {
+        return Id;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.Id= username;
+    }
+
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
     public String getPassword() {

@@ -42,39 +42,20 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="23" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
-                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTree" name="jTree">
-                  <Events>
-                    <EventHandler event="valueChanged" listener="javax.swing.event.TreeSelectionListener" parameters="javax.swing.event.TreeSelectionEvent" handler="jTreeValueChanged"/>
-                  </Events>
-                </Component>
-              </SubComponents>
-            </Container>
             <Container class="javax.swing.JPanel" name="jPanel2">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -111,7 +92,7 @@
                                                       <Component id="txtCountry" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
                                                       <Component id="txtCity" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
                                                       <Component id="txtEmail" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                                                      <Component id="txtPhone" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
+                                                      <Component id="txtPhoneNo" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Component id="txtAddress" min="-2" pref="123" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
@@ -123,19 +104,13 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="lblSelectedNode" min="-2" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jScrollPane2" min="-2" pref="610" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="cbcManageAll" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
+                                                      <Component id="cmbOrgType" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                               <Component id="lblPass" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
@@ -143,8 +118,8 @@
                                                           </Group>
                                                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="txtUsernm" min="-2" pref="129" max="-2" attributes="0"/>
-                                                              <Component id="txtPass" min="-2" pref="129" max="-2" attributes="0"/>
+                                                              <Component id="txtUsername" min="-2" pref="129" max="-2" attributes="0"/>
+                                                              <Component id="txtPassword" min="-2" pref="129" max="-2" attributes="0"/>
                                                           </Group>
                                                           <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                                           <Component id="btnSubmit" min="-2" max="-2" attributes="0"/>
@@ -152,8 +127,6 @@
                                                   </Group>
                                                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                                   <Component id="btnDelete" min="-2" pref="75" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                                  <Component id="btnUpdate" min="-2" pref="90" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -168,28 +141,23 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblSelectedNode" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="93" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cbcManageAll" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="cmbOrgType" min="-2" pref="23" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblUsernm" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                      <Component id="txtUsernm" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtUsername" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblPass" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                      <Component id="txtPass" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -197,7 +165,6 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="btnSubmit" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -218,7 +185,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblPhone" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                      <Component id="txtPhone" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtPhoneNo" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
@@ -257,33 +224,17 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel1">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Selected Node:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="lblSelectedNode">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="&lt;View_selected_node&gt;"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="cbcManageAll">
+                <Component class="javax.swing.JComboBox" name="cmbOrgType">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="5">
-                        <StringItem index="0" value="MANAGE"/>
-                        <StringItem index="1" value="CLINIC"/>
-                        <StringItem index="2" value="UNIVERSITY"/>
-                        <StringItem index="3" value="CLINIC"/>
-                        <StringItem index="4" value="PET THERAPY"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;CLINIC&quot;, &quot;UNIVERSITY&quot;, &quot;MIND FITNESS&quot;, &quot;PET THERAPY&quot; })" type="code"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbcManageAllActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbOrgTypeActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -296,12 +247,12 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="tblEnterprises">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="5" rowCount="4">
                             <Column editable="true" title="NAME" type="java.lang.Object"/>
-                            <Column editable="true" title="Enterprise Name" type="java.lang.Object"/>
+                            <Column editable="true" title="Enterprise Type" type="java.lang.Object"/>
                             <Column editable="true" title="Email" type="java.lang.Object"/>
                             <Column editable="true" title="Phone" type="java.lang.Object"/>
                             <Column editable="true" title="Address" type="java.lang.Object"/>
@@ -355,7 +306,7 @@
                     <Property name="text" type="java.lang.String" value="PASSWORD"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtUsernm">
+                <Component class="javax.swing.JTextField" name="txtUsername">
                 </Component>
                 <Component class="javax.swing.JButton" name="btnSubmit">
                   <Properties>
@@ -364,8 +315,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="SUBMIT"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="txtPass">
+                <Component class="javax.swing.JPasswordField" name="txtPassword">
                 </Component>
                 <Component class="javax.swing.JSeparator" name="jSeparator1">
                 </Component>
@@ -417,7 +371,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtEmail">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtPhone">
+                <Component class="javax.swing.JTextField" name="txtPhoneNo">
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtAddress">
                 </Component>
@@ -434,6 +388,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="SAVE"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSaveActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnDelete">
                   <Properties>
@@ -442,6 +399,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Delete"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
@@ -453,17 +413,29 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnUpdate">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="33" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="UPDATE"/>
-                  </Properties>
-                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jPanel3">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+              <JSplitPaneConstraints position="right"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="102" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="666" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
         </Container>
       </SubComponents>
     </Container>

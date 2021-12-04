@@ -5,12 +5,18 @@
 package userinterface.StudentRole;
 
 import Business.EcoSystem;
+import Business.University.Student;
 
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.AccessRequest;
+import Business.WorkQueue.Article;
+import Business.WorkQueue.Forum;
 import Business.WorkQueue.Therapy;
-import java.awt.CardLayout;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -19,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
-    private EcoSystem business;
+    private EcoSystem system;
     private UserAccount userAccount;
     
     
@@ -31,10 +37,10 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
-        this.business = business;
+        this.system = business;
       
         
-        populateTable();
+        
     }
     
     public void populateTable(){
@@ -50,15 +56,333 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        txtName = new javax.swing.JTextField();
+        txtAge = new javax.swing.JTextField();
+        lblName = new javax.swing.JLabel();
+        lblAge = new javax.swing.JLabel();
+        lblGender = new javax.swing.JLabel();
+        lblEthnicity = new javax.swing.JLabel();
+        lblCountry = new javax.swing.JLabel();
+        cmbGender = new javax.swing.JComboBox<>();
+        cmbEthnicity = new javax.swing.JComboBox<>();
+        txtCountry = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        lblQues1 = new javax.swing.JLabel();
+        lblQues2 = new javax.swing.JLabel();
+        lblQues3 = new javax.swing.JLabel();
+        lblQues4 = new javax.swing.JLabel();
+        lblQues5 = new javax.swing.JLabel();
+        btnSubmitResponse = new javax.swing.JButton();
+        cmbQues1 = new javax.swing.JComboBox<>();
+        cmbQues2 = new javax.swing.JComboBox<>();
+        cmbQues3 = new javax.swing.JComboBox<>();
+        cmbQues4 = new javax.swing.JComboBox<>();
+        cmbQues5 = new javax.swing.JComboBox<>();
+        lblQues6 = new javax.swing.JLabel();
+        cmbQues6 = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        cmbQues7 = new javax.swing.JComboBox<>();
+        lblQues8 = new javax.swing.JLabel();
+        cmbQues8 = new javax.swing.JComboBox<>();
+        lblQues9 = new javax.swing.JLabel();
+        cmbQues9 = new javax.swing.JComboBox<>();
+        lblQues10 = new javax.swing.JLabel();
+        cmbQues10 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        lblQues11 = new javax.swing.JLabel();
+        lblQues12 = new javax.swing.JLabel();
+        lblQues13 = new javax.swing.JLabel();
+        btnSaveResponse = new javax.swing.JButton();
+        cmbQues11 = new javax.swing.JComboBox<>();
+        cmbQues12 = new javax.swing.JComboBox<>();
+        cmbQues13 = new javax.swing.JComboBox<>();
+        txtQues14 = new javax.swing.JLabel();
+        cmbQues14 = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        cmbQues15 = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAppointment = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        lblTherapistName = new javax.swing.JLabel();
+        lblTherapistContact = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        lblWelcome = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        workRequestJTable = new javax.swing.JTable();
-        assignJButton = new javax.swing.JButton();
-        processJButton = new javax.swing.JButton();
-        refreshJButton = new javax.swing.JButton();
+        tblPosts = new javax.swing.JTable();
+        btnView = new javax.swing.JButton();
+        lblPost = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblTopic = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtStudentPost = new javax.swing.JTextField();
+        btnPost = new javax.swing.JButton();
+        lblComment = new javax.swing.JLabel();
+        txtComment = new javax.swing.JTextField();
+        btnRequestForumAccess = new javax.swing.JButton();
+        lblTopic1 = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        lblCreated = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblForumID = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblForums = new javax.swing.JTable();
+        jLabel17 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtName.setPreferredSize(new java.awt.Dimension(120, 20));
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 160, -1));
+
+        txtAge.setPreferredSize(new java.awt.Dimension(120, 20));
+        jPanel1.add(txtAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 160, -1));
+
+        lblName.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblName.setText("Full Name:");
+        lblName.setPreferredSize(new java.awt.Dimension(100, 20));
+        lblName.setVerifyInputWhenFocusTarget(false);
+        jPanel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 130, -1));
+
+        lblAge.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblAge.setText("Age:");
+        jPanel1.add(lblAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 90, 20));
+
+        lblGender.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblGender.setText("Gender:");
+        jPanel1.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 70, 20));
+
+        lblEthnicity.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblEthnicity.setText("Ethnicity:");
+        jPanel1.add(lblEthnicity, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 70, 20));
+
+        lblCountry.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblCountry.setText("Country of origin:");
+        jPanel1.add(lblCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 20));
+
+        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Non-Binary", "Transgender", "Intersex","Other" }));
+        cmbGender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbGenderActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 160, -1));
+
+        cmbEthnicity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "American Indian", "African Descent", "East Asian", "Hispanic","Middle Eastern","South Asian","Caucasian","Other" }));
+        jPanel1.add(cmbEthnicity, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 160, -1));
+        jPanel1.add(txtCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 160, -1));
+
+        btnSave.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 120, -1));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Welcome, Husky! ");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 760, -1));
+
+        jLabel7.setText("IMAGE HERE!!");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, -1, -1));
+
+        jTabbedPane1.addTab("Person Details", jPanel1);
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Tell us a bit about yourself!");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 780, -1));
+
+        lblQues1.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues1.setText("1. What emotion have you been experiencing most recently? ");
+        jPanel2.add(lblQues1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 490, 20));
+
+        lblQues2.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues2.setText("2. Any big changes in life?");
+        jPanel2.add(lblQues2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 500, 20));
+
+        lblQues3.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues3.setText("3. How well have you been sleeping lately? (rate on a scale of 1-5)");
+        jPanel2.add(lblQues3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 500, 20));
+
+        lblQues4.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues4.setText("4. Do you know what is bothering you?");
+        jPanel2.add(lblQues4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 500, 20));
+
+        lblQues5.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues5.setText("5. How much emotional support do you feel you have?  (rate on a scale of 1-5)");
+        jPanel2.add(lblQues5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 520, 20));
+
+        btnSubmitResponse.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        btnSubmitResponse.setText("Submit Response");
+        btnSubmitResponse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitResponseActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnSubmitResponse, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 460, 150, -1));
+
+        cmbQues1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Joy", "Anger", "Sadness", "Anxiety", "Fear", "Mixed Emotion", " " }));
+        cmbQues1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbQues1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cmbQues1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, 150, -1));
+
+        cmbQues2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
+        jPanel2.add(cmbQues2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 150, -1));
+
+        cmbQues3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", " " }));
+        jPanel2.add(cmbQues3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, 150, -1));
+
+        cmbQues4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No", "Umm...I think so" }));
+        jPanel2.add(cmbQues4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, 150, -1));
+
+        cmbQues5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jPanel2.add(cmbQues5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, 150, -1));
+
+        lblQues6.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues6.setText("6. Do you feel you're having trouble fitting in?");
+        jPanel2.add(lblQues6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 520, 20));
+
+        cmbQues6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No", "A little bit..." }));
+        jPanel2.add(cmbQues6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 150, -1));
+
+        jLabel9.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel9.setText("7. Are you having trouble getting by on your own in everyday life?");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 520, 20));
+
+        cmbQues7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
+        jPanel2.add(cmbQues7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 150, -1));
+
+        lblQues8.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues8.setText("8. Do you feel like something bad is about to happen?");
+        jPanel2.add(lblQues8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 520, 20));
+
+        cmbQues8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
+        jPanel2.add(cmbQues8, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 340, 150, -1));
+
+        lblQues9.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues9.setText("9. Do you feel you're too self-consious to show positive feelings? (rate on a scale of 1-5)");
+        jPanel2.add(lblQues9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 590, 20));
+
+        cmbQues9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jPanel2.add(cmbQues9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 380, 150, -1));
+
+        lblQues10.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues10.setText("10. Do you think you are fundamentally different from other people? (rate on a scale of 1-5)");
+        jPanel2.add(lblQues10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 620, 20));
+
+        cmbQues10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jPanel2.add(cmbQues10, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, 150, -1));
+
+        jLabel8.setText("IMAGE HERE!");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 600, -1, -1));
+
+        jTabbedPane1.addTab("Questionnaire ", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Breathe in and out, notice the emotions that are inside of you. How are you feeling, really?");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 30));
+
+        lblQues11.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues11.setText("1. In the past week, how often have you felt: joy, anxiety, sadness, anger, etc.?");
+        jPanel3.add(lblQues11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 550, 20));
+
+        lblQues12.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues12.setText("2. What colour is the best fit for how you feel today? ");
+        jPanel3.add(lblQues12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 420, 20));
+
+        lblQues13.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues13.setText("3. Have you been feeling physically ill in the past week?");
+        jPanel3.add(lblQues13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 420, 20));
+
+        btnSaveResponse.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        btnSaveResponse.setText("Save Response");
+        btnSaveResponse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveResponseActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnSaveResponse, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 130, -1));
+
+        cmbQues11.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Not often", "Very often", "All the time!" }));
+        jPanel3.add(cmbQues11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 210, -1));
+
+        cmbQues12.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Red", "Blue", "Green", "Yellow", "Pink" }));
+        jPanel3.add(cmbQues12, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 210, -1));
+
+        cmbQues13.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
+        jPanel3.add(cmbQues13, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, 210, -1));
+
+        txtQues14.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        txtQues14.setText("4. How many hours of sleep did you get this week? ");
+        jPanel3.add(txtQues14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 520, 20));
+
+        cmbQues14.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "< 20 hours", "< 35 hours", "< 50 hours", "> 55 hours" }));
+        jPanel3.add(cmbQues14, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 180, 210, -1));
+
+        jLabel10.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel10.setText("5. Do you feel lethargic?");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 530, -1));
+
+        cmbQues15.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No", "All the time...." }));
+        jPanel3.add(cmbQues15, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, 210, -1));
+
+        jLabel11.setText("IMAGE HERE!");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 470, -1, -1));
+
+        jTabbedPane1.addTab("How are you feeling today?", jPanel3);
+
+        jPanel7.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Counselor and Appointment Details");
+        jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 5, 840, -1));
+
+        jLabel15.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel15.setText("Counselor Name:");
+        jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 120, 20));
+
+        tblAppointment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -66,89 +390,471 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Message", "Sender", "Receiver", "Status"
+                "Session no.", "Date", "Time", "Location"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, true, true, false
-            };
+        ));
+        jScrollPane2.setViewportView(tblAppointment);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        jPanel7.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, -1, 110));
+
+        jLabel16.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel16.setText("Contact no.:");
+        jPanel7.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, -1, 20));
+
+        lblTherapistName.setText("<therapist name>");
+        jPanel7.add(lblTherapistName, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 300, 20));
+
+        lblTherapistContact.setText("<therapist phone number>");
+        jPanel7.add(lblTherapistContact, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, 300, 20));
+
+        jLabel17.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel17.setText("** Services are appointment based ONLY. Please call your therapist or the clinic to reschedule.");
+        jPanel7.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 840, 20));
+
+        jTabbedPane1.addTab("Counselor details", jPanel7);
+
+        jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblWelcome.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWelcome.setText("Welcome to the Connect iN.U Forum!");
+        jPanel4.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 830, -1));
+
+        tblPosts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Post ID", "Post Title", "Date posted"
             }
+        ));
+        jScrollPane1.setViewportView(tblPosts);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(workRequestJTable);
-        if (workRequestJTable.getColumnModel().getColumnCount() > 0) {
-            workRequestJTable.getColumnModel().getColumn(0).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(1).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(2).setResizable(false);
-            workRequestJTable.getColumnModel().getColumn(3).setResizable(false);
-        }
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 370, 110));
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 58, 375, 96));
-
-        assignJButton.setText("Assign to me");
-        assignJButton.addActionListener(new java.awt.event.ActionListener() {
+        btnView.setText("View");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignJButtonActionPerformed(evt);
+                btnViewActionPerformed(evt);
             }
         });
-        add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 215, -1, -1));
+        jPanel4.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(707, 250, 100, -1));
 
-        processJButton.setText("Process");
-        processJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                processJButtonActionPerformed(evt);
-            }
-        });
-        add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 215, -1, -1));
+        lblPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel4.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
 
-        refreshJButton.setText("Refresh");
-        refreshJButton.addActionListener(new java.awt.event.ActionListener() {
+        jLabel6.setText("IMAGE HERE!");
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 60, 240, 50));
+
+        jLabel12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel12.setText("Add your own post here!");
+        jPanel4.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, -1, 20));
+
+        lblTopic.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblTopic.setText("Title:");
+        jPanel4.add(lblTopic, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 70, 20));
+
+        jLabel14.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(153, 0, 102));
+        jLabel14.setText("No access? Request access below!");
+        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 260, 20));
+        jPanel4.add(txtStudentPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 270, 60));
+
+        btnPost.setText("Post");
+        btnPost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshJButtonActionPerformed(evt);
+                btnPostActionPerformed(evt);
             }
         });
-        add(refreshJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 26, -1, -1));
+        jPanel4.add(btnPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, 100, -1));
+
+        lblComment.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblComment.setText("Comment:");
+        jPanel4.add(lblComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 510, 70, 20));
+        jPanel4.add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 510, 270, 60));
+
+        btnRequestForumAccess.setText("Request Access");
+        btnRequestForumAccess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestForumAccessActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnRequestForumAccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 580, -1, -1));
+
+        lblTopic1.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblTopic1.setText("Post:");
+        jPanel4.add(lblTopic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 70, 20));
+        jPanel4.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 190, -1));
+
+        jLabel4.setText("Created by");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
+        jPanel4.add(lblCreated, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 100, 20));
+
+        jLabel5.setText("Forum ID:");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, -1, -1));
+        jPanel4.add(lblForumID, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 60, 20));
+
+        jTabbedPane1.addTab("Connect iN.U", jPanel4);
+        jTabbedPane1.addTab("Pet Therapy", jPanel6);
+
+        tblForums.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Forum ID", "Forum Name", "Created By", "Created On"
+            }
+        ));
+        jScrollPane3.setViewportView(tblForums);
+
+        jLabel17.setText("Select the forum you want to view");
+
+        jButton1.setText("Select");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addContainerGap(350, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addContainerGap(493, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Select Forum", jPanel5);
+
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 830, 730));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
+    private void btnSaveResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveResponseActionPerformed
+        // TODO add your handlif(ing code here:
 
-        int selectedRow = workRequestJTable.getSelectedRow();
+            String id = MainJFrame.txtUsernameMain.getText();
+            Therapy the=null;
+            for(Therapy therapy: system.getClinicdirectory().getTherapyqueue().getTherapylist()){
+
+                if(id.equals(therapy.getStudentid())){
+
+                    the = therapy;
+
+                }
+            }
+
+            if(the==null){
+
+                JOptionPane.showMessageDialog(this, "Please wait until a therapist has been assigned to answer these questions!");
+                return;
+
+            }
+            the.setQues11(cmbQues11.getSelectedItem().toString());
+            the.setQues12(cmbQues12.getSelectedItem().toString());
+            the.setQues13(cmbQues13.getSelectedItem().toString());
+            the.setQues14(cmbQues14.getSelectedItem().toString());
+            the.setQues15(cmbQues15.getSelectedItem().toString());
+
+            JOptionPane.showMessageDialog(this, "Thank you! Your answers have been recorded!");
+
+    }//GEN-LAST:event_btnSaveResponseActionPerformed
+
+    private void cmbQues1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbQues1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbQues1ActionPerformed
+
+    private void btnSubmitResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitResponseActionPerformed
+        // TODO add your handling code here:
+
+        String id = MainJFrame.txtUsernameMain.getText();
+        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        student.setQues1(cmbQues1.getSelectedItem().toString());
+        student.setQues2(cmbQues2.getSelectedItem().toString());
+        student.setQues3(cmbQues3.getSelectedItem().toString());
+        student.setQues4(cmbQues4.getSelectedItem().toString());
+        student.setQues5(cmbQues5.getSelectedItem().toString());
+
+        student.setQues6(cmbQues6.getSelectedItem().toString());
+        student.setQues7(cmbQues7.getSelectedItem().toString());
+        student.setQues8(cmbQues8.getSelectedItem().toString());
+        student.setQues9(cmbQues9.getSelectedItem().toString());
+        student.setQues10(cmbQues10.getSelectedItem().toString());
+        JOptionPane.showMessageDialog(this, "Thank you! A therapist will be assigned to you shortly!");
+
+    }//GEN-LAST:event_btnSubmitResponseActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+
+        String name = txtName.getText();
+        String age =txtAge.getText();
+        String gender = cmbGender.getSelectedItem().toString();
+        String ethnicity = cmbEthnicity.getSelectedItem().toString();
+        String org = txtCountry.getText();
+
+        if(name==null || age==null || gender==null || ethnicity==null || org==null){
+
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+
+        String id = MainJFrame.txtUsernameMain.getText();
+        Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
+        student.setAge(age);
+        student.setEthnicity(ethnicity);
+        student.setGender(gender);
+        student.setOrigin(org);
+
+        JOptionPane.showMessageDialog(this, "Your details have been saved! You can now proceed to the next tab");
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void cmbGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGenderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbGenderActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void btnPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostActionPerformed
+        // TODO add your handling code here:
+       
+       int forumid = Integer.parseInt(lblForumID.getText());
+       Article article=system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).addArticle();
+       String forum = txtStudentPost.getText();
+       
+       article.setPost(forum);
+       article.setTitle(txtTitle.getText());
+       Date date = new Date();
+       article.setDate(date);
+       populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(forumid));
+       JOptionPane.showMessageDialog(this, "Posted!");
+       
         
-        if (selectedRow < 0){
+       
+    }//GEN-LAST:event_btnPostActionPerformed
+
+    private void btnRequestForumAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestForumAccessActionPerformed
+        // TODO add your handling code here:
+        int forumid = Integer.parseInt(lblForumID.getText());
+        for(String id: system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).getStudentidlist()){
+            
+            if(id.equals(MainJFrame.txtUsernameMain.getText())){
+                JOptionPane.showMessageDialog(this, "You have access! Continue Posting!");
+                return;
+                
+            }
+        }
+        AccessRequest acc=system.getUniversitydirectory().getReqaccessq().addAccessRequest();
+        
+        acc.setDescription(txtComment.getText());
+        acc.setStudentid(MainJFrame.txtUsernameMain.getText());
+        JOptionPane.showMessageDialog(this, "Access Requested!");
+        
+        
+    }//GEN-LAST:event_btnRequestForumAccessActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
+        int selectedIndex = tblForums.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a post!");
             return;
+            
+        }
+        String forumid=null;
+        String createdby=null;
+        if(selectedIndex!=-1){
+            
+             forumid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
         }
         
-        Therapy request = (Therapy)workRequestJTable.getValueAt(selectedRow, 0);
-        request.setReceiver(userAccount);
-        request.setStatus("Pending");
-        populateTable();
+        Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid));
         
-    }//GEN-LAST:event_assignJButtonActionPerformed
-
-    private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
+        lblForumID.setText(forumid);
+        lblCreated.setText(createdby);
+        lblWelcome.setText("Welcome to "+ forum.getTitle());
+        
+        
+        populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)));
+        JOptionPane.showMessageDialog(this, "Switch to the next tab to view forum!");
         
 
         
-    }//GEN-LAST:event_processJButtonActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void refreshJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshJButtonActionPerformed
-        populateTable();
-    }//GEN-LAST:event_refreshJButtonActionPerformed
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPosts.getModel();
+        int selectedIndex = tblPosts.getSelectedRow();
+        String postid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a post!");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             postid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        int forumid  = Integer.parseInt(lblForumID.getText());
+        int posttid = Integer.parseInt(postid);
+        String post = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid).getPost();
+        
+        String parsedPost = post.replaceAll("(.{10000})", "$1\n");
+        lblPost.setText(parsedPost);
+        
+    }//GEN-LAST:event_btnViewActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton assignJButton;
+    private javax.swing.JButton btnPost;
+    private javax.swing.JButton btnRequestForumAccess;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSaveResponse;
+    private javax.swing.JButton btnSubmitResponse;
+    private javax.swing.JButton btnView;
+    private javax.swing.JComboBox<String> cmbEthnicity;
+    private javax.swing.JComboBox<String> cmbGender;
+    private javax.swing.JComboBox<String> cmbQues1;
+    private javax.swing.JComboBox<String> cmbQues10;
+    private javax.swing.JComboBox<String> cmbQues11;
+    private javax.swing.JComboBox<String> cmbQues12;
+    private javax.swing.JComboBox<String> cmbQues13;
+    private javax.swing.JComboBox<String> cmbQues14;
+    private javax.swing.JComboBox<String> cmbQues15;
+    private javax.swing.JComboBox<String> cmbQues2;
+    private javax.swing.JComboBox<String> cmbQues3;
+    private javax.swing.JComboBox<String> cmbQues4;
+    private javax.swing.JComboBox<String> cmbQues5;
+    private javax.swing.JComboBox<String> cmbQues6;
+    private javax.swing.JComboBox<String> cmbQues7;
+    private javax.swing.JComboBox<String> cmbQues8;
+    private javax.swing.JComboBox<String> cmbQues9;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton processJButton;
-    private javax.swing.JButton refreshJButton;
-    private javax.swing.JTable workRequestJTable;
+
+    private javax.swing.JScrollPane jScrollPane2;
+
+    private javax.swing.JScrollPane jScrollPane3;
+
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblAge;
+    private javax.swing.JLabel lblComment;
+    private javax.swing.JLabel lblCountry;
+    private javax.swing.JLabel lblCreated;
+    private javax.swing.JLabel lblEthnicity;
+    private javax.swing.JLabel lblForumID;
+    private javax.swing.JLabel lblGender;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPost;
+    private javax.swing.JLabel lblQues1;
+    private javax.swing.JLabel lblQues10;
+    private javax.swing.JLabel lblQues11;
+    private javax.swing.JLabel lblQues12;
+    private javax.swing.JLabel lblQues13;
+    private javax.swing.JLabel lblQues2;
+    private javax.swing.JLabel lblQues3;
+    private javax.swing.JLabel lblQues4;
+    private javax.swing.JLabel lblQues5;
+    private javax.swing.JLabel lblQues6;
+    private javax.swing.JLabel lblQues8;
+    private javax.swing.JLabel lblQues9;
+    private javax.swing.JLabel lblTherapistContact;
+    private javax.swing.JLabel lblTherapistName;
+    private javax.swing.JLabel lblTopic;
+
+    private javax.swing.JTable tblAppointment;
+
+    private javax.swing.JLabel lblTopic1;
+    private javax.swing.JLabel lblWelcome;
+    private javax.swing.JTable tblForums;
+    private javax.swing.JTable tblPosts;
+
+    private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtComment;
+    private javax.swing.JTextField txtCountry;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JLabel txtQues14;
+    private javax.swing.JTextField txtStudentPost;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
+
+    private void populatePostTable(Forum forum) {
+        DefaultTableModel model = (DefaultTableModel) tblPosts.getModel();
+        model.setRowCount(0);
+        
+        for(Article article: forum.getArticlelist()){
+            
+            Object[] row = new Object[3];
+            row[0]= article.getId();
+            row[1]= article.getTitle();
+            row[2] = article.getDate();
+            
+            model.insertRow(0, row);
+            
+            
+        }
+        
+            
+            //To change body of generated methods, choose Tools | Templates.
+    }
 }

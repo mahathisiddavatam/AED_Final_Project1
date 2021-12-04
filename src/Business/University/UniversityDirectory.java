@@ -5,10 +5,9 @@
  */
 package Business.University;
 
-import Business.MindFitness.MindFitStaffDirectory;
-import Business.MindFitness.MindFitness;
-import Business.MindFitness.NutrionistDirectory;
-import Business.MindFitness.YogaInstructorDirectory;
+import Business.WorkQueue.AccessRequestQueue;
+import Business.WorkQueue.ForumQueue;
+import Business.WorkQueue.EventQueue;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +21,12 @@ public class UniversityDirectory {
     private StudentDirectory studentdir;
     private VolunteerDirectory volunteerdir;
     private ForumAdminDirectory forumdir;
+    private ForumQueue articlequeue;
+    private EventQueue eventqueue;
+    private AccessRequestQueue reqaccessq;
+    
+    
+    
 
     public ArrayList<University> getUnilist() {
         return unilist;
@@ -44,6 +49,35 @@ public class UniversityDirectory {
         studentdir = new StudentDirectory();
         volunteerdir = new VolunteerDirectory();
         forumdir = new ForumAdminDirectory();
+        articlequeue = new ForumQueue();
+        eventqueue = new EventQueue();
+        reqaccessq = new AccessRequestQueue();
+    }
+
+    public ForumQueue getForumqueue() {
+        return articlequeue;
+    }
+
+    public void setForumqueue(ForumQueue articlequeue) {
+        this.articlequeue = articlequeue;
+    }
+    
+    
+
+    public EventQueue getEventqueue() {
+        return eventqueue;
+    }
+
+    public void setEventqueue(EventQueue eventqueue) {
+        this.eventqueue = eventqueue;
+    }
+
+    public AccessRequestQueue getReqaccessq() {
+        return reqaccessq;
+    }
+
+    public void setReqaccessq(AccessRequestQueue reqaccessq) {
+        this.reqaccessq = reqaccessq;
     }
 
     public University addNewUniversity(){
@@ -53,9 +87,9 @@ public class UniversityDirectory {
         return uni;
     }
     
-    public boolean deleteUniversity(int id){
+    public boolean deleteUniversity(String id){
          for(University uni: unilist){
-             if(id==uni.getId()){
+             if(id.equals(uni.getId())){
                  unilist.remove(uni);
                  return true;
              }
@@ -63,12 +97,16 @@ public class UniversityDirectory {
          }
          return false;
     }
+
+    public void setUnilist(ArrayList<University> unilist) {
+        this.unilist = unilist;
+    }
     
-    public University RetrieveUniversity(int id){
+    public University RetrieveUniversity(String id){
         
         for(University uni: unilist){
             
-            if(id==uni.getId()){
+            if(id.equals(uni.getId())){
                 
                 return uni;
             }

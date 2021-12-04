@@ -13,10 +13,11 @@ import java.util.ArrayList;
  */
 public class StudentDirectory {
     
-    private ArrayList<Student> studentlist;
+    public ArrayList<Student> studentlist;
     
     public void StudentDirectory() {
         studentlist = new ArrayList();
+        
         
         
     }
@@ -51,7 +52,14 @@ public class StudentDirectory {
     
     public Student RetrieveStudent(String id){
         
-        for(Student student: studentlist){
+        
+        if(getstudentlist()==null){
+            ArrayList<Student> stulist = new ArrayList();
+            setStudentlist(stulist);
+        }
+        
+        
+        for(Student student: getstudentlist()){
             
             if(id.equals(student.getId())){
                 
