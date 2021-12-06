@@ -38,19 +38,253 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        lblWelcome = new javax.swing.JLabel();
+        valueLabel = new javax.swing.JLabel();
+        lblNutritionist = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblNutritionist = new javax.swing.JTable();
+        btnView = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblTimeslot = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        lblSelectDate = new javax.swing.JLabel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblStudentList = new javax.swing.JTable();
+        btnConfirm = new javax.swing.JButton();
+        txtTimeDate = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        lblStudents = new javax.swing.JLabel();
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+
+        lblWelcome.setBackground(new java.awt.Color(255, 255, 0));
+        lblWelcome.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblWelcome.setText("WELCOME:");
+
+        valueLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        valueLabel.setForeground(new java.awt.Color(0, 153, 153));
+        valueLabel.setText("<value>");
+
+        lblNutritionist.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNutritionist.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNutritionist.setText("NUTRITIONISTS");
+        lblNutritionist.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tblNutritionist.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "NUTRITIONIST ID", "NAME"
+            }
+        ));
+        jScrollPane1.setViewportView(tblNutritionist);
+
+        btnView.setText("CLICK TO VIEW REQUESTS");
+
+        jButton2.setText("MANAGE PAYMENTS");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        tblTimeslot.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"8:00 AM"},
+                {"9:00 AM"},
+                {"10:00 AM"},
+                {"11:00 AM"},
+                {"1:00 PM"},
+                {"2:00 PM"},
+                {"3:00 PM"},
+                {"4:00 PM"}
+            },
+            new String [] {
+                "TIME"
+            }
+        ));
+        jScrollPane2.setViewportView(tblTimeslot);
+
+        lblSelectDate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblSelectDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSelectDate.setText("SELECT DATE TO ASSIGN");
+        lblSelectDate.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        tblStudentList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "NAME", "COLLEGE", "APPOINTMENT DATE"
+            }
+        ));
+        jScrollPane3.setViewportView(tblStudentList);
+        if (tblStudentList.getColumnModel().getColumnCount() > 0) {
+            tblStudentList.getColumnModel().getColumn(1).setHeaderValue("NAME");
+            tblStudentList.getColumnModel().getColumn(2).setHeaderValue("COLLEGE");
+            tblStudentList.getColumnModel().getColumn(3).setHeaderValue("APPOINTMENT DATE");
+        }
+
+        btnConfirm.setText("CONFIRM APPOINTMENT");
+
+        jLabel3.setText("SELECTED TIME AND DATE");
+
+        lblStudents.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblStudents.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStudents.setText("STUDENTS ");
+        lblStudents.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(160, 160, 160)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblNutritionist, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jButton2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(250, 250, 250)
+                                .addComponent(btnView))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(171, 171, 171)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtTimeDate)
+                                    .addComponent(jLabel3))))
+                        .addGap(0, 34, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(133, 133, 133)
+                                .addComponent(lblSelectDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(225, 225, 225)
+                                .addComponent(lblStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane3)
+                    .addContainerGap()))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lblNutritionist, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnView)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(126, 126, 126)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTimeDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnConfirm)
+                        .addGap(99, 99, 99))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lblSelectDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+                        .addContainerGap(21, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(330, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(273, 273, 273)))
+        );
+
+        jTabbedPane1.addTab("WELCOME STAFF", jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnView;
+    private javax.swing.JButton jButton2;
+    private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblNutritionist;
+    private javax.swing.JLabel lblSelectDate;
+    private javax.swing.JLabel lblStudents;
+    private javax.swing.JLabel lblWelcome;
+    private javax.swing.JTable tblNutritionist;
+    private javax.swing.JTable tblStudentList;
+    private javax.swing.JTable tblTimeslot;
+    private javax.swing.JTextField txtTimeDate;
+    private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }
