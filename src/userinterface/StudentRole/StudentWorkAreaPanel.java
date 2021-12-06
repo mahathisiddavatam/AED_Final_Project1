@@ -88,7 +88,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 }
                 else{
                     
-                    row[1]= therapy.getDate();
+                    row[1]= therapy.getDate() + " (Upcoming)";
                 }
                 
                 if(therapy.getTime()==null){

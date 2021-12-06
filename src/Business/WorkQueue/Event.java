@@ -16,6 +16,8 @@ public class Event {
     String filename;
     String location;
     Date date;
+    String dat;
+    
     String time;
     int id;
     int count =1;
