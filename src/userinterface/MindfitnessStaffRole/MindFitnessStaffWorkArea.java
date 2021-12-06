@@ -80,6 +80,21 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         txtDateTime = new javax.swing.JTextField();
         btnConfirm1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        lblInstructors1 = new javax.swing.JLabel();
+        lblInstructor = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblInstructorPayment = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JTextField();
+        btnPay = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        lblNutritionist2 = new javax.swing.JLabel();
+        lblNutri = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tblNutritionistPayment = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        txtTotal1 = new javax.swing.JTextField();
+        btnPayment = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -455,18 +470,148 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
 
+        lblInstructors1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblInstructors1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInstructors1.setText("MANAGE PAYMENTS");
+        lblInstructors1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblInstructor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInstructor.setText("INSTRUCTORS ");
+
+        tblInstructorPayment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "INSTRUCTOR ID", "NAME", "STUDENT NAME", "TIME TAKEN"
+            }
+        ));
+        jScrollPane7.setViewportView(tblInstructorPayment);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("TOTAL");
+
+        btnPay.setText("DO PAYMENT");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(lblInstructors1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(btnPay)))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblInstructors1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(lblInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(96, 96, 96)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPay))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("MANAGE PAYMENTS", jPanel3);
+        jTabbedPane1.addTab("MANAGE PAYMENTS - INSTRUCTORS", jPanel3);
+
+        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
+
+        lblNutritionist2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNutritionist2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNutritionist2.setText("MANAGE PAYMENTS");
+        lblNutritionist2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblNutri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNutri.setText("NUTRITIONIST");
+
+        tblNutritionistPayment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "NUTRITIONIST ID", "NAME", "STUDENT NAME", "TIME TAKEN"
+            }
+        ));
+        jScrollPane8.setViewportView(tblNutritionistPayment);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("TOTAL");
+
+        btnPayment.setText("DO PAYMENT");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(lblNutritionist2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(lblNutri, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnPayment)))
+                .addContainerGap(72, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(lblNutritionist2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(lblNutri, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(75, 75, 75)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPayment))
+                .addContainerGap(407, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("MANAGE PAYMENTS - NUTRITIONIST", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -497,28 +642,39 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnManage;
+    private javax.swing.JButton btnPay;
+    private javax.swing.JButton btnPayment;
     private javax.swing.JButton btnView;
     private javax.swing.JButton btnView1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar2;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblInstructor;
     private javax.swing.JLabel lblInstructors;
+    private javax.swing.JLabel lblInstructors1;
+    private javax.swing.JLabel lblNutri;
     private javax.swing.JLabel lblNutritionist;
+    private javax.swing.JLabel lblNutritionist2;
     private javax.swing.JLabel lblSelectDate;
     private javax.swing.JLabel lblSelectDate1;
     private javax.swing.JLabel lblSelectDateTime;
@@ -527,13 +683,17 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JLabel lblWelcome1;
     private javax.swing.JTable tblInstructor;
+    private javax.swing.JTable tblInstructorPayment;
     private javax.swing.JTable tblNutritionist;
+    private javax.swing.JTable tblNutritionistPayment;
     private javax.swing.JTable tblStudentList;
     private javax.swing.JTable tblStudentList1;
     private javax.swing.JTable tblTimeslot;
     private javax.swing.JTable tblTimeslot1;
     private javax.swing.JTextField txtDateTime;
     private javax.swing.JTextField txtTimeDate;
+    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtTotal1;
     private javax.swing.JLabel valueLabel;
     private javax.swing.JLabel valueLabel1;
     // End of variables declaration//GEN-END:variables
