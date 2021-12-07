@@ -6,8 +6,16 @@
 package userinterface.PetTherapyAdmin;
 
 import Business.EcoSystem;
+import Business.PetTherapy.PetParent;
+import Business.PetTherapy.PetTherapyStaff;
+import Business.Role.PetParentRole;
+import Business.Role.PetTherapyStaffRole;
 import Business.UserAccount.UserAccount;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -42,7 +50,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         btnBack = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblClinicOrg2 = new javax.swing.JTable();
+        tblPetTherapy = new javax.swing.JTable();
         lblPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         lblOrgType2 = new javax.swing.JLabel();
@@ -57,7 +65,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         lblCountry2 = new javax.swing.JLabel();
         lblZip2 = new javax.swing.JLabel();
         cmbOrgType2 = new javax.swing.JComboBox<>();
-        txtPetParentName = new javax.swing.JTextField();
+        txtEmployeeName = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtPhoneNo = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
@@ -80,7 +88,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         lblUsername.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblUsername.setText("UserName:");
 
-        tblClinicOrg2.setModel(new javax.swing.table.DefaultTableModel(
+        tblPetTherapy.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -91,7 +99,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
                 "UserName", "Employee Type", "Contact No", "Address", "Zipcode"
             }
         ));
-        jScrollPane3.setViewportView(tblClinicOrg2);
+        jScrollPane3.setViewportView(tblPetTherapy);
 
         lblPassword.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblPassword.setText("Password:");
@@ -208,7 +216,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(lblOrgName2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtPetParentName, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(374, 374, 374)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +253,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
                         .addGap(0, 179, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblOrgName2)
-                            .addComponent(txtPetParentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPetName, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -305,6 +313,58 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        if((txtUsername.getText().isEmpty()) || (txtPassword.getText().isEmpty())){
+
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        
+        String reg = "^(?=.*[0-9])"
+        + "(?=.*[a-z])(?=.*[A-Z])"
+        + "(?=.*[@#$%^&+=])"
+        + "(?=\\S+$).{8,20}$";
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(password);
+        int f = 0;
+        if(mat.matches()){
+            f=1;
+
+        }
+        if(f==0){
+
+            JOptionPane.showMessageDialog(this, "Invalid Password!");
+            return;
+
+        }
+        
+        if(system.getUserAccountDirectory().checkIfUsernameIsUnique(username)==false){
+
+            JOptionPane.showMessageDialog(this, "Username already taken!");
+            return;
+
+        }
+        
+        if(cmbOrgType2.getSelectedItem().toString()=="Pet Therapy Staff"){
+            system.getUserAccountDirectory().createUserAccount(username, password, new PetTherapyStaffRole());
+            system.getPettherapydirectory().getPetstaffdir().AddPetTherapyStaff(username);
+            JOptionPane.showMessageDialog(this, "User Added!");
+            return;
+ 
+        }
+        
+        if(cmbOrgType2.getSelectedItem().toString()=="Pet Parent"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new PetParentRole());
+            system.getPettherapydirectory().getPetparentdir().AddPetParent(username);
+            JOptionPane.showMessageDialog(this, "User added!");
+            return;
+            
+            
+            
+        }
+        
+        
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void cmbOrgType2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOrgType2ActionPerformed
@@ -313,11 +373,170 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
+        if(system.getPettherapydirectory().getPetstaffdir().RetrievePetTherapyStaff(txtUsername.getText())!=null){
+            PetTherapyStaff petTherapyStaff = system.getPettherapydirectory().getPetstaffdir().RetrievePetTherapyStaff(txtUsername.getText());
+            String name = txtEmployeeName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            petTherapyStaff.setEmployeename(name);
+            petTherapyStaff.setAddress(address);
+            petTherapyStaff.setCountry(country);
+            petTherapyStaff.setCity(city);
+            petTherapyStaff.setEmail(email);
+            petTherapyStaff.setPhone(phno);
+            petTherapyStaff.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Pat Therapy Staff added!");
+            populateTable();
+            return;
+            
+        }
+        
+        if(system.getPettherapydirectory().getPetparentdir().RetrievePetParent(txtUsername.getText())!=null){
+            PetParent petparent = system.getPettherapydirectory().getPetparentdir().RetrievePetParent(txtUsername.getText());
+            String name = txtEmployeeName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zip = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zip==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            petparent.setEmployeename(name);
+            petparent.setAddress(address);
+            petparent.setCountry(country);
+            petparent.setCity(city);
+            petparent.setEmail(email);
+            petparent.setPhone(phno);
+            petparent.setZipcode(zip);
+            JOptionPane.showMessageDialog(this, "Pet Parent Added!");
+            
+            populateTable();
+            return;
+            
+        }
+        
+        if(system.getPettherapydirectory().getPetstaffdir().RetrievePetTherapyStaff(txtUsername.getText())==null || system.getPettherapydirectory().getPetparentdir().RetrievePetParent(txtUsername.getText())==null){
+            
+            JOptionPane.showMessageDialog(this, "Create User Account First!");
+            return;
+  
+        }
+        
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
 
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPetTherapy.getModel();
+        int selectedIndex = tblPetTherapy.getSelectedRow();
+        if(selectedIndex!=-1){
+            
+            String order = modelOrder.getValueAt(selectedIndex, 0).toString();
+            String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            if(type=="Pet Therapy Staff"){
+                
+                system.getPettherapydirectory().getPetstaffdir().DeletePetTherapyStaff(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                
+                
+                
+            }
+            
+            if(type=="Pet Parent"){
+                
+                system.getPettherapydirectory().getPetparentdir().DeletePetParent(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+                   
+            }
+              
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
 
@@ -367,16 +586,51 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
     private javax.swing.JLabel lblZip2;
     private javax.swing.JTable tblClinicOrg;
     private javax.swing.JTable tblClinicOrg1;
-    private javax.swing.JTable tblClinicOrg2;
+    private javax.swing.JTable tblPetTherapy;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEmployeeName;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPetName;
-    private javax.swing.JTextField txtPetParentName;
     private javax.swing.JTextField txtPhoneNo;
     private javax.swing.JTextField txtUsername;
     private javax.swing.JTextField txtZip;
     // End of variables declaration//GEN-END:variables
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblClinicOrg.getModel();
+        model.setRowCount(0);
+
+       for(PetTherapyStaff petTherapyStaff: system.getPettherapydirectory().getPetstaffdir().getpettherapystafflist()){
+            
+            Object[] row = new Object[5];
+            row[0]= petTherapyStaff.getId();
+            row[1]= "Pet Therapy Staff";
+            row[2]= petTherapyStaff.getPhone();
+            row[3]= petTherapyStaff.getAddress();
+            row[4]=petTherapyStaff.getZipcode();
+            
+            model.insertRow(0, row);
+                
+            
+            
+            
+        }
+       
+       for(PetParent petParent: system.getPettherapydirectory().getPetparentdir().getpetparentlist()){
+            
+            Object[] row = new Object[5];
+            row[0]= petParent.getId();
+            row[1]= "Pet Parent";
+            row[2]= petParent.getPhone();
+            row[3]= petParent.getAddress();
+            row[4]= petParent.getZipcode();
+            
+            model.insertRow(0, row);
+
+        }
+
+    }
 }

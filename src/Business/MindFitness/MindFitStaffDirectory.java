@@ -28,9 +28,10 @@ public class MindFitStaffDirectory {
 
    
 
-    public MindFitStaff AddMindFitStaff(){
+    public MindFitStaff AddMindFitStaff(String id){
         
         MindFitStaff mindfitstaff = new MindFitStaff();
+        mindfitstaff.setId(id);
         mindfitstafflist.add(mindfitstaff);
         return mindfitstaff;
     }

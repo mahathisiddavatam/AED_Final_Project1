@@ -60,6 +60,16 @@ public class Student {
         this.therapistid = therapistid;
     }
 
+    public String getTherapistid() {
+        return therapistid;
+    }
+
+    public void setTherapistid(String therapistid) {
+        this.therapistid = therapistid;
+    }
+    
+    
+
     public Boolean getAssigned() {
         return assigned;
     }
