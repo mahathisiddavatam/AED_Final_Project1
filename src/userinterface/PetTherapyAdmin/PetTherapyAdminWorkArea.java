@@ -146,7 +146,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         lblZip2.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblZip2.setText("Zipcode:");
 
-        cmbOrgType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pet Therapy Staff", "Pet Parent" }));
+        cmbOrgType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pet Therapy Staff" }));
         cmbOrgType2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbOrgType2ActionPerformed(evt);

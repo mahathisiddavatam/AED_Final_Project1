@@ -42,6 +42,8 @@ public class Student {
     String post;
     
     String therapistid;
+    
+    
     Boolean appointment;
 
     public Boolean getAppointment() {
