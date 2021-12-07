@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package userinterface.TherapistRole;
 
 import Business.Clinic.Therapist;
@@ -685,7 +686,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private void btnTerminateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminateActionPerformed
         // TODO add your handling code here:
         
-        System.out.print("I am in button\n");
+         System.out.print("I am in button\n");
         DefaultTableModel modelOrder = (DefaultTableModel)tblSessions.getModel();
         int selectedIndex = tblSessions.getSelectedRow();
         if(selectedIndex==-1){
@@ -712,6 +713,8 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         
         
         
+        
+        
     }//GEN-LAST:event_btnTerminateActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -729,16 +732,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         
         
         
-        for(Therapy therapy: system.getClinicdirectory().getTherapyqueue().getTherapylist()){
-            
-            System.out.print(therapy.getId()+ "\n");
-            System.out.print(therapy.getTerminate()+ "\n");
-            System.out.print("----- \n");
-            system.getClinicdirectory().getTherapyqueue().getTherapylist().remove(therapy);
-            System.out.print("LEft:\n");
-            populateSessionTable();
-            
-        }
+       
         
         
         

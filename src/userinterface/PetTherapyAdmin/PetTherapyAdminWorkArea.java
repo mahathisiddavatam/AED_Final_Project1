@@ -11,6 +11,7 @@ import Business.PetTherapy.PetTherapyStaff;
 import Business.Role.PetParentRole;
 import Business.Role.PetTherapyStaffRole;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -76,6 +77,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         lblPetName = new javax.swing.JLabel();
         txtPetName = new javax.swing.JTextField();
+        btnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -144,7 +146,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         lblZip2.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblZip2.setText("Zipcode:");
 
-        cmbOrgType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Therapist", "Clinic Staff" }));
+        cmbOrgType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pet Therapy Staff", "Pet Parent" }));
         cmbOrgType2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbOrgType2ActionPerformed(evt);
@@ -168,6 +170,13 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         lblPetName.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblPetName.setText("Pet Name:");
 
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,6 +190,8 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
                             .addComponent(jScrollPane3)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(42, 42, 42)
@@ -246,7 +257,9 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDelete)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDelete)
+                            .addComponent(btnRefresh))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBack))
                     .addGroup(layout.createSequentialGroup()
@@ -512,13 +525,16 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
 
         DefaultTableModel modelOrder = (DefaultTableModel)tblPetTherapy.getModel();
         int selectedIndex = tblPetTherapy.getSelectedRow();
+        
         if(selectedIndex!=-1){
             
             String order = modelOrder.getValueAt(selectedIndex, 0).toString();
+            
             String type = modelOrder.getValueAt(selectedIndex, 1).toString();
             if(type=="Pet Therapy Staff"){
                 
                 system.getPettherapydirectory().getPetstaffdir().DeletePetTherapyStaff(order);
+               
                 modelOrder.removeRow(selectedIndex);
                 JOptionPane.showMessageDialog(this, "Deleted!");
                 return;
@@ -530,6 +546,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
             if(type=="Pet Parent"){
                 
                 system.getPettherapydirectory().getPetparentdir().DeletePetParent(order);
+               
                 modelOrder.removeRow(selectedIndex);
                 JOptionPane.showMessageDialog(this, "Deleted!");
                 return;
@@ -539,53 +556,34 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JComboBox<String> cmbOrgType;
-    private javax.swing.JComboBox<String> cmbOrgType1;
     private javax.swing.JComboBox<String> cmbOrgType2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lblAddress;
-    private javax.swing.JLabel lblAddress1;
     private javax.swing.JLabel lblAddress2;
-    private javax.swing.JLabel lblCity;
-    private javax.swing.JLabel lblCity1;
     private javax.swing.JLabel lblCity2;
-    private javax.swing.JLabel lblCountry;
-    private javax.swing.JLabel lblCountry1;
     private javax.swing.JLabel lblCountry2;
-    private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblEmail1;
     private javax.swing.JLabel lblEmail2;
-    private javax.swing.JLabel lblOrgName;
-    private javax.swing.JLabel lblOrgName1;
     private javax.swing.JLabel lblOrgName2;
-    private javax.swing.JLabel lblOrgType;
-    private javax.swing.JLabel lblOrgType1;
     private javax.swing.JLabel lblOrgType2;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPetName;
-    private javax.swing.JLabel lblPhoneNo;
-    private javax.swing.JLabel lblPhoneNo1;
     private javax.swing.JLabel lblPhoneNo2;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JLabel lblZip;
-    private javax.swing.JLabel lblZip1;
     private javax.swing.JLabel lblZip2;
-    private javax.swing.JTable tblClinicOrg;
-    private javax.swing.JTable tblClinicOrg1;
     private javax.swing.JTable tblPetTherapy;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
@@ -600,7 +598,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void populateTable() {
-        DefaultTableModel model = (DefaultTableModel) tblClinicOrg.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblPetTherapy.getModel();
         model.setRowCount(0);
 
        for(PetTherapyStaff petTherapyStaff: system.getPettherapydirectory().getPetstaffdir().getpettherapystafflist()){
@@ -618,6 +616,11 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
             
             
         }
+       if(system.getPettherapydirectory().getPetparentdir().getpetparentlist()==null){
+           
+           ArrayList <PetParent> petparentlist = new ArrayList();
+           system.getPettherapydirectory().getPetparentdir().setPetparentlist(petparentlist);
+       }
        
        for(PetParent petParent: system.getPettherapydirectory().getPetparentdir().getpetparentlist()){
             

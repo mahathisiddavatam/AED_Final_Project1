@@ -26,6 +26,10 @@ public class NutrionistDirectory {
         return nutritionistlist;
     }
 
+    public void setNutritionistlist(ArrayList<Nutritionist> nutritionistlist) {
+        this.nutritionistlist = nutritionistlist;
+    }
+
    
 
     public Nutritionist AddNutritionist(String id){
