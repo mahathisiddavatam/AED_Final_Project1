@@ -22,9 +22,20 @@ public class Therapy {
     String ques13;
     String ques14;
     String ques15;
-    Boolean terminate;
+    Boolean terminate=false;
     String date;
     String time;
+    Boolean payment=false;
+    
+    
+
+    public Boolean getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Boolean payment) {
+        this.payment = payment;
+    }
 
     public String getDate() {
         return date;

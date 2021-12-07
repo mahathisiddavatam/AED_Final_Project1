@@ -15,6 +15,7 @@ import Business.WorkQueue.TherapyQueue;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -29,10 +30,10 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     EcoSystem system;
     UserAccount account;
-    ClinicStaff clinicstaff = system.getClinicdirectory().getClinicstaffdir().RetrieveClinicStaff(MainJFrame.txtUsernameMain.getText());
-    TherapyQueue therapyqueue = system.getClinicdirectory().getTherapyqueue();
-    StudentDirectory studentdirectory = system.getUniversitydirectory().getStudentdir();
-    TherapistDirectory therapistdirectory = system.getClinicdirectory().getTherapistdir();
+    ClinicStaff clinicstaff;
+    TherapyQueue therapyqueue;
+    StudentDirectory studentdirectory;
+    TherapistDirectory therapistdirectory;
     int pay=0;
     
     
@@ -42,6 +43,10 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.system = system;
         this.account = account;
+        this.clinicstaff = system.getClinicdirectory().getClinicstaffdir().RetrieveClinicStaff(MainJFrame.txtUsernameMain.getText());
+        this.therapyqueue = system.getClinicdirectory().getTherapyqueue();
+        this.studentdirectory = system.getUniversitydirectory().getStudentdir();
+        this.therapistdirectory = system.getClinicdirectory().getTherapistdir();
         populateTherapistTable();
       
         //valueLabel.setText();
@@ -66,18 +71,18 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
           
     }
     
-    public void populatePaymentTable(Therapy therapy){
+    public void populatePaymentTable(Therapy therapy, DefaultTableModel model){
         
         
-        DefaultTableModel model = (DefaultTableModel) tblPaymentStatus.getModel();
-        model.setRowCount(0);
         
+        System.out.print("We are in populate paymebts\n");
+        System.out.print("Therapy ID is "+ therapy.getId());
         Object[] row = new Object[5];
         row[0]= therapy.getId();
         row[1]=therapy.getTherapistid();
         row[2]=therapy.getStudentid();
         row[3]=therapy.getDate();
-        if((therapy.getTerminate()==null || (therapy.getTerminate()==false))) {
+        if(((therapy.getTerminate()==false))) {
             
             row[4]="Session to be completed";
             
@@ -88,6 +93,12 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
             
             pay = pay+300;
             row[4]="$300 to be paid";
+            
+        }
+        if(therapy.getPayment()==true){
+            
+            
+            row[4]="Payment completed";
             
         }
         
@@ -102,7 +113,7 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
     
     public void populateStudentTable(String studentid){
         
-        DefaultTableModel model = (DefaultTableModel) tblTherapists.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblStudent.getModel();
         model.setRowCount(0);
         Student student = studentdirectory.RetrieveStudent(studentid);
         Object[] row = new Object[4];
@@ -116,7 +127,7 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
             
             if(therapy.getStudentid().equals(studentid)){
             
-            if(therapy.getTerminate()==false || therapy.getTerminate()==null){
+            if(therapy.getTerminate()==false){
                 
                 dat = therapy.getDate();
                 time = therapy.getTime();
@@ -168,8 +179,6 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         valueLabel = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         managePaymentJPanel = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblTherapists1 = new javax.swing.JTable();
         lblCompletedSession = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
         txtTotal = new javax.swing.JTextField();
@@ -201,29 +210,6 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         managePaymentJPanel.setBackground(new java.awt.Color(204, 255, 255));
-
-        tblTherapists1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Therapist ID", "Name", "Student name", "Time Given"
-            }
-        ));
-        jScrollPane3.setViewportView(tblTherapists1);
 
         lblCompletedSession.setBackground(new java.awt.Color(204, 204, 255));
         lblCompletedSession.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -277,9 +263,6 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(managePaymentJPanelLayout.createSequentialGroup()
                 .addGroup(managePaymentJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(managePaymentJPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE))
-                    .addGroup(managePaymentJPanelLayout.createSequentialGroup()
                         .addGroup(managePaymentJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(managePaymentJPanelLayout.createSequentialGroup()
                                 .addGap(251, 251, 251)
@@ -291,13 +274,11 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
                                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)
                                 .addComponent(btnPay)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 290, Short.MAX_VALUE))
+                    .addGroup(managePaymentJPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(managePaymentJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(managePaymentJPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         managePaymentJPanelLayout.setVerticalGroup(
             managePaymentJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,18 +286,13 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addComponent(lblCompletedSession, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(managePaymentJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPay))
-                .addContainerGap(422, Short.MAX_VALUE))
-            .addGroup(managePaymentJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(managePaymentJPanelLayout.createSequentialGroup()
-                    .addGap(99, 99, 99)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(484, Short.MAX_VALUE)))
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Manage Payments", managePaymentJPanel);
@@ -414,23 +390,6 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 256, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -455,6 +414,22 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(169, 169, 169)
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 258, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)))
+                .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,20 +452,18 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbcSlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 28, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbcSlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAssign)
-                        .addGap(41, 41, 41))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                        .addGap(43, 43, 43)
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Manage Appointments", jPanel3);
@@ -527,7 +500,8 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         }
         
         
-        
+        DefaultTableModel model = (DefaultTableModel) tblPaymentStatus.getModel();
+        model.setRowCount(0);
         
         String studentid = null;
         if(selectedIndex1!=-1){
@@ -539,7 +513,7 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
             
             if(therapy.getTherapistid().equals(therapistid) && therapy.getStudentid().equals(studentid)){
                 
-                populatePaymentTable(therapy);
+                populatePaymentTable(therapy,model);
             }
         }
          
@@ -552,23 +526,47 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         // TODO add your handling code here:
-        pay=0;
-        
-        
-        
-        DefaultTableModel modelOrder = (DefaultTableModel)tblTherapists.getModel();
-         DefaultTableModel modelStudent = (DefaultTableModel)tblStudent.getModel();
-         int selectedIndex = tblTherapists.getSelectedRow();
+         pay=0;
+         DefaultTableModel modelOrder = (DefaultTableModel)tblPaymentStatus.getModel();
+         int selectedIndex = tblPaymentStatus.getSelectedRow();
+         int sessionid=0;
          if(selectedIndex==-1){
+             
+              JOptionPane.showMessageDialog(this, "Please Select a Row");
+               return;
+             
+             
+         }
+         
+                  if(selectedIndex!=-1){
+            
+             String sess = modelOrder.getValueAt(selectedIndex, 0).toString();
+             sessionid = Integer.parseInt(sess);
+        }
+                  
+        Therapy therapy1 = system.getClinicdirectory().getTherapyqueue().retrieveTherapy(sessionid);
+        therapy1.setPayment(true);
+         
+        
+        
+       
+        
+        
+        
+        
+        DefaultTableModel modelOrd = (DefaultTableModel)tblTherapists.getModel();
+        DefaultTableModel modelStudent = (DefaultTableModel)tblStudent.getModel();
+         int selectedIndex6 = tblTherapists.getSelectedRow();
+         if(selectedIndex6==-1){
             
             JOptionPane.showMessageDialog(this, "Please Select a Therapist!");
             return;
             
         }
          String therapistid=null;
-         if(selectedIndex!=-1){
+         if(selectedIndex6!=-1){
             
-             therapistid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             therapistid = modelOrder.getValueAt(selectedIndex6, 0).toString();
         }
          
         int selectedIndex1 = tblStudent.getSelectedRow();
@@ -585,14 +583,17 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         String studentid = null;
         if(selectedIndex1!=-1){
             
-             studentid = modelStudent.getValueAt(selectedIndex, 0).toString();
+             studentid = modelStudent.getValueAt(selectedIndex1, 0).toString();
         }
         
         for(Therapy therapy: therapyqueue.getTherapylist()){
             
             if(therapy.getTherapistid().equals(therapistid) && therapy.getStudentid().equals(studentid)){
                 
-                populatePaymentTable(therapy);
+                DefaultTableModel model = (DefaultTableModel) tblPaymentStatus.getModel();
+                model.setRowCount(0);
+                
+                populatePaymentTable(therapy,model);
             }
         }
         
@@ -666,6 +667,10 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         for(Therapy therapy: therapyqueue.getTherapylist()){
             
             if(therapy.getTherapistid().equals(therapistid)){
+                
+            if(therapy.getDate()==null){
+                therapy.setDate("invalid");
+            }
             
             if(therapy.getDate().equals(date) && therapy.getTime().equals(slot)){
                 
@@ -676,7 +681,12 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
             }
         }
         }
+        
         Therapy therapy = therapyqueue.addTherapy();
+        Random rand = new Random();
+        int up = 12345;
+        int random = rand.nextInt(12345678);
+        therapy.setId(random);
         
         therapy.setDate(strDate);
         therapy.setTime(slot);
@@ -727,7 +737,6 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTextField jTextField1;
@@ -740,7 +749,6 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblPaymentStatus;
     private javax.swing.JTable tblStudent;
     private javax.swing.JTable tblTherapists;
-    private javax.swing.JTable tblTherapists1;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtTotal;
     private javax.swing.JLabel valueLabel;

@@ -63,11 +63,7 @@ public class AccessRequest {
 
     
     
-    public void AccessRequest(){
-        
-        id = count;
-        count++;
-    }
+   
 
     public String getDescription() {
         return description;

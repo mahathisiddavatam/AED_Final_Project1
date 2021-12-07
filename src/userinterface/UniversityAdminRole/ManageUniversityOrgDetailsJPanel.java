@@ -718,7 +718,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
             
             Object[] row = new Object[5];
             row[0]= therapist.getId();
-            row[1]= "Therapist";
+            row[1]= "Student";
             row[2]= therapist.getPhno();
             row[3]= therapist.getAddress();
             row[4]=therapist.getZip();

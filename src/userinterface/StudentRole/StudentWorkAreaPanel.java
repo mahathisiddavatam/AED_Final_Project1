@@ -14,7 +14,9 @@ import Business.WorkQueue.Article;
 import Business.WorkQueue.Forum;
 import Business.WorkQueue.Therapy;
 import Business.WorkQueue.TherapyQueue;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -29,8 +31,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem system;
     private UserAccount userAccount;
-    Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
-    TherapyQueue therapyqueue = system.getClinicdirectory().getTherapyqueue();
+    Student student;
+    TherapyQueue therapyqueue;
+    
     
     /**
      * Creates new form LabAssistantWorkAreaJPanel
@@ -42,6 +45,10 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.system = business;
         populateAppointmentTable();
+        student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
+        therapyqueue = system.getClinicdirectory().getTherapyqueue();
+    
+        
       
         
         
@@ -49,8 +56,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     
     public void populateAppointmentTable(){
         
-        DefaultTableModel model = (DefaultTableModel) tblForums.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
         model.setRowCount(0);
+        if(student == null){
+            student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
+            
+        }
         
         if(student.getAssigned()==null){
             lblTherapistContact.setText("Will be updated shortly!");
@@ -63,6 +74,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         }
         
         else{
+            if(student.getTherapistid()==null){
+                return;
+            }
             Therapist therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(student.getTherapistid());
             lblTherapistContact.setText(therapist.getPhno());
             lblMessage.setText(therapist.getMessage());
@@ -73,11 +87,18 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
             
             
         }
+        if(therapyqueue==null){
+            therapyqueue = system.getClinicdirectory().getTherapyqueue();
+        }
         for(Therapy therapy: therapyqueue.getTherapylist()){
             
             if(therapy.getStudentid().equals(student.getId())){
                 
-                Object[] row = new Object[3];
+                if(therapy.getTerminate()==null){
+                    therapy.setTerminate(false);
+                }
+                
+                Object[] row = new Object[4];
                 row[0]= therapy.getId();
                 
                 
@@ -85,12 +106,18 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                     row[1]= "To be scheduled";
                     
                     
-                }
-                else{
                     
-                    row[1]= therapy.getDate() + " (Upcoming)";
                 }
-                
+                if(therapy.getTerminate()==false){
+                    
+                    row[1]= therapy.getDate() + " Upcoming";
+                }
+                if(therapy.getTerminate()==true){
+                    
+                    row[1]= therapy.getDate();
+                    
+                    
+                }
                 if(therapy.getTime()==null){
                     row[2]= "To be scheduled";
                     
@@ -135,7 +162,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         for(Forum forum: system.getUniversitydirectory().getForumqueue().getForumlist()){
             
-            Object[] row = new Object[3];
+            System.out.print(forum.getId()+ "This is forum id\n");
+            
+            Object[] row = new Object[4];
             row[0]= forum.getId();
             row[1]= forum.getTitle();
             row[2] = forum.getCreatedby();
@@ -267,6 +296,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblForums = new javax.swing.JTable();
         jLabel18 = new javax.swing.JLabel();
+        btnSelectForum1 = new javax.swing.JButton();
         btnSelectForum = new javax.swing.JButton();
         lblDescription = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -714,10 +744,14 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(tblForums);
 
-        jPanel5.add(jScrollPane3);
-
         jLabel18.setText("Select the forum you want to view");
-        jPanel5.add(jLabel18);
+
+        btnSelectForum1.setText("Refresh");
+        btnSelectForum1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectForum1ActionPerformed(evt);
+            }
+        });
 
         btnSelectForum.setText("Select");
         btnSelectForum.addActionListener(new java.awt.event.ActionListener() {
@@ -725,15 +759,50 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 btnSelectForumActionPerformed(evt);
             }
         });
-        jPanel5.add(btnSelectForum);
-        jPanel5.add(lblDescription);
 
         jLabel19.setText("Description:");
-        jPanel5.add(jLabel19);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSelectForum)
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel19)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSelectForum1)
+                        .addGap(27, 27, 27))))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(203, 203, 203)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(btnSelectForum)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSelectForum1)))
+                .addGap(268, 268, 268))
+        );
 
         jTabbedPane1.addTab("Select Forum", jPanel5);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 830, 730));
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 0, 830, 730));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveResponseActionPerformed
@@ -832,6 +901,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
        
        int forumid = Integer.parseInt(lblForumID.getText());
        String studid = MainJFrame.txtUsernameMain.getText();
+       if(system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).getStudentidlist()==null){
+           
+           ArrayList<String> stlist = new ArrayList();
+           system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).setStudentidlist(stlist);
+       }
        for(String student: system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).getStudentidlist()){
            
            if(student.equals(studid)){
@@ -874,9 +948,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
            
        }
        Article article=system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).addArticle();
-       String forum = txtStudentPost.getText();
+       Random rand = new Random();
+       int id = rand.nextInt(12345);
+       article.setId(id);
        
-       article.setPost(forum);
+       
+       article.setPost(txtStudentPost.getText());
        article.setTitle(txtTitle.getText());
        Date date = new Date();
        article.setDate(date);
@@ -899,6 +976,10 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
             }
         }
         AccessRequest acc=system.getUniversitydirectory().getReqaccessq().addAccessRequest();
+        
+        Random rand = new Random();
+        int id = rand.nextInt(12345);
+        acc.setId(id);
         
         acc.setDescription(txtComment.getText());
         acc.setStudentid(MainJFrame.txtUsernameMain.getText());
@@ -962,16 +1043,28 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         if(selectedIndex!=-1){
             
              postid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             System.out.print(postid+ "This is post ID\n");
              //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
         }
         int forumid  = Integer.parseInt(lblForumID.getText());
         int posttid = Integer.parseInt(postid);
+        System.out.print(posttid+ "This is post ID int\n");
+        Article article = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid);
+        System.out.print("Aricle id" + article.getId());
+        System.out.print("Aricle post" + article.getPost());
+        
         String post = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid).getPost();
         
-        String parsedPost = post.replaceAll("(.{10000})", "$1\n");
+        String parsedPost = post.replaceAll("(.{1000})", "$1\n");
         lblPost.setText(parsedPost);
         
     }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnSelectForum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectForum1ActionPerformed
+        // TODO add your handling code here:
+        
+        populateForumTable();
+    }//GEN-LAST:event_btnSelectForum1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPost;
@@ -979,6 +1072,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveResponse;
     private javax.swing.JButton btnSelectForum;
+    private javax.swing.JButton btnSelectForum1;
     private javax.swing.JButton btnSubmitResponse;
     private javax.swing.JButton btnView;
     private javax.swing.JComboBox<String> cmbEthnicity;
@@ -1086,6 +1180,14 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private void populatePostTable(Forum forum) {
         DefaultTableModel model = (DefaultTableModel) tblPosts.getModel();
         model.setRowCount(0);
+        
+        if(forum.getArticlelist()==null){
+            
+            ArrayList <Article> artlist = new ArrayList();
+            forum.setArticlelist(artlist);
+        }
+        
+        
         
         for(Article article: forum.getArticlelist()){
             

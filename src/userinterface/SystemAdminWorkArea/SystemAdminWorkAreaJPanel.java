@@ -698,9 +698,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             
             String order = modelOrder.getValueAt(selectedIndex, 0).toString();
             String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            system.getUserAccountDirectory().deleteUserAccount(order);
             if(type=="Clinic"){
                 
                 system.getClinicdirectory().deleteClinic(order);
+               
                 modelOrder.removeRow(selectedIndex);
                 JOptionPane.showMessageDialog(this, "Deleted!");
                 return;
@@ -712,6 +714,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             if(type=="University"){
                 
                 system.getUniversitydirectory().deleteUniversity(order);
+                
                 modelOrder.removeRow(selectedIndex);
                 JOptionPane.showMessageDialog(this, "Deleted!");
                 return;

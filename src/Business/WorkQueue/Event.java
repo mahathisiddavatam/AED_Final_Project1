@@ -17,6 +17,14 @@ public class Event {
     String location;
     Date date;
     String dat;
+
+    public String getDat() {
+        return dat;
+    }
+
+    public void setDat(String dat) {
+        this.dat = dat;
+    }
     
     String time;
     int id;

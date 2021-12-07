@@ -42,6 +42,23 @@ public class Student {
     String post;
     
     String therapistid;
+    Boolean appointment;
+
+    public Boolean getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Boolean appointment) {
+        this.appointment = appointment;
+    }
+
+    public String getTherapistid() {
+        return therapistid;
+    }
+
+    public void setTherapistid(String therapistid) {
+        this.therapistid = therapistid;
+    }
 
     public Boolean getAssigned() {
         return assigned;
@@ -57,7 +74,7 @@ public class Student {
     String gender;
     String origin;
     String ethnicity;
-    Boolean assigned;
+    Boolean assigned=false;
 
     public String getAge() {
         return age;
