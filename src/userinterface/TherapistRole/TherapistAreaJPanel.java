@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package userinterface.TherapistRole;
 
 import Business.Clinic.Therapist;
@@ -50,12 +51,47 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         populatePatientTable();
         setLabel();
         populateSessionTable();
+        populateDailyTable();
         this.therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(therapistid);
         this.therapistdirectory= system.getClinicdirectory().getTherapistdir();
         this.studentdirectory = system.getUniversitydirectory().getStudentdir();
         this.therapyqueue = system.getClinicdirectory().getTherapyqueue();
     }
     
+    public void populateDailyTable(){
+        
+        int count=0;
+        
+        DefaultTableModel model = (DefaultTableModel) tblDaily.getModel();
+        model.setRowCount(0);
+        
+        for(Student student: studentdirectory.getstudentlist()){
+            
+            if(student.getTherapistid().equals(therapist.getId())){
+                Object[] row = new Object[3];
+                row[0]= student.getId();
+                
+                row[1]= student.getName();
+                
+                for(Therapy therapy: therapyqueue.getTherapylist()){
+                    
+                    if(therapy.getStudentid().equals(student.getId())){
+                        
+                        count++;
+                    }
+                }
+                
+                row[2]=count;
+                 model.insertRow(0, row);
+                
+                
+            }
+        }
+        
+        
+        
+        
+    }
     public void populateSessionTable(){
         
         if(therapyqueue==null){
@@ -216,7 +252,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         txtQues4 = new javax.swing.JLabel();
         txtQues5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDaily = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         btnViewDailyCheck = new javax.swing.JButton();
         btnRefreshDailyCheck = new javax.swing.JButton();
@@ -534,7 +570,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblQues10, javax.swing.GroupLayout.PREFERRED_SIZE, 590, Short.MAX_VALUE)
+                                    .addComponent(lblQues10, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
                                     .addComponent(lblQues9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -631,26 +667,36 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
 
         txtQues5.setText("<ans>");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDaily.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Student ID", "Student Name", "Number of therapy sessions"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(tblDaily);
 
         jLabel11.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Daily wellness check for patients");
 
         btnViewDailyCheck.setText("View");
+        btnViewDailyCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewDailyCheckActionPerformed(evt);
+            }
+        });
 
         btnRefreshDailyCheck.setText("Refresh");
+        btnRefreshDailyCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshDailyCheckActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -678,9 +724,9 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                         .addGap(0, 56, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnViewDailyCheck, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRefreshDailyCheck, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addComponent(btnRefreshDailyCheck)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnViewDailyCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -691,7 +737,9 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnViewDailyCheck)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnViewDailyCheck)
+                    .addComponent(btnRefreshDailyCheck))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQues11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -712,9 +760,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtQues5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(103, 103, 103)
-                .addComponent(btnRefreshDailyCheck)
-                .addContainerGap())
+                .addGap(137, 137, 137))
         );
 
         jTabbedPane1.addTab("View Daily check for patients", jPanel4);
@@ -820,7 +866,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private void btnTerminateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminateActionPerformed
         // TODO add your handling code here:
         
-        System.out.print("I am in button\n");
+         System.out.print("I am in button\n");
         DefaultTableModel modelOrder = (DefaultTableModel)tblSessions.getModel();
         int selectedIndex = tblSessions.getSelectedRow();
         if(selectedIndex==-1){
@@ -847,6 +893,8 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         
         
         
+        
+        
     }//GEN-LAST:event_btnTerminateActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
@@ -864,22 +912,55 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         
         
         
-        for(Therapy therapy: system.getClinicdirectory().getTherapyqueue().getTherapylist()){
-            
-            System.out.print(therapy.getId()+ "\n");
-            System.out.print(therapy.getTerminate()+ "\n");
-            System.out.print("----- \n");
-            system.getClinicdirectory().getTherapyqueue().getTherapylist().remove(therapy);
-            System.out.print("LEft:\n");
-            populateSessionTable();
-            
-        }
+       
         
         
         
         
         
     }//GEN-LAST:event_btnTerminate1ActionPerformed
+
+    private void btnViewDailyCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDailyCheckActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblDaily.getModel();
+        int selectedIndex = tblDaily.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Patient!");
+            return;
+            
+        }
+        String id=null;
+        
+        if(selectedIndex!=-1){
+            
+             id = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        Student student = studentdirectory.RetrieveStudent(id);
+        if(student.getQues11()==null){
+            
+            JOptionPane.showMessageDialog(this, "Student has not taken the wellness check!");
+            return;
+            
+            
+        }
+        txtQues1.setText(student.getQues11());
+        txtQues2.setText(student.getQues12());
+        txtQues3.setText(student.getQues13());
+        txtQues4.setText(student.getQues14());
+        txtQues5.setText(student.getQues15());
+        
+        
+        
+    }//GEN-LAST:event_btnViewDailyCheckActionPerformed
+
+    private void btnRefreshDailyCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshDailyCheckActionPerformed
+        // TODO add your handling code here:
+        populateDailyTable();
+    }//GEN-LAST:event_btnRefreshDailyCheckActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
@@ -904,7 +985,6 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAns1;
     private javax.swing.JLabel lblAns10;
@@ -932,6 +1012,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues8;
     private javax.swing.JLabel lblQues9;
     private javax.swing.JLabel lblViewTherapistName;
+    private javax.swing.JTable tblDaily;
     private javax.swing.JTable tblPatient;
     private javax.swing.JTable tblSessions;
     private javax.swing.JTextField txtDegrees;

@@ -21,6 +21,10 @@ public class PetParentDirectory {
         
     }
 
+    public void setPetparentlist(ArrayList<PetParent> petparentlist) {
+        this.petparentlist = petparentlist;
+    }
+
     public ArrayList<PetParent> getpetparentlist() {
         return petparentlist;
     }

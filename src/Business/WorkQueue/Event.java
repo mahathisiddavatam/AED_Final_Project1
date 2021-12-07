@@ -17,6 +17,24 @@ public class Event {
     String location;
     Date date;
     String dat;
+    String postedby;
+    String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPostedby() {
+        return postedby;
+    }
+
+    public void setPostedby(String postedby) {
+        this.postedby = postedby;
+    }
 
     public String getDat() {
         return dat;
@@ -30,11 +48,7 @@ public class Event {
     int id;
     int count =1;
     
-    public Event(){
-        
-        id=count;
-        count++;
-    }
+    
 
     public String getForum() {
         return forum;

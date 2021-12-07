@@ -1513,8 +1513,8 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jTextField2" pref="163" max="32767" attributes="0"/>
                                           <Component id="jTextField1" max="32767" attributes="0"/>
-                                          <Component id="jTextField3" max="32767" attributes="0"/>
                                           <Component id="jTextField4" max="32767" attributes="0"/>
+                                          <Component id="jTextField5" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jLabel33" min="-2" pref="103" max="-2" attributes="0"/>
@@ -1528,7 +1528,7 @@
                               <Component id="jLabel32" min="-2" pref="168" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="125" max="32767" attributes="0"/>
+                      <EmptySpace pref="110" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1554,10 +1554,9 @@
                                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel30" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel30" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Component id="jTextField5" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1573,7 +1572,11 @@
                       <Component id="jScrollPane6" min="-2" pref="164" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+
                       <EmptySpace pref="151" max="32767" attributes="0"/>
+
+                      <EmptySpace pref="229" max="32767" attributes="0"/>
+
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1675,11 +1678,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField2">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField3">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JTextField" name="jTextField4">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField4ActionPerformed"/>
@@ -1737,6 +1735,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Click to book"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextField5">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField5ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1953,9 +1956,9 @@
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtViewLocation" min="-2" pref="170" max="-2" attributes="0"/>
-                                          <Component id="txtViewDate" min="-2" pref="170" max="-2" attributes="0"/>
-                                          <Component id="txtViewDetails" min="-2" pref="170" max="-2" attributes="0"/>
+                                          <Component id="lblViewLocation1" min="-2" pref="170" max="-2" attributes="0"/>
+                                          <Component id="lblViewDate1" min="-2" pref="170" max="-2" attributes="0"/>
+                                          <Component id="lblViewDetails1" min="-2" pref="170" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="0" pref="211" max="32767" attributes="0"/>
                                   </Group>
@@ -1981,12 +1984,12 @@
                                       <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="lblViewDate" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Component id="txtViewDate" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                          <Component id="lblViewDate1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="lblViewLocation" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                                          <Component id="txtViewLocation" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                          <Component id="lblViewLocation1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1996,7 +1999,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lblPosterImage" alignment="3" min="-2" pref="270" max="-2" attributes="0"/>
                                   <Component id="lblViewDetails" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Component id="txtViewDetails" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                                  <Component id="lblViewDetails1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -2022,23 +2025,17 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable3">
+                <Component class="javax.swing.JTable" name="tblEvents">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="4">
+                      <Table columnCount="3" rowCount="4">
                         <Column editable="true" title="EventID" type="java.lang.Object"/>
-                        <Column editable="true" title="Date" type="java.lang.Object"/>
-                        <Column editable="true" title="Location" type="java.lang.Object"/>
-                        <Column editable="true" title="Details" type="java.lang.Object"/>
+                        <Column editable="true" title=" Posted on" type="java.lang.Object"/>
+                        <Column editable="true" title="Posted by" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -2075,11 +2072,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="View"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewEventActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="txtViewDate">
+            <Component class="javax.swing.JLabel" name="lblViewDate1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;date&gt;"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="lblViewDate1FocusGained"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblViewLocation">
               <Properties>
@@ -2089,7 +2092,7 @@
                 <Property name="text" type="java.lang.String" value="Location:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="txtViewLocation">
+            <Component class="javax.swing.JLabel" name="lblViewLocation1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;location&gt;"/>
               </Properties>
@@ -2102,7 +2105,7 @@
                 <Property name="text" type="java.lang.String" value="Details:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="txtViewDetails">
+            <Component class="javax.swing.JLabel" name="lblViewDetails1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;details&gt;"/>
               </Properties>

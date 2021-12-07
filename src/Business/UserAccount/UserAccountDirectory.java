@@ -46,7 +46,7 @@ public class UserAccountDirectory {
         
         for(UserAccount ua: userAccountList){
             
-            if(ua.getUsername().equals(username)){
+            if(username.equals(ua.getUsername())){
                 
                 userAccountList.remove(ua);
             }

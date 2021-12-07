@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package userinterface.StudentRole;
 
 import Business.Clinic.Therapist;
@@ -11,10 +7,16 @@ import Business.University.Student;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.AccessRequest;
 import Business.WorkQueue.Article;
+import Business.WorkQueue.Event;
+import Business.WorkQueue.EventQueue;
 import Business.WorkQueue.Forum;
 import Business.WorkQueue.Therapy;
 import Business.WorkQueue.TherapyQueue;
+import java.awt.Image;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -29,8 +31,10 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem system;
     private UserAccount userAccount;
-    Student student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
-    TherapyQueue therapyqueue = system.getClinicdirectory().getTherapyqueue();
+    Student student;
+    TherapyQueue therapyqueue;
+    EventQueue eventqueue;
+    
     
     /**
      * Creates new form LabAssistantWorkAreaJPanel
@@ -42,15 +46,50 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.system = business;
         populateAppointmentTable();
+        populateEventTable();
+        student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
+        therapyqueue = system.getClinicdirectory().getTherapyqueue();
+        eventqueue = system.getUniversitydirectory().getEventqueue();
+    
+        
       
+        
+        
+    }
+    
+    public void populateEventTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblEvents.getModel();
+        model.setRowCount(0);
+        if(eventqueue==null){
+            eventqueue = system.getUniversitydirectory().getEventqueue();
+            
+            
+        }
+        for(Event event: eventqueue.getEventlist()){
+            
+            Object[] row = new Object[3];
+            row[0]= event.getId();
+            row[1]= event.getDate();
+            row[2] = event.getPostedby();
+           
+            
+            model.insertRow(0, row);
+            
+            
+        }
         
         
     }
     
     public void populateAppointmentTable(){
         
-        DefaultTableModel model = (DefaultTableModel) tblForums.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
         model.setRowCount(0);
+        if(student == null){
+            student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
+            
+        }
         
         if(student.getAssigned()==null){
             lblTherapistContact.setText("Will be updated shortly!");
@@ -63,6 +102,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         }
         
         else{
+            if(student.getTherapistid()==null){
+                return;
+            }
             Therapist therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(student.getTherapistid());
             lblTherapistContact.setText(therapist.getPhno());
             lblMessage.setText(therapist.getMessage());
@@ -73,11 +115,18 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
             
             
         }
+        if(therapyqueue==null){
+            therapyqueue = system.getClinicdirectory().getTherapyqueue();
+        }
         for(Therapy therapy: therapyqueue.getTherapylist()){
             
             if(therapy.getStudentid().equals(student.getId())){
                 
-                Object[] row = new Object[3];
+                if(therapy.getTerminate()==null){
+                    therapy.setTerminate(false);
+                }
+                
+                Object[] row = new Object[4];
                 row[0]= therapy.getId();
                 
                 
@@ -85,12 +134,18 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                     row[1]= "To be scheduled";
                     
                     
+                    
                 }
-                else{
+                if(therapy.getTerminate()==false){
+                    
+                    row[1]= therapy.getDate() + " Upcoming";
+                }
+                if(therapy.getTerminate()==true){
                     
                     row[1]= therapy.getDate();
+                    
+                    
                 }
-                
                 if(therapy.getTime()==null){
                     row[2]= "To be scheduled";
                     
@@ -135,7 +190,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         for(Forum forum: system.getUniversitydirectory().getForumqueue().getForumlist()){
             
-            Object[] row = new Object[3];
+            System.out.print(forum.getId()+ "This is forum id\n");
+            
+            Object[] row = new Object[4];
             row[0]= forum.getId();
             row[1]= forum.getTitle();
             row[2] = forum.getCreatedby();
@@ -153,6 +210,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -269,13 +328,13 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel31 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jTextField5 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblForums = new javax.swing.JTable();
@@ -289,14 +348,14 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tblEvents = new javax.swing.JTable();
         lblViewDate = new javax.swing.JLabel();
         btnViewEvent = new javax.swing.JButton();
-        txtViewDate = new javax.swing.JLabel();
+        lblViewDate1 = new javax.swing.JLabel();
         lblViewLocation = new javax.swing.JLabel();
-        txtViewLocation = new javax.swing.JLabel();
+        lblViewLocation1 = new javax.swing.JLabel();
         lblViewDetails = new javax.swing.JLabel();
-        txtViewDetails = new javax.swing.JLabel();
+        lblViewDetails1 = new javax.swing.JLabel();
         lblPosterImage = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -778,12 +837,6 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -815,6 +868,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         jButton1.setText("Click to book");
 
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -844,8 +903,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                                     .addComponent(jTextField1)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField4)))
+                                    .addComponent(jTextField4)
+                                    .addComponent(jTextField5)))
                             .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -853,7 +912,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                 .addComponent(jButton1)))
                         .addGap(45, 45, 45)
                         .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -874,10 +933,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -889,7 +947,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
+
                 .addContainerGap(151, Short.MAX_VALUE))
+
+                .addContainerGap(229, Short.MAX_VALUE))
+
         );
 
         jTabbedPane1.addTab("Pet Therapy", jPanel6);
@@ -989,35 +1051,45 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel34.setText("Attend an event!");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tblEvents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "EventID", "Date", "Location", "Details"
+                "EventID", " Posted on", "Posted by"
             }
         ));
-        jScrollPane7.setViewportView(jTable3);
+        jScrollPane7.setViewportView(tblEvents);
 
         lblViewDate.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblViewDate.setText("Date:");
 
         btnViewEvent.setText("View");
+        btnViewEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewEventActionPerformed(evt);
+            }
+        });
 
-        txtViewDate.setText("<date>");
+        lblViewDate1.setText("<date>");
+        lblViewDate1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblViewDate1FocusGained(evt);
+            }
+        });
 
         lblViewLocation.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblViewLocation.setText("Location:");
 
-        txtViewLocation.setText("<location>");
+        lblViewLocation1.setText("<location>");
 
         lblViewDetails.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblViewDetails.setText("Details:");
 
-        txtViewDetails.setText("<details>");
+        lblViewDetails1.setText("<details>");
 
         lblPosterImage.setText("<poster image>");
         lblPosterImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1048,9 +1120,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                     .addComponent(lblViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtViewLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtViewDate, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblViewLocation1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblViewDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblViewDetails1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 211, Short.MAX_VALUE))))))
         );
         jPanel9Layout.setVerticalGroup(
@@ -1069,18 +1141,21 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                 .addGap(48, 48, 48)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblViewDate, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtViewDate, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblViewDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblViewLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtViewLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(lblViewLocation1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPosterImage, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+
                             .addComponent(txtViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(282, Short.MAX_VALUE))
+                            .addComponent(lblViewDetails1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Events", jPanel9);
@@ -1253,17 +1328,10 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         // TODO add your handlif(ing code here:
 
             String id = MainJFrame.txtUsernameMain.getText();
-            Therapy the=null;
-            for(Therapy therapy: system.getClinicdirectory().getTherapyqueue().getTherapylist()){
+            
+            Student the = system.getUniversitydirectory().getStudentdir().RetrieveStudent(id);
 
-                if(id.equals(therapy.getStudentid())){
-
-                    the = therapy;
-
-                }
-            }
-
-            if(the==null){
+            if(the.getTherapistid()==null){
 
                 JOptionPane.showMessageDialog(this, "Please wait until a therapist has been assigned to answer these questions!");
                 return;
@@ -1345,6 +1413,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
        
        int forumid = Integer.parseInt(lblForumID.getText());
        String studid = MainJFrame.txtUsernameMain.getText();
+       if(system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).getStudentidlist()==null){
+           
+           ArrayList<String> stlist = new ArrayList();
+           system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).setStudentidlist(stlist);
+       }
        for(String student: system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).getStudentidlist()){
            
            if(student.equals(studid)){
@@ -1387,9 +1460,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
            
        }
        Article article=system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).addArticle();
-       String forum = txtStudentPost.getText();
+       Random rand = new Random();
+       int id = rand.nextInt(12345);
+       article.setId(id);
        
-       article.setPost(forum);
+       
+       article.setPost(txtStudentPost.getText());
        article.setTitle(txtTitle.getText());
        Date date = new Date();
        article.setDate(date);
@@ -1413,6 +1489,10 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         }
         AccessRequest acc=system.getUniversitydirectory().getReqaccessq().addAccessRequest();
         
+        Random rand = new Random();
+        int id = rand.nextInt(12345);
+        acc.setId(id);
+        
         acc.setDescription(txtComment.getText());
         acc.setStudentid(MainJFrame.txtUsernameMain.getText());
         acc.setForumby(lblCreated.getText());
@@ -1427,7 +1507,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private void btnSelectForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectForumActionPerformed
         // TODO add your handling code here:
         
-        DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
+         DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
         int selectedIndex = tblForums.getSelectedRow();
         if(selectedIndex==-1){
             
@@ -1475,13 +1555,19 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         if(selectedIndex!=-1){
             
              postid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             System.out.print(postid+ "This is post ID\n");
              //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
         }
         int forumid  = Integer.parseInt(lblForumID.getText());
         int posttid = Integer.parseInt(postid);
+        System.out.print(posttid+ "This is post ID int\n");
+        Article article = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid);
+        System.out.print("Aricle id" + article.getId());
+        System.out.print("Aricle post" + article.getPost());
+        
         String post = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid).getPost();
         
-        String parsedPost = post.replaceAll("(.{10000})", "$1\n");
+        String parsedPost = post.replaceAll("(.{1000})", "$1\n");
         lblPost.setText(parsedPost);
         
     }//GEN-LAST:event_btnViewActionPerformed
@@ -1494,9 +1580,57 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void btnSelectForum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectForum1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+        populateForumTable();
+    }//GEN-LAST:event_btnSelectForum1ActionPerformed
+
+    private void btnViewEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewEventActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblEvents.getModel();
+        int selectedIndex = tblEvents.getSelectedRow();
+        String eventid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select an Event");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             eventid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        int eventint = Integer.parseInt(eventid);
+        Event event=eventqueue.retrieveEvent(eventint);
+        
+        lblViewDate1.setText(event.getDat());
+        lblViewDetails1.setText(event.getForum());
+        lblViewLocation1.setText(event.getLocation());
+        ImageIcon icon = new ImageIcon(event.getFilename());
+     
+        Image image = icon.getImage().getScaledInstance(lblPosterImage.getWidth(), lblPosterImage.getHeight(), Image.SCALE_SMOOTH);
+        lblPosterImage.setIcon(new ImageIcon(image));
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnViewEventActionPerformed
+
+    private void lblViewDate1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lblViewDate1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblViewDate1FocusGained
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBookNutritionist;
@@ -1589,12 +1723,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lbl;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblComment;
@@ -1632,11 +1765,15 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTopic;
     private javax.swing.JLabel lblTopic1;
     private javax.swing.JLabel lblViewDate;
+    private javax.swing.JLabel lblViewDate1;
     private javax.swing.JLabel lblViewDetails;
+    private javax.swing.JLabel lblViewDetails1;
     private javax.swing.JLabel lblViewLocation;
+    private javax.swing.JLabel lblViewLocation1;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JTable tblAppointment;
     private javax.swing.JTable tblAppointment1;
+    private javax.swing.JTable tblEvents;
     private javax.swing.JTable tblForums;
     private javax.swing.JTable tblNurtitionAppointment;
     private javax.swing.JTable tblPosts;
@@ -1651,14 +1788,19 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel txtQues14;
     private javax.swing.JTextField txtStudentPost;
     private javax.swing.JTextField txtTitle;
-    private javax.swing.JLabel txtViewDate;
-    private javax.swing.JLabel txtViewDetails;
-    private javax.swing.JLabel txtViewLocation;
     // End of variables declaration//GEN-END:variables
 
     private void populatePostTable(Forum forum) {
         DefaultTableModel model = (DefaultTableModel) tblPosts.getModel();
         model.setRowCount(0);
+        
+        if(forum.getArticlelist()==null){
+            
+            ArrayList <Article> artlist = new ArrayList();
+            forum.setArticlelist(artlist);
+        }
+        
+        
         
         for(Article article: forum.getArticlelist()){
             
@@ -1671,7 +1813,6 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
             
             
         }
-        
             
             //To change body of generated methods, choose Tools | Templates.
     }
