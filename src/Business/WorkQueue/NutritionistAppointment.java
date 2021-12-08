@@ -19,6 +19,15 @@ public class NutritionistAppointment {
     Boolean terminate;
     String date;
     String time;
+    Boolean payment=false;
+
+    public Boolean getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Boolean payment) {
+        this.payment = payment;
+    }
     
     public NutritionistAppointment(){
         
