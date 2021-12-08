@@ -33,7 +33,7 @@ public class Article {
     }
 
     public void setPost(String forum) {
-        this.post = post;
+        this.post = forum;
     }
 
     public String getTitle() {
@@ -44,11 +44,7 @@ public class Article {
         this.title = title;
     }
     
-    public void Article(){
-        
-        id = count;
-        count++;
-    }
+   
 
     public int getId() {
         return id;

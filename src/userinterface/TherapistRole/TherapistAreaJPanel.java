@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package userinterface.TherapistRole;
 
 import Business.Clinic.Therapist;
@@ -28,17 +29,19 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
 
     private UserAccount userAccount;
     private EcoSystem system;
-    String therapistid = MainJFrame.txtUsernameMain.getText();
-    Therapist therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(therapistid);
-    TherapistDirectory therapistdirectory = system.getClinicdirectory().getTherapistdir();
-    StudentDirectory studentdirectory = system.getUniversitydirectory().getStudentdir();
-    TherapyQueue therapyqueue = system.getClinicdirectory().getTherapyqueue();
+    public String therapistid = MainJFrame.txtUsernameMain.getText();
+    public Therapist therapist;
+    public TherapistDirectory therapistdirectory;
+    public StudentDirectory studentdirectory; 
+    public TherapyQueue therapyqueue ;
     
     /**
      * Creates new form DoctorWorkAreaJPanel
      */
     public TherapistAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system) {
         initComponents();
+        
+         
         
         this.userProcessContainer = userProcessContainer;
       
@@ -48,16 +51,61 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         populatePatientTable();
         setLabel();
         populateSessionTable();
+        populateDailyTable();
+        this.therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(therapistid);
+        this.therapistdirectory= system.getClinicdirectory().getTherapistdir();
+        this.studentdirectory = system.getUniversitydirectory().getStudentdir();
+        this.therapyqueue = system.getClinicdirectory().getTherapyqueue();
     }
     
+    public void populateDailyTable(){
+        
+        int count=0;
+        
+        DefaultTableModel model = (DefaultTableModel) tblDaily.getModel();
+        model.setRowCount(0);
+        
+        for(Student student: studentdirectory.getstudentlist()){
+            
+            if(student.getTherapistid().equals(therapist.getId())){
+                Object[] row = new Object[3];
+                row[0]= student.getId();
+                
+                row[1]= student.getName();
+                
+                for(Therapy therapy: therapyqueue.getTherapylist()){
+                    
+                    if(therapy.getStudentid().equals(student.getId())){
+                        
+                        count++;
+                    }
+                }
+                
+                row[2]=count;
+                 model.insertRow(0, row);
+                
+                
+            }
+        }
+        
+        
+        
+        
+    }
     public void populateSessionTable(){
         
-        DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
+        if(therapyqueue==null){
+            this.therapyqueue= system.getClinicdirectory().getTherapyqueue();
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblSessions.getModel();
         model.setRowCount(0);
         
         for(Therapy therapy: therapyqueue.getTherapylist()){
             
-            if(therapy.getTerminate()==null){
+            
+            
+            if(therapy.getTerminate()==false){
                 
                 Object[] row = new Object[4];
                 row[0]= therapy.getId();
@@ -83,11 +131,22 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblPatient.getModel();
         model.setRowCount(0);
         
+        if(this.studentdirectory==null){
+            
+            this.studentdirectory = system.getUniversitydirectory().getStudentdir();
+            System.out.print("I am in that null loop\n");
+        }
+        
         for(Student student:studentdirectory.getstudentlist()){
             
-            if(student.getAssigned()==false && student.getAssigned()!=null){
+            System.out.print("In for loop hello\n");
+            System.out.print("Boolean value is "+ student.getAssigned());
+            System.out.print("Name value is "+ student.getName());
+            boolean assign = student.getAssigned();
+            
+            if(assign==false){
                 
-                Object[] row = new Object[4];
+                Object[] row = new Object[5];
                 row[0]= student.getId();
                 
                 row[1]= student.getName();
@@ -115,7 +174,14 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     
     public void setLabel(){
         
+        if(therapist==null){
+            this.therapist = system.getClinicdirectory().getTherapistdir().RetrieveTherapist(therapistid);
+        }
+        
+        
+        
         lblViewTherapistName.setText(therapist.getName());
+        
     }
 
     
@@ -140,6 +206,12 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         txtSpecialities = new javax.swing.JTextField();
         txtMessage = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblSessions = new javax.swing.JTable();
+        btnTerminate = new javax.swing.JButton();
+        btnTerminate1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblViewTherapistName = new javax.swing.JLabel();
@@ -167,11 +239,23 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         lblAns8 = new javax.swing.JLabel();
         lblAns9 = new javax.swing.JLabel();
         lblAns10 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblSessions = new javax.swing.JTable();
-        btnTerminate = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        lblQues11 = new javax.swing.JLabel();
+        lblQues12 = new javax.swing.JLabel();
+        lblQues13 = new javax.swing.JLabel();
+        txtQues14 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtQues1 = new javax.swing.JLabel();
+        txtQues2 = new javax.swing.JLabel();
+        txtQues3 = new javax.swing.JLabel();
+        txtQues4 = new javax.swing.JLabel();
+        txtQues5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblDaily = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        btnViewDailyCheck = new javax.swing.JButton();
+        btnRefreshDailyCheck = new javax.swing.JButton();
 
         jTabbedPane1.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -220,22 +304,19 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(259, 259, 259))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addGap(373, 373, 373)
                         .addComponent(txtDegrees, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(145, 145, 145)
+                        .addGap(143, 143, 143)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,24 +324,28 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addComponent(lblPhoneNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(70, 70, 70))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSpecialities, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtExpNo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(258, 258, 258))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(72, 72, 72)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDegrees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDegrees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtExpNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,14 +358,78 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(139, 139, 139)
+                .addGap(18, 18, 18)
                 .addComponent(btnSave)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Therapist Details", jPanel3);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Active Session Details");
+
+        tblSessions.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "SessionID", "Client name", "Date", "Time"
+            }
+        ));
+        jScrollPane2.setViewportView(tblSessions);
+
+        btnTerminate.setText("Terminate Session");
+        btnTerminate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerminateActionPerformed(evt);
+            }
+        });
+
+        btnTerminate1.setText("Refresh Table");
+        btnTerminate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerminate1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTerminate, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTerminate1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTerminate)
+                    .addComponent(btnTerminate1))
+                .addGap(0, 342, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Active session", jPanel2);
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setText("Welcome!");
@@ -365,18 +514,35 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
 
         lblAns10.setText("<Ans>");
 
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblViewTherapistName)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnViewStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -410,12 +576,9 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblAns10, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                                     .addComponent(lblAns9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnViewStudent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAssign, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addComponent(btnAssign)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -426,9 +589,11 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                     .addComponent(lblViewTherapistName))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnViewStudent)
-                .addGap(10, 10, 10)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnViewStudent)
+                    .addComponent(btnRefresh))
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQues1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAns1))
@@ -475,58 +640,130 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("View Patient", jPanel1);
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(255, 204, 204));
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Active Session Details");
+        lblQues11.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues11.setText("1. In the past week, how often have you felt: joy, anxiety, sadness, anger, etc.?");
 
-        tblSessions.setModel(new javax.swing.table.DefaultTableModel(
+        lblQues12.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues12.setText("2. What colour is the best fit for how you feel today? ");
+
+        lblQues13.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblQues13.setText("3. Have you been feeling physically ill in the past week?");
+
+        txtQues14.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        txtQues14.setText("4. How many hours of sleep did you get this week? ");
+
+        jLabel10.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel10.setText("5. Do you feel lethargic?");
+
+        txtQues1.setText("<ans>");
+
+        txtQues2.setText("<ans>");
+
+        txtQues3.setText("<ans>");
+
+        txtQues4.setText("<ans>");
+
+        txtQues5.setText("<ans>");
+
+        tblDaily.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "SessionID", "Client name", "Date", "Time"
+                "Student ID", "Student Name", "Number of therapy sessions"
             }
         ));
-        jScrollPane2.setViewportView(tblSessions);
+        jScrollPane3.setViewportView(tblDaily);
 
-        btnTerminate.setText("Terminate session");
-        btnTerminate.addActionListener(new java.awt.event.ActionListener() {
+        jLabel11.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Daily wellness check for patients");
+
+        btnViewDailyCheck.setText("View");
+        btnViewDailyCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTerminateActionPerformed(evt);
+                btnViewDailyCheckActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        btnRefreshDailyCheck.setText("Refresh");
+        btnRefreshDailyCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshDailyCheckActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblQues11, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblQues12, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblQues13, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQues14, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtQues5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQues4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQues3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQues2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQues1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 56, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnTerminate, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnRefreshDailyCheck)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnViewDailyCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTerminate)
-                .addGap(0, 349, Short.MAX_VALUE))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnViewDailyCheck)
+                    .addComponent(btnRefreshDailyCheck))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQues11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQues1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQues12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQues2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQues13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQues3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtQues14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQues4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtQues5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(137, 137, 137))
         );
 
-        jTabbedPane1.addTab("Active session", jPanel2);
+        jTabbedPane1.addTab("View Daily check for patients", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -543,8 +780,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private void btnAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignActionPerformed
         // TODO add your handling code here:
         
-        Therapy therapy = therapyqueue.addTherapy();
-        therapy.setTherapistid(therapistid);
+        
         DefaultTableModel modelOrder = (DefaultTableModel)tblPatient.getModel();
         int selectedIndex = tblPatient.getSelectedRow();
         if(selectedIndex==-1){
@@ -560,7 +796,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
              id = modelOrder.getValueAt(selectedIndex, 0).toString();
              //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
         }
-        therapy.setStudentid(id);
+       
         studentdirectory.RetrieveStudent(id).setAssigned(Boolean.TRUE);
         studentdirectory.RetrieveStudent(id).setTherapistid(therapistid);
         populatePatientTable();
@@ -596,6 +832,8 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private void btnViewStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewStudentActionPerformed
         // TODO add your handling code here:
         
+        
+        
         DefaultTableModel modelOrder = (DefaultTableModel)tblPatient.getModel();
         int selectedIndex = tblPatient.getSelectedRow();
         if(selectedIndex==-1){
@@ -628,8 +866,9 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private void btnTerminateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminateActionPerformed
         // TODO add your handling code here:
         
-        DefaultTableModel modelOrder = (DefaultTableModel)tblPatient.getModel();
-        int selectedIndex = tblPatient.getSelectedRow();
+         System.out.print("I am in button\n");
+        DefaultTableModel modelOrder = (DefaultTableModel)tblSessions.getModel();
+        int selectedIndex = tblSessions.getSelectedRow();
         if(selectedIndex==-1){
             
             JOptionPane.showMessageDialog(this, "Please Select a row!");
@@ -645,26 +884,106 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         }
         int intid = Integer.parseInt(id);
         
+        
         Therapy therapy = therapyqueue.retrieveTherapy(intid);
+        System.out.print(therapy.getTerminate() +" this is terminate\n");
         therapy.setTerminate(Boolean.TRUE);
+        system.getUniversitydirectory().getStudentdir().RetrieveStudent(therapy.getStudentid()).setAppointment(Boolean.FALSE);
+        JOptionPane.showMessageDialog(this, "Terminated!");
+        
+        
+        
         
         
     }//GEN-LAST:event_btnTerminateActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        
+
+        populatePatientTable();
+        
+        
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnTerminate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminate1ActionPerformed
+        // TODO add your handling code here:
+        populateSessionTable();
+        
+        
+        
+       
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnTerminate1ActionPerformed
+
+    private void btnViewDailyCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDailyCheckActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblDaily.getModel();
+        int selectedIndex = tblDaily.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Patient!");
+            return;
+            
+        }
+        String id=null;
+        
+        if(selectedIndex!=-1){
+            
+             id = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        Student student = studentdirectory.RetrieveStudent(id);
+        if(student.getQues11()==null){
+            
+            JOptionPane.showMessageDialog(this, "Student has not taken the wellness check!");
+            return;
+            
+            
+        }
+        txtQues1.setText(student.getQues11());
+        txtQues2.setText(student.getQues12());
+        txtQues3.setText(student.getQues13());
+        txtQues4.setText(student.getQues14());
+        txtQues5.setText(student.getQues15());
+        
+        
+        
+    }//GEN-LAST:event_btnViewDailyCheckActionPerformed
+
+    private void btnRefreshDailyCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshDailyCheckActionPerformed
+        // TODO add your handling code here:
+        populateDailyTable();
+    }//GEN-LAST:event_btnRefreshDailyCheckActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssign;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnRefreshDailyCheck;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnTerminate;
+    private javax.swing.JButton btnTerminate1;
+    private javax.swing.JButton btnViewDailyCheck;
     private javax.swing.JButton btnViewStudent;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAns1;
@@ -682,6 +1001,9 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblPhoneNo;
     private javax.swing.JLabel lblQues1;
     private javax.swing.JLabel lblQues10;
+    private javax.swing.JLabel lblQues11;
+    private javax.swing.JLabel lblQues12;
+    private javax.swing.JLabel lblQues13;
     private javax.swing.JLabel lblQues2;
     private javax.swing.JLabel lblQues3;
     private javax.swing.JLabel lblQues4;
@@ -690,11 +1012,18 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblQues8;
     private javax.swing.JLabel lblQues9;
     private javax.swing.JLabel lblViewTherapistName;
+    private javax.swing.JTable tblDaily;
     private javax.swing.JTable tblPatient;
     private javax.swing.JTable tblSessions;
     private javax.swing.JTextField txtDegrees;
     private javax.swing.JTextField txtExpNo;
     private javax.swing.JTextField txtMessage;
+    private javax.swing.JLabel txtQues1;
+    private javax.swing.JLabel txtQues14;
+    private javax.swing.JLabel txtQues2;
+    private javax.swing.JLabel txtQues3;
+    private javax.swing.JLabel txtQues4;
+    private javax.swing.JLabel txtQues5;
     private javax.swing.JTextField txtSpecialities;
     // End of variables declaration//GEN-END:variables
 }

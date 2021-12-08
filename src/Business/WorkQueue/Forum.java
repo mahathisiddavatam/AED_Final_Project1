@@ -58,8 +58,7 @@ public class Forum {
     
     public void Forum(){
         
-        id = count;
-        count++;
+        
         articlelist = new ArrayList();
         studentidlist = new ArrayList();
     }

@@ -10,7 +10,9 @@ import Business.UserAccount.UserAccount;
 import Business.WorkQueue.AccessRequest;
 import Business.WorkQueue.Article;
 import Business.WorkQueue.Forum;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -60,6 +62,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         tblAccessRequests = new javax.swing.JTable();
         btnGrantAccess = new javax.swing.JButton();
         btnGrantAccess1 = new javax.swing.JButton();
+        btnAccessRefresh = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -125,6 +128,13 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
+        btnAccessRefresh.setText("Refresh");
+        btnAccessRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccessRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,7 +148,9 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
                         .addComponent(btnGrantAccess1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnGrantAccess, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(363, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAccessRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(210, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +161,8 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGrantAccess)
-                    .addComponent(btnGrantAccess1))
+                    .addComponent(btnGrantAccess1)
+                    .addComponent(btnAccessRefresh))
                 .addGap(0, 531, Short.MAX_VALUE))
         );
 
@@ -223,20 +236,17 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
                                 .addComponent(btnDeleteForum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                                 .addComponent(jLabel1))
+                            .addComponent(jLabel14)
                             .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtForumName, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel18)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtForumName, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnForumUpload1)
-                                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(btnForumUpload1)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(150, 150, 150))))
@@ -281,7 +291,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 866, Short.MAX_VALUE)
+            .addGap(0, 876, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -385,6 +395,11 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
 private void populatePostTable(Forum forum) {
         DefaultTableModel model = (DefaultTableModel) tblPosts.getModel();
         model.setRowCount(0);
+        if(forum.getArticlelist()==null){
+            
+            ArrayList <Article> artlist = new ArrayList();
+            forum.setArticlelist(artlist);
+        }
         
         for(Article article: forum.getArticlelist()){
             
@@ -412,7 +427,7 @@ private void populateForumTable(){
             
             if(usn.equals(forum.getCreatedby())){
                 
-                Object[] row = new Object[3];
+                Object[] row = new Object[4];
             row[0]= forum.getId();
             row[1]= forum.getTitle();
             row[2] = forum.getCreatedby();
@@ -426,18 +441,20 @@ private void populateForumTable(){
 private void populateAccessRequestTable(){
     
     String usn = MainJFrame.txtUsernameMain.getText();
-    DefaultTableModel model = (DefaultTableModel) tblForums.getModel();
+    DefaultTableModel model = (DefaultTableModel) tblAccessRequests.getModel();
     model.setRowCount(0);
     for(AccessRequest acc: system.getUniversitydirectory().getReqaccessq().getAccessRequestlist()){
+        
+        System.out.print(acc.getId());
             
             if(usn.equals(acc.getForumby()) && acc.getAccept()==null){
                 
-                Object[] row = new Object[5];
+                Object[] row = new Object[6];
                 row[0]= acc.getDate();
                 row[1]= acc.getStudentid();
                 row[2]= acc.getDescription();
                 row[3] = acc.getForumid();
-                row[5] = acc.getId();
+                row[4] = acc.getId();
                 
                 model.insertRow(0, row);
                 
@@ -551,6 +568,10 @@ private void populateAccessRequestTable(){
         }
         
         Forum forum = system.getUniversitydirectory().getForumqueue().addForum();
+        Random rand = new Random();
+        int up = 12345;
+        int random = rand.nextInt(12345);
+        forum.setId(random);
         forum.setTitle(forumname);
         forum.setDescription(desc);
         Date date = new Date();
@@ -559,6 +580,7 @@ private void populateAccessRequestTable(){
         forum.setCreatedby(usn);
         
         JOptionPane.showMessageDialog(this, "Uploaded!");
+        populateForumTable();
     }//GEN-LAST:event_btnForumUpload1ActionPerformed
 
     private void btnGrantAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrantAccessActionPerformed
@@ -580,7 +602,7 @@ private void populateAccessRequestTable(){
             
              studentid = modelOrder.getValueAt(selectedIndex, 1).toString();
              forumid = modelOrder.getValueAt(selectedIndex, 3).toString();
-             reqid = modelOrder.getValueAt(selectedIndex, 3).toString();
+             reqid = modelOrder.getValueAt(selectedIndex, 4).toString();
              
              
              //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
@@ -626,8 +648,20 @@ private void populateAccessRequestTable(){
         populateAccessRequestTable();
     }//GEN-LAST:event_btnGrantAccess1ActionPerformed
 
+    private void btnAccessRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccessRefreshActionPerformed
+        // TODO add your handling code here:
+        
+        for(AccessRequest acc: system.getUniversitydirectory().getReqaccessq().getAccessRequestlist()){
+            
+             system.getUniversitydirectory().getReqaccessq().getAccessRequestlist().remove(acc);
+        }
+        
+        populateAccessRequestTable();
+    }//GEN-LAST:event_btnAccessRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccessRefresh;
     private javax.swing.JButton btnDeleteForum;
     private javax.swing.JButton btnDeletePost;
     private javax.swing.JButton btnForumUpload1;

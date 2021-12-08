@@ -8,7 +8,8 @@ package Business.Role;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import userinterface.PetParentRole.PetParentWorkArea;
+import userinterface.PetParentRole.PetParentJPanel;
+
 import userinterface.TherapistRole.TherapistAreaJPanel;
 
 /**
@@ -17,9 +18,11 @@ import userinterface.TherapistRole.TherapistAreaJPanel;
  */
 public class PetParentRole extends Role {
     
+    
+    
      @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
-        return new PetParentWorkArea(userProcessContainer, account,business);
+        return new PetParentJPanel(userProcessContainer, account,business);
     }
     
 }

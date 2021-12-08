@@ -5,10 +5,13 @@
  */
 package userinterface.PetParentRole;
 
+import Business.EcoSystem;
+import Business.UserAccount.UserAccount;
 import java.awt.Image;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
 
 /**
  *
@@ -16,11 +19,19 @@ import javax.swing.JFileChooser;
  */
 public class PetParentJPanel extends javax.swing.JPanel {
 
+    private JPanel UserProcessContainer;
+    private UserAccount account;
+    private EcoSystem system;
     /**
      * Creates new form PetParentJPanel
      */
-    public PetParentJPanel() {
+    public PetParentJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
         initComponents();
+        this.UserProcessContainer = UserProcessContainer;
+        this.account = account;
+        this.system = business;
+        
+        
     }
 
     /**

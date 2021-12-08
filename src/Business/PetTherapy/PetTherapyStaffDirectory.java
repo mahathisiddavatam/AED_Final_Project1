@@ -28,10 +28,20 @@ public class PetTherapyStaffDirectory {
 
    
 
+    
+
+    public void setPettherapystafflist(ArrayList<PetTherapyStaff> pettherapystafflist) {
+        this.pettherapystafflist = pettherapystafflist;
+    }
+    
     public PetTherapyStaff AddPetTherapyStaff(String id){
         
         PetTherapyStaff pettherapystaff = new PetTherapyStaff();
         pettherapystaff.setId(id);
+        if(pettherapystafflist==null){
+            ArrayList <PetTherapyStaff> pettherapystafflist = new ArrayList();
+            setPettherapystafflist(pettherapystafflist);
+        }
         pettherapystafflist.add(pettherapystaff);
         return pettherapystaff;
     }

@@ -3,69 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/ClinicAdminRole/ManageClinicOrgDetailsJPanel.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/Role/VolunteerRole.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/PetTherapy/PetParentDirectory.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/PetTherapyAdmin/PetTherapyAdminWorkArea.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/Clinic/ClinicStaffDirectory.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/SystemAdminWorkArea/SystemAdminWorkAreaJPanel.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/Clinic/Clinic.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/PetTherapy/PetTherapy.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/ClinicStaffRole/ClinicStaffWorkAreaJPanel.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/University/Volunteer.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/WorkQueue/Event.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/SystemAdminWorkArea/ClinicJPanel.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/PetTherapy/PetParent.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/WorkQueue/TherapyQueue.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/Role/ClinicAdminRole.java</file>
+            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/NutritionistRole/NutritionistWorkArea.java</file>
+            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/Role/PetParentRole.java</file>
             <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/VolunteerRole/VolunteerRoleWorkArea.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/WorkQueue/NutritionistAppointment.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/University/University.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/ForumAdminRole/ForumAdminWorkArea.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/WorkQueue/EventQueue.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/Business/University/Student.java</file>
-            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/ClinicAdminRole/ManageClinicUserAccountsJPanel.java</file>
-=======
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/PetTherapy/PetParentDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/University/Volunteer.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/University/University.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/WorkQueue/Article.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/PetTherapy/PetParent.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/StudentRole/StudentWorkAreaPanel.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/MindFitness/YogaInstructor.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/PetTherapy/PetTherapyDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/ConfigureASystem.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/Clinic/Therapist.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/Clinic/ClinicDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/WorkQueue/EventQueue.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/Clinic/ClinicStaff.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/ClinicAdminRole/ManageClinicOrgDetailsJPanel.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/University/ForumAdmin.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/University/VolunteerDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/Role/Role.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/SystemAdminWorkArea/SystemAdminWorkAreaJPanel.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/MindFitness/MindFitness.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/University/ForumAdminDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/UniversityAdminRole/ManageUniversityOrgDetailsJPanel.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/MindFitness/MindFitStaff.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/MainJFrame.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/WorkQueue/Therapy.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/WorkQueue/Event.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/MindFitness/MindFitnessDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/VolunteerRole/VolunteerRoleWorkArea.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/TherapistRole/TherapistAreaJPanel.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/MindFitness/NutrionistDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/Clinic/TherapistDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/University/StudentDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/ForumAdminRole/ForumAdminWorkArea.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/University/Student.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/MindFitness/YogaInstructorDirectory.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/Organisation.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/Role/ClinicAdminRole.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/userinterface/ClinicStaffRole/ClinicStaffWorkAreaJPanel.java</file>
-            <file>file:/C:/Users/Varakumar/Documents/NetBeansProjects/AED-Final-Project-Mahathi/AED_Final_Project/src/Business/Clinic/Clinic.java</file>
->>>>>>> 1874cbc3d158143d8b89977466fa27b87742623f
+            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/MindFitnessAdminRole/MindFitnessAdminWorkareaJPanel.java</file>
+            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/PetParentRole/PetParentJPanel.java</file>
+            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/MindfitnessStaffRole/MindFitnessStaffWorkArea.java</file>
+            <file>file:/C:/Users/18576/AED_FINAL_PROJECT/AED_Final_Project1/src/userinterface/ClinicStaffRole/ClinicStaffWorkAreaJPanel.java</file>
         </group>
     </open-files>
 </project-private>

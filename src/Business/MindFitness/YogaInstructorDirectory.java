@@ -25,6 +25,10 @@ public class YogaInstructorDirectory {
         return yogainstlist;
     }
 
+    public void setYogainstlist(ArrayList<YogaInstructor> yogainstlist) {
+        this.yogainstlist = yogainstlist;
+    }
+
    
 
     public YogaInstructor AddYogaInstructor(String id){

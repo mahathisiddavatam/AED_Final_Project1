@@ -13,6 +13,7 @@ import Business.Role.MindFitnessStaffRole;
 import Business.Role.NutritionistRole;
 import Business.Role.YogaInstrRole;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -106,7 +107,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
         lblOrgType2.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblOrgType2.setText("Employee:");
 
-        cmbOrgType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Therapist", "Clinic Staff" }));
+        cmbOrgType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yoga Instructor", "Nutritionist","MindFitness Staff" }));
         cmbOrgType2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbOrgType2ActionPerformed(evt);
@@ -647,6 +648,17 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                    
         }
        
+       if(system.getMindfitnessdir().getNutridir().getnutritionistlist()==null){
+           
+           ArrayList<Nutritionist> nutritionistlist = new ArrayList();
+           
+           
+           
+           system.getMindfitnessdir().getNutridir().setNutritionistlist(nutritionistlist);
+           
+           
+       }
+       
        for(Nutritionist nutritionist: system.getMindfitnessdir().getNutridir().getnutritionistlist()){
             
             Object[] row = new Object[5];
@@ -659,6 +671,17 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
             model.insertRow(0, row);
                   
         }
+       
+       if(system.getMindfitnessdir().getYogadir().getyogainstlist()==null){
+           
+           ArrayList<YogaInstructor> yogalist = new ArrayList();
+           
+           
+           
+           system.getMindfitnessdir().getYogadir().setYogainstlist(yogalist);
+           
+           
+       }
        
         for(YogaInstructor yogaInst: system.getMindfitnessdir().getYogadir().getyogainstlist()){
             
