@@ -42,8 +42,8 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
         lblWelcome = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
         btnTerminate2 = new javax.swing.JButton();
-        lblPhoneNo = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        lblSpecial = new javax.swing.JLabel();
+        txtSpecial = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAppointmentDetails = new javax.swing.JTable();
@@ -66,10 +66,10 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
             }
         });
 
-        lblPhoneNo.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        lblPhoneNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPhoneNo.setText("Specialties in:");
-        lblPhoneNo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblSpecial.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblSpecial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSpecial.setText("Specialties in:");
+        lblSpecial.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("--APPOINTMENT REQUESTS/STATUS--");
@@ -120,9 +120,9 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(lblPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(263, 263, 263)
                         .addComponent(btnTerminate3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -142,8 +142,8 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
                     .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -168,10 +168,10 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
     private javax.swing.JButton btnTerminate3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel lblPhoneNo;
+    private javax.swing.JLabel lblSpecial;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JTable tblAppointmentDetails;
+    private javax.swing.JTextField txtSpecial;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }
