@@ -81,7 +81,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         for(PTherapy ptherapy: ptherapyqueue.getPTherapylist() ){
             
-            if(ptherapy.getStudentid().equals(student.getId())){
+            if(ptherapy.getStudentid().equals(MainJFrame.txtUsernameMain.getText())){
                 
                 Object[] row = new Object[4];
                  row[0]= ptherapy.getDog();
@@ -447,7 +447,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         btnViewEvent = new javax.swing.JButton();
         lblViewDate1 = new javax.swing.JLabel();
         lblViewLocation = new javax.swing.JLabel();
-        lblViewDetails1 = new javax.swing.JLabel();
+        lblDetails = new javax.swing.JLabel();
         lblViewDetails = new javax.swing.JLabel();
         lblPosterImage = new javax.swing.JLabel();
         lblViewLocation2 = new javax.swing.JLabel();
@@ -827,6 +827,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("Counselor details", jPanel7);
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setMinimumSize(new java.awt.Dimension(830, 700));
+        jPanel4.setPreferredSize(new java.awt.Dimension(830, 700));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblWelcome.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -857,6 +859,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         });
         jPanel4.add(btnView, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 100, -1));
 
+        lblPost.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel4.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
 
@@ -977,7 +980,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                         .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblForumDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 390, Short.MAX_VALUE)
                         .addComponent(btnSelectForum, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1041,7 +1044,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblViewLocation.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblViewLocation.setText("Location:");
 
-        lblViewDetails1.setText("<location>");
+        lblDetails.setText("<location>");
 
         lblViewDetails.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblViewDetails.setText("Details:");
@@ -1075,16 +1078,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                     .addComponent(lblViewLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblViewDate, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblViewDetails1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblViewDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 256, Short.MAX_VALUE))))))
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                    .addContainerGap(529, Short.MAX_VALUE)
-                    .addComponent(lblViewLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(186, 186, 186)))
+                                    .addComponent(lblDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblViewDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblViewLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 278, Short.MAX_VALUE))))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1104,19 +1103,16 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                     .addComponent(lblViewDate, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblViewDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(lblViewLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblViewLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblViewLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPosterImage, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblViewDetails1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(360, Short.MAX_VALUE))
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addGap(297, 297, 297)
-                    .addComponent(lblViewLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(521, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Events", jPanel9);
@@ -1426,7 +1422,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                             .addComponent(btnBookPet)
                             .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRefreshpetApp))
-                        .addContainerGap(27, Short.MAX_VALUE))))
+                        .addContainerGap(37, Short.MAX_VALUE))))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1490,7 +1486,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Pet Therapy", jPanel6);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 870));
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 870));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveResponseActionPerformed
@@ -1736,8 +1732,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         String post = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid).getPost();
         
-        String parsedPost = post.replaceAll("(.{1000})", "$1\n");
-        lblPost.setText(parsedPost);
+        String parsedPost = post.replaceAll("(.{65})", "$1\n");
+        //System.out.print(parsedPost);
+        lblPost.setText("<html>" + parsedPost.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
         
     }//GEN-LAST:event_btnViewActionPerformed
 
@@ -1774,8 +1771,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         Event event=eventqueue.retrieveEvent(eventint);
         
         lblViewDate1.setText(event.getDat());
-        lblViewDetails1.setText(event.getForum());
-        lblViewDetails1.setText(event.getLocation());
+        lblDetails.setText(event.getForum());
+        lblViewLocation2.setText(event.getLocation());
         ImageIcon icon = new ImageIcon(event.getFilename());
      
         Image image = icon.getImage().getScaledInstance(lblPosterImage.getWidth(), lblPosterImage.getHeight(), Image.SCALE_SMOOTH);
@@ -2009,6 +2006,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblDegree;
     private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblEthnicity;
     private javax.swing.JLabel lblExp;
     private javax.swing.JLabel lblForumDescription;
@@ -2042,7 +2040,6 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblViewDate;
     private javax.swing.JLabel lblViewDate1;
     private javax.swing.JLabel lblViewDetails;
-    private javax.swing.JLabel lblViewDetails1;
     private javax.swing.JLabel lblViewLocation;
     private javax.swing.JLabel lblViewLocation2;
     private javax.swing.JLabel lblWelcome;

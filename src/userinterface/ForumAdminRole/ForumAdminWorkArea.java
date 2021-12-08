@@ -150,7 +150,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
                         .addComponent(btnGrantAccess, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAccessRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +163,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
                     .addComponent(btnGrantAccess)
                     .addComponent(btnGrantAccess1)
                     .addComponent(btnAccessRefresh))
-                .addGap(0, 531, Short.MAX_VALUE))
+                .addGap(0, 539, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manage Access", jPanel1);
@@ -291,7 +291,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 876, Short.MAX_VALUE)
+            .addGap(0, 894, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -300,7 +300,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+            .addGap(0, 726, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -342,7 +342,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         jPanel8.add(btnDeletePost, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 250, 100, -1));
 
         lblPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel8.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 44, 410, 590));
+        jPanel8.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 410, 590));
 
         jLabel6.setText("IMAGE HERE!");
         jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 60, 240, 50));
@@ -369,14 +369,14 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Connect iN.U", jPanel7);
@@ -525,6 +525,34 @@ private void populateAccessRequestTable(){
 
     private void btnView1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnView1ActionPerformed
         // TODO add your handling code here:
+        
+         DefaultTableModel modelOrder = (DefaultTableModel)tblPosts.getModel();
+        int selectedIndex = tblPosts.getSelectedRow();
+        String postid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a post!");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             postid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             System.out.print(postid+ "This is post ID\n");
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        int forumid  = Integer.parseInt(lblForumID.getText());
+        int posttid = Integer.parseInt(postid);
+        System.out.print(posttid+ "This is post ID int\n");
+        Article article = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid);
+        System.out.print("Aricle id" + article.getId());
+        System.out.print("Aricle post" + article.getPost());
+        
+        String post = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid).getPost();
+        
+        String parsedPost = post.replaceAll("(.{70})", "$1\n");
+        lblPost.setText("<html>" + parsedPost.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
     }//GEN-LAST:event_btnView1ActionPerformed
 
     private void btnDeleteForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteForumActionPerformed
@@ -635,7 +663,7 @@ private void populateAccessRequestTable(){
         if(selectedIndex!=-1){
             
              
-             reqid = modelOrder.getValueAt(selectedIndex, 3).toString();
+             reqid = modelOrder.getValueAt(selectedIndex, 4).toString();
              
              
              //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();

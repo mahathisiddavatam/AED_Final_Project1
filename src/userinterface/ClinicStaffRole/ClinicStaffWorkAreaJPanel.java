@@ -111,10 +111,10 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         
     }
     
-    public void populateStudentTable(String studentid){
+    public void populateStudentTable(String studentid,DefaultTableModel model){
         
-        DefaultTableModel model = (DefaultTableModel) tblStudent.getModel();
-        model.setRowCount(0);
+        
+        
         Student student = studentdirectory.RetrieveStudent(studentid);
         Object[] row = new Object[4];
         row[0]= student.getId();
@@ -506,7 +506,7 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         String studentid = null;
         if(selectedIndex1!=-1){
             
-             studentid = modelStudent.getValueAt(selectedIndex, 0).toString();
+             studentid = modelStudent.getValueAt(selectedIndex1, 0).toString();
         }
         
         for(Therapy therapy: therapyqueue.getTherapylist()){
@@ -607,6 +607,9 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         
         DefaultTableModel modelOrder = (DefaultTableModel)tblTherapists.getModel();
         int selectedIndex = tblTherapists.getSelectedRow();
+        
+        DefaultTableModel model = (DefaultTableModel)tblStudent.getModel();
+        model.setRowCount(0);
         if(selectedIndex==-1){
             
             JOptionPane.showMessageDialog(this, "Please Select a Therapist!");
@@ -624,7 +627,7 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
             
             if(student.getTherapistid().equals(therapistid)){
                 
-                populateStudentTable(student.getId());
+                populateStudentTable(student.getId(),model);
             }
         }
         
@@ -668,11 +671,9 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
             
             if(therapy.getTherapistid().equals(therapistid)){
                 
-            if(therapy.getDate()==null){
-                therapy.setDate("invalid");
-            }
             
-            if(therapy.getDate().equals(date) && therapy.getTime().equals(slot)){
+            
+            if(therapy.getDate().equals(strDate) && therapy.getTime().equals(slot)){
                 
                 JOptionPane.showMessageDialog(this, "Please pick another slot!");
                 return;
@@ -707,13 +708,13 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         String studentid = null;
         if(selectedIndex1!=-1){
             
-             studentid = modelStudent.getValueAt(selectedIndex, 0).toString();
+             studentid = modelStudent.getValueAt(selectedIndex1, 0).toString();
         }
         
         therapy.setStudentid(studentid);
         therapy.setTherapistid(therapistid);
         
-        populateStudentTable(studentid);
+        //populateStudentTable(studentid);
         
         studentdirectory.RetrieveStudent(studentid).setAppointment(Boolean.TRUE);
         JOptionPane.showMessageDialog(this, "Appointment Scheduled!");
