@@ -6,6 +6,7 @@
 package Business.PetTherapy;
 
 
+import Business.WorkQueue.PetTherapyQueue;
 import java.util.ArrayList;
 
 /**
@@ -18,13 +19,23 @@ public class PetTherapyDirectory {
     private ArrayList<PetTherapy> pettherapylist;
     private PetParentDirectory petparentdir;
     private PetTherapyStaffDirectory petstaffdir;
+    private PetTherapyQueue pettherapyqueue;
     
 
     public PetTherapyDirectory() {
         pettherapylist = new ArrayList();
         petparentdir = new PetParentDirectory();
         petstaffdir = new PetTherapyStaffDirectory();
+        pettherapyqueue = new PetTherapyQueue();
         
+    }
+
+    public PetTherapyQueue getPettherapyqueue() {
+        return pettherapyqueue;
+    }
+
+    public void setPettherapyqueue(PetTherapyQueue pettherapyqueue) {
+        this.pettherapyqueue = pettherapyqueue;
     }
 
     public ArrayList<PetTherapy> getpettherapylist() {
