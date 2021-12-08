@@ -1545,7 +1545,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnSelectForum" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel19" alignment="3" pref="23" max="32767" attributes="0"/>
+                          <Component id="jLabel19" alignment="3" max="32767" attributes="0"/>
                           <Component id="lblForumDescription" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
