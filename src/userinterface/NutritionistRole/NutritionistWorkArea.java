@@ -39,19 +39,139 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblWelcome = new javax.swing.JLabel();
+        valueLabel = new javax.swing.JLabel();
+        btnTerminate2 = new javax.swing.JButton();
+        lblPhoneNo = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAppointmentDetails = new javax.swing.JTable();
+        btnTerminate3 = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(204, 204, 255));
+
+        lblWelcome.setBackground(new java.awt.Color(255, 255, 0));
+        lblWelcome.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblWelcome.setText("WELCOME:");
+
+        valueLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        valueLabel.setForeground(new java.awt.Color(0, 153, 153));
+        valueLabel.setText("<value>");
+
+        btnTerminate2.setText("Refresh Table");
+        btnTerminate2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerminate2ActionPerformed(evt);
+            }
+        });
+
+        lblPhoneNo.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        lblPhoneNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPhoneNo.setText("Specialties in:");
+        lblPhoneNo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("--APPOINTMENT REQUESTS/STATUS--");
+
+        tblAppointmentDetails.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "SessionID", "StudentID", "Name", "Time", "Location", "Status"
+            }
+        ));
+        jScrollPane1.setViewportView(tblAppointmentDetails);
+
+        btnTerminate3.setText("Terminate Session");
+        btnTerminate3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerminate3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTerminate2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(lblPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(btnTerminate3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTerminate2))
+                    .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnTerminate3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(262, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTerminate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminate2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTerminate2ActionPerformed
+
+    private void btnTerminate3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminate3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTerminate3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTerminate2;
+    private javax.swing.JButton btnTerminate3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblPhoneNo;
+    private javax.swing.JLabel lblWelcome;
+    private javax.swing.JTable tblAppointmentDetails;
+    private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }

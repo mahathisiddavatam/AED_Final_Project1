@@ -11,4 +11,10 @@ package Business.WorkQueue;
  */
 public class YogaAppointment {
     
+    
+    int id;
+    int count=1;
+    
+    
+    
 }
