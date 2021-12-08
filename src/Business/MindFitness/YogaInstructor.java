@@ -19,6 +19,15 @@ public class YogaInstructor {
     String city;
     String country;
     String zipcode;
+    String speciality;
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
 
     public String getId() {
         return id;

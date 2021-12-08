@@ -26,6 +26,14 @@ public class MindFitStaffDirectory {
         return mindfitstafflist;
     }
 
+    public ArrayList<MindFitStaff> getMindfitstafflist() {
+        return mindfitstafflist;
+    }
+
+    public void setMindfitstafflist(ArrayList<MindFitStaff> mindfitstafflist) {
+        this.mindfitstafflist = mindfitstafflist;
+    }
+
    
 
     public MindFitStaff AddMindFitStaff(String id){

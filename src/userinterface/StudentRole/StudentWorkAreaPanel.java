@@ -2,6 +2,10 @@ package userinterface.StudentRole;
 
 import Business.Clinic.Therapist;
 import Business.EcoSystem;
+import Business.MindFitness.NutrionistDirectory;
+import Business.MindFitness.Nutritionist;
+import Business.MindFitness.YogaInstructor;
+import Business.MindFitness.YogaInstructorDirectory;
 import Business.PetTherapy.PetParent;
 import Business.PetTherapy.PetParentDirectory;
 import Business.University.Student;
@@ -12,11 +16,19 @@ import Business.WorkQueue.Article;
 import Business.WorkQueue.Event;
 import Business.WorkQueue.EventQueue;
 import Business.WorkQueue.Forum;
+import Business.WorkQueue.NutritionRequest;
+import Business.WorkQueue.NutritionRequestQueue;
+import Business.WorkQueue.NutritionistAppointment;
+import Business.WorkQueue.NutritionistAppointmentQueue;
 import Business.WorkQueue.PTherapy;
 import Business.WorkQueue.Pet;
 import Business.WorkQueue.PetTherapyQueue;
 import Business.WorkQueue.Therapy;
 import Business.WorkQueue.TherapyQueue;
+import Business.WorkQueue.YogaAppointment;
+import Business.WorkQueue.YogaAppointmentQueue;
+import Business.WorkQueue.YogaRequest;
+import Business.WorkQueue.YogaRequestQueue;
 import java.awt.Image;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -43,6 +55,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     EventQueue eventqueue;
     PetParentDirectory petparentdirectory;
     PetTherapyQueue ptherapyqueue;
+    YogaAppointmentQueue yogaqueue;
+    NutritionistAppointmentQueue nutriqueue;
+    NutrionistDirectory nutridir;
+    YogaInstructorDirectory yogadir;
+    YogaRequestQueue yogarequestqueue;
+    NutritionRequestQueue nutrirequestqueue;
     
     /**
      * Creates new form LabAssistantWorkAreaJPanel
@@ -62,9 +80,141 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         this.eventqueue = system.getUniversitydirectory().getEventqueue();
         this.petparentdirectory = system.getPettherapydirectory().getPetparentdir();
         this.ptherapyqueue = system.getPettherapydirectory().getPettherapyqueue();
+        this.nutridir = system.getMindfitnessdir().getNutridir();
+        this.nutriqueue = system.getMindfitnessdir().getNutriqueue();
+        this.yogaqueue = system.getMindfitnessdir().getYogaqueue();
+        this.yogadir = system.getMindfitnessdir().getYogadir();
+        this.yogarequestqueue = system.getMindfitnessdir().getYogarequestqueue();
+        this.nutrirequestqueue = system.getMindfitnessdir().getNutrirequestqueue();
     
         
       
+        
+        
+    }
+    
+    public void populateYogaInstructors(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblYoga.getModel();
+        model.setRowCount(0);
+        
+        for(YogaInstructor yoga: yogadir.getyogainstlist()){
+            
+            Object[] row = new Object[3];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getName();
+                row[2] = yoga.getSpeciality();
+                model.insertRow(0, row);
+                
+            
+            
+        }
+        
+        DefaultTableModel modelNutri = (DefaultTableModel) tblNutritionist.getModel();
+        modelNutri.setRowCount(0);
+        
+        for(Nutritionist yoga: nutridir.getnutritionistlist()){
+            
+            Object[] row = new Object[3];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getName();
+                row[2] = yoga.getSpeciality();
+                modelNutri.insertRow(0, row);
+                
+            
+            
+        }
+        
+        
+    }
+    
+    public void populateMindFitAppointments(){
+        
+         DefaultTableModel model = (DefaultTableModel) tblMindfitAppoinments.getModel();
+         model.setRowCount(0);
+         
+         for(YogaAppointment yoga: yogaqueue.getYogaAppointmentlist() ){
+             
+             if(yoga.getStudentid().equals(student.getId())){
+                 
+                 Object[] row = new Object[5];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getDate();
+                row[2] = yoga.getTime();
+                row[3]= "Yoga Instructor";
+                
+                if(yoga.getTerminate()==false){
+                    
+                    row[4] = "Upcoming";
+                }
+                
+                if(yoga.getTerminate()==true){
+                    
+                    row[4] = "Session Completed";
+                }
+                
+                model.insertRow(0, row);
+                
+                
+                
+                
+                 
+                 
+             }
+             
+             
+         }
+         for(NutritionistAppointment yoga: nutriqueue.getNutritionistAppointmentlist() ){
+             
+             if(yoga.getStudentid().equals(student.getId())){
+                 
+                 Object[] row = new Object[5];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getDate();
+                row[2] = yoga.getTime();
+                row[3]= "Nutritionist";
+                
+                if(yoga.getTerminate()==false){
+                    
+                    row[4] = "Upcoming";
+                }
+                
+                if(yoga.getTerminate()==true){
+                    
+                    row[4] = "Session Completed";
+                }
+                
+                model.insertRow(0, row);
+                
+                
+                
+                
+                 
+                 
+             }
+             
+             
+         }
         
         
     }
@@ -455,7 +605,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tblMindfitAppoinments = new javax.swing.JTable();
         lblInstructorName = new javax.swing.JLabel();
         txtInstructorName = new javax.swing.JLabel();
         lblInstSpeciality = new javax.swing.JLabel();
@@ -464,13 +614,14 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         txtInstPhone = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        tblYogaAppointment = new javax.swing.JTable();
+        tblYoga = new javax.swing.JTable();
         jLabel37 = new javax.swing.JLabel();
         jScrollPane10 = new javax.swing.JScrollPane();
-        tblNurtitionAppointment = new javax.swing.JTable();
+        tblNutritionist = new javax.swing.JTable();
         jLabel38 = new javax.swing.JLabel();
         btnBookYoga = new javax.swing.JButton();
         btnBookNutritionist = new javax.swing.JButton();
+        btnRefreshmindfitappttable = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -1127,18 +1278,26 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel29.setText("MindFit Appointment Details");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tblMindfitAppoinments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Session no.", "Date", "Time", "Session status"
+                "Session no.", "Date", "Time", "Instructor Type", "Session status"
             }
         ));
-        jScrollPane8.setViewportView(jTable4);
+        tblMindfitAppoinments.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMindfitAppoinmentsMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tblMindfitAppoinments);
+        if (tblMindfitAppoinments.getColumnModel().getColumnCount() > 0) {
+            tblMindfitAppoinments.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         lblInstructorName.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblInstructorName.setText("Instructor Name:");
@@ -1156,43 +1315,60 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         txtInstPhone.setText("<contactNo>");
 
         jLabel36.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jLabel36.setText("Past appointments:");
+        jLabel36.setText("Appointments:");
 
-        tblYogaAppointment.setModel(new javax.swing.table.DefaultTableModel(
+        tblYoga.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Name"
+                "ID", "Name", "Speciality"
             }
         ));
-        jScrollPane9.setViewportView(tblYogaAppointment);
+        jScrollPane9.setViewportView(tblYoga);
 
         jLabel37.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         jLabel37.setText("Select new Yoga Instructor:");
 
-        tblNurtitionAppointment.setModel(new javax.swing.table.DefaultTableModel(
+        tblNutritionist.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Name"
+                "ID", "Name", "Speciality"
             }
         ));
-        jScrollPane10.setViewportView(tblNurtitionAppointment);
+        jScrollPane10.setViewportView(tblNutritionist);
 
         jLabel38.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         jLabel38.setText("Select new Nutritionist:");
 
         btnBookYoga.setText("Request Yoga Instructor");
+        btnBookYoga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookYogaActionPerformed(evt);
+            }
+        });
 
         btnBookNutritionist.setText("Request Nutritionist");
+        btnBookNutritionist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookNutritionistActionPerformed(evt);
+            }
+        });
+
+        btnRefreshmindfitappttable.setText("Refresh");
+        btnRefreshmindfitappttable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshmindfitappttableActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1211,20 +1387,23 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtInstructorSpeciality, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addComponent(txtInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(60, 60, 60)
+                                        .addComponent(btnRefreshmindfitappttable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(txtInstPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel36)
                             .addComponent(jLabel37))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(323, 323, 323))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane8)
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnBookNutritionist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnBookYoga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnBookYoga)
+                                    .addComponent(btnBookNutritionist, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1250,7 +1429,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefreshmindfitappttable))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtInstructorSpeciality, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1262,12 +1442,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 .addGap(53, 53, 53)
                 .addComponent(jLabel37)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBookYoga))
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel38)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBookYoga)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBookNutritionist))
@@ -1422,7 +1602,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                             .addComponent(btnBookPet)
                             .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRefreshpetApp))
-                        .addContainerGap(37, Short.MAX_VALUE))))
+                        .addContainerGap(38, Short.MAX_VALUE))))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1903,13 +2083,140 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         populatePetAppointment();
+        populateYogaInstructors();
     }//GEN-LAST:event_btnRefreshpetAppActionPerformed
+
+    private void btnRefreshmindfitappttableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshmindfitappttableActionPerformed
+        // TODO add your handling code here:
+        
+        populateMindFitAppointments();
+    }//GEN-LAST:event_btnRefreshmindfitappttableActionPerformed
+
+    private void tblMindfitAppoinmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMindfitAppoinmentsMouseClicked
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblMindfitAppoinments.getModel();
+        int selectedIndex = tblMindfitAppoinments.getSelectedRow();
+        String petid=null;
+        String type=null;
+        
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a dog");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             petid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             type = modelOrder.getValueAt(selectedIndex, 3).toString();
+             
+             
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        int id = Integer.parseInt(petid);
+        
+        if(type== "Yoga Instructor"){
+            
+            YogaInstructor yoga = yogadir.RetrieveYogaInstructor(yogaqueue.retrieveYogaAppointment(id).getYogaid());
+            
+            txtInstructorName.setText(yoga.getName());
+            txtInstructorSpeciality.setText(yoga.getSpeciality());
+            txtInstPhone.setText(yoga.getPhone());
+        }
+        
+        if(type== "Nutritionist"){
+            
+            Nutritionist yoga = nutridir.RetrieveNutritionist(nutriqueue.retrieveNutritionistAppointment(id).getNutritionistid());
+            
+            txtInstructorName.setText(yoga.getName());
+            txtInstructorSpeciality.setText(yoga.getSpeciality());
+            txtInstPhone.setText(yoga.getPhone());
+        }
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_tblMindfitAppoinmentsMouseClicked
+
+    private void btnBookYogaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookYogaActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblYoga.getModel();
+        int selectedIndex = tblYoga.getSelectedRow();
+        String eventid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select an Instructor");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             eventid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        YogaRequest yogareq = yogarequestqueue.addYogaRequest();
+        
+        yogareq.setYogaid(eventid);
+        yogareq.setStudentid(student.getId());
+        Date date = new Date();
+        yogareq.setDate(date);
+        
+        JOptionPane.showMessageDialog(this, "Requested! Please check appointment table for updates");
+                
+        
+        
+        
+        
+    }//GEN-LAST:event_btnBookYogaActionPerformed
+
+    private void btnBookNutritionistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookNutritionistActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblNutritionist.getModel();
+        int selectedIndex = tblNutritionist.getSelectedRow();
+        String eventid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Nutritionist");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             eventid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        NutritionRequest yogareq = nutrirequestqueue.addNutritionRequest();
+        
+        yogareq.setYogaid(eventid);
+        yogareq.setStudentid(student.getId());
+        Date date = new Date();
+        yogareq.setDate(date);
+        
+        JOptionPane.showMessageDialog(this, "Requested! Please check appointment table for updates");
+        
+        
+    }//GEN-LAST:event_btnBookNutritionistActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBookNutritionist;
     private javax.swing.JButton btnBookPet;
     private javax.swing.JButton btnBookYoga;
     private javax.swing.JButton btnPost;
+    private javax.swing.JButton btnRefreshmindfitappttable;
     private javax.swing.JButton btnRefreshpetApp;
     private javax.swing.JButton btnRequestForumAccess;
     private javax.swing.JButton btnSave;
@@ -1997,7 +2304,6 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable4;
     private javax.swing.JLabel lbl;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblComment;
@@ -2047,11 +2353,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblAppointment1;
     private javax.swing.JTable tblEvents;
     private javax.swing.JTable tblForums;
-    private javax.swing.JTable tblNurtitionAppointment;
+    private javax.swing.JTable tblMindfitAppoinments;
+    private javax.swing.JTable tblNutritionist;
     private javax.swing.JTable tblPet;
     private javax.swing.JTable tblPetAppointments;
     private javax.swing.JTable tblPosts;
-    private javax.swing.JTable tblYogaAppointment;
+    private javax.swing.JTable tblYoga;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCountry;
