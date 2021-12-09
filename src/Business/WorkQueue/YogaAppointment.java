@@ -15,6 +15,7 @@ public class YogaAppointment {
     
     int id;
     String yogaid;
+    Boolean payment;
 
     public int getId() {
         return id;
@@ -74,8 +75,18 @@ public class YogaAppointment {
         int random = rand.nextInt(12345);
         
         id=random;
+        terminate=false;
+        payment=false;
         
         
+    }
+
+    public Boolean getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Boolean payment) {
+        this.payment = payment;
     }
     
     

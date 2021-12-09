@@ -197,6 +197,9 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
+        lblDescription.setText("<Description>");
+        lblDescription.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
         jLabel1.setText("Description:");
 
         jLabel14.setText("Upload New Forum");
@@ -345,7 +348,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         jPanel8.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 410, 590));
 
         jLabel6.setText("IMAGE HERE!");
-        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 60, 240, 50));
+        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 240, 50));
 
         jLabel4.setText("Created by");
         jPanel8.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
@@ -473,7 +476,7 @@ private void populateAccessRequestTable(){
         int selectedIndex = tblForums.getSelectedRow();
         if(selectedIndex==-1){
 
-            JOptionPane.showMessageDialog(this, "Please Select a post!");
+            JOptionPane.showMessageDialog(this, "Please Select a forum!");
             return;
 
         }
@@ -488,6 +491,7 @@ private void populateAccessRequestTable(){
         Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid));
 
         lblForumID.setText(forumid);
+        lblDescription.setText(forum.getDescription());
         lblCreated.setText(createdby);
         lblWelcome.setText("Welcome to "+ forum.getTitle());
         lblDescription.setText(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)).getDescription());

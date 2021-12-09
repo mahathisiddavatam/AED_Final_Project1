@@ -17,7 +17,9 @@ import Business.WorkQueue.NutritionRequest;
 import Business.WorkQueue.NutritionRequestQueue;
 import Business.WorkQueue.NutritionistAppointment;
 import Business.WorkQueue.NutritionistAppointmentQueue;
+import Business.WorkQueue.YogaAppointment;
 import Business.WorkQueue.YogaAppointmentQueue;
+import Business.WorkQueue.YogaRequest;
 import Business.WorkQueue.YogaRequestQueue;
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -60,6 +62,40 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         this.yogarequestqueue = system.getMindfitnessdir().getYogarequestqueue();
         this.nutrirequestqueue = system.getMindfitnessdir().getNutrirequestqueue();
         this.studentdirectory = system.getUniversitydirectory().getStudentdir();
+    }
+    
+    public void populateInstructorPaymentTable(YogaAppointment therapy, DefaultTableModel model){
+        
+        Object[] row = new Object[5];
+        row[0]= therapy.getId();
+        row[1]=therapy.getYogaid();
+        row[2]=therapy.getStudentid();
+        row[3]=therapy.getDate();
+        if(((therapy.getTerminate()==false))) {
+            
+            row[4]="Session to be completed";
+            
+            
+            
+        }
+        if(therapy.getPayment()==false && therapy.getTerminate()==true){
+            
+            pay = pay+350;
+            row[4]="$350 to be paid";
+            
+        }
+        if(therapy.getPayment()==true){
+            
+            
+            row[4]="Payment completed";
+            
+        }
+        
+        
+        model.insertRow(0, row);
+        txtTotal.setText(String.valueOf(pay));
+        
+        
     }
     
     public void populateNutritionistPaymentTable(NutritionistAppointment therapy, DefaultTableModel model){
@@ -181,7 +217,6 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         btnPayment = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblWelcome1 = new javax.swing.JLabel();
-        valueLabel1 = new javax.swing.JLabel();
         lblInstructors = new javax.swing.JLabel();
         btnManage = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -193,15 +228,14 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         tblStudentList1 = new javax.swing.JTable();
         jSeparator4 = new javax.swing.JSeparator();
         lblSelectDate1 = new javax.swing.JLabel();
-        jCalendar2 = new com.toedter.calendar.JCalendar();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tblTimeslot1 = new javax.swing.JTable();
         lblSelectDateTime = new javax.swing.JLabel();
         txtDateTime = new javax.swing.JTextField();
         btnConfirm1 = new javax.swing.JButton();
+        cbcSlot1 = new javax.swing.JComboBox<>();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
+        btnConfirm3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         lblInstructors1 = new javax.swing.JLabel();
-        lblInstructor = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblInstructorPayment = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -321,22 +355,25 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnView2))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(cbcSlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(164, 164, 164)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtDate)
-                                    .addComponent(jLabel3)
-                                    .addComponent(btnConfirm2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(133, 133, 133)
-                                .addComponent(lblSelectDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(225, 225, 225)
-                                .addComponent(lblStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(58, 58, 58)
+                                        .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(cbcSlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(133, 133, 133)
+                                        .addComponent(lblSelectDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(164, 164, 164)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnConfirm2)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                                        .addComponent(txtDate)
+                                        .addComponent(jLabel3)))))
                         .addGap(0, 6, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
@@ -376,12 +413,12 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                         .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnConfirm)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConfirm2)
-                        .addGap(58, 58, 58))
+                        .addGap(99, 99, 99))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(lblSelectDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSelectDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnConfirm2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -473,11 +510,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
 
         lblWelcome1.setBackground(new java.awt.Color(255, 255, 0));
         lblWelcome1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblWelcome1.setText("WELCOME:");
-
-        valueLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        valueLabel1.setForeground(new java.awt.Color(0, 153, 153));
-        valueLabel1.setText("<value>");
+        lblWelcome1.setText("WELCOME");
 
         lblInstructors.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblInstructors.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -518,43 +551,21 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
 
         tblStudentList1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "NAME", "COLLEGE", "APPOINTMENT DATE"
+                "ID", "NAME", "APPOINTMENT DATE", "APPOINTMENT TIME", "APPOINTMENT STATUS"
             }
         ));
         jScrollPane5.setViewportView(tblStudentList1);
-        if (tblStudentList1.getColumnModel().getColumnCount() > 0) {
-            tblStudentList1.getColumnModel().getColumn(1).setHeaderValue("NAME");
-            tblStudentList1.getColumnModel().getColumn(2).setHeaderValue("COLLEGE");
-            tblStudentList1.getColumnModel().getColumn(3).setHeaderValue("APPOINTMENT DATE");
-        }
 
         lblSelectDate1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSelectDate1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSelectDate1.setText("SELECT DATE TO ASSIGN");
         lblSelectDate1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        tblTimeslot1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"8:00 AM"},
-                {"9:00 AM"},
-                {"10:00 AM"},
-                {"11:00 AM"},
-                {"1:00 PM"},
-                {"2:00 PM"},
-                {"3:00 PM"},
-                {"4:00 PM"}
-            },
-            new String [] {
-                "TIME"
-            }
-        ));
-        jScrollPane6.setViewportView(tblTimeslot1);
 
         lblSelectDateTime.setText("SELECTED DATA AND TIME");
 
@@ -565,19 +576,37 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         });
 
         btnConfirm1.setText("CONFIRM APPOINTMENT");
+        btnConfirm1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirm1ActionPerformed(evt);
+            }
+        });
+
+        cbcSlot1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Slot", "8:00 ", "9:00 ", "10:00 ", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
+
+        jCalendar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jCalendar1.setAutoscrolls(true);
+        jCalendar1.setDecorationBordersVisible(true);
+
+        btnConfirm3.setText("REFRESH");
+        btnConfirm3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirm3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator4)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator3))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(164, 164, 164)
-                        .addComponent(lblWelcome1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(valueLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblWelcome1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(207, 207, 207)
                         .addComponent(lblInstructors, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -594,33 +623,37 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                         .addGap(205, 205, 205)
                         .addComponent(lblStudents1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
+                        .addGap(49, 49, 49)
+                        .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(cbcSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSelectDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnConfirm1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtDateTime, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jCalendar2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(135, 135, 135)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSelectDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(btnConfirm1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtDateTime, javax.swing.GroupLayout.Alignment.LEADING))))
-                            .addComponent(lblSelectDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                .addComponent(jSeparator4)
+                                .addGap(357, 357, 357))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(lblSelectDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(253, 253, 253)))
+                        .addComponent(btnConfirm3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(57, 57, 57)))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator3)
-                    .addComponent(jScrollPane5)))
+                .addComponent(jScrollPane5)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblWelcome1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(valueLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblWelcome1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblInstructors, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -633,27 +666,30 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblStudents1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblSelectDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jCalendar2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                        .addGap(32, 32, 32))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblSelectDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblSelectDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblSelectDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbcSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnConfirm1)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(btnConfirm1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnConfirm3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("YOGA INSTRUCTOR", jPanel2);
@@ -665,18 +701,15 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         lblInstructors1.setText("MANAGE PAYMENTS");
         lblInstructors1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblInstructor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblInstructor.setText("INSTRUCTORS ");
-
         tblInstructorPayment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "INSTRUCTOR ID", "NAME", "STUDENT NAME", "TIME TAKEN"
+                "APPOINTMENT ID", "INSTRUCTOR ID", "STUDENT ID", "DATE", "STATUS"
             }
         ));
         jScrollPane7.setViewportView(tblInstructorPayment);
@@ -685,6 +718,11 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         jLabel2.setText("TOTAL");
 
         btnPay.setText("DO PAYMENT");
+        btnPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -696,17 +734,15 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                         .addGap(253, 253, 253)
                         .addComponent(lblInstructors1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)
-                                .addComponent(btnPay)))))
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnPay))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -715,17 +751,13 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblInstructors1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(lblInstructor, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPay))
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("MANAGE PAYMENTS - INSTRUCTORS", jPanel3);
@@ -790,6 +822,49 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
 
     private void btnManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageActionPerformed
         // TODO add your handling code here:
+        
+         pay=0;
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblInstructor.getModel();
+         DefaultTableModel modelStudent = (DefaultTableModel)tblStudentList1.getModel();
+         int selectedIndex = tblInstructor.getSelectedRow();
+         if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select an Instructor!");
+            return;
+            
+        }
+         String therapistid=null;
+         if(selectedIndex!=-1){
+            
+             therapistid = modelOrder.getValueAt(selectedIndex, 0).toString();
+        }
+         
+        int selectedIndex1 = tblStudentList1.getSelectedRow();
+        if(selectedIndex1==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Student!");
+            return;
+            
+        }
+        
+        
+        DefaultTableModel model = (DefaultTableModel) tblInstructorPayment.getModel();
+        model.setRowCount(0);
+        
+        String studentid = null;
+        if(selectedIndex1!=-1){
+            
+             studentid = modelStudent.getValueAt(selectedIndex1, 1).toString();
+        }
+        
+        for(YogaAppointment therapy: yogaqueue.getYogaAppointmentlist()){
+            
+            if(therapy.getYogaid().equals(therapistid) && therapy.getStudentid().equals(studentid)){
+                
+                populateInstructorPaymentTable(therapy,model);
+            }
+        }
     }//GEN-LAST:event_btnManageActionPerformed
 
     private void txtDateTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateTimeActionPerformed
@@ -819,7 +894,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         
         for(NutritionRequest req: nutrirequestqueue.getNutritionRequestlist()){
             
-            if(!(req.isAccept())){
+            if(!(req.isAccept()) && !(req.isReject())){
                 
                 Student student = studentdirectory.RetrieveStudent(req.getStudentid());
                 
@@ -830,7 +905,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                 row[2]="To be Updated";
                 row[3] ="To be Updated";
                 model.insertRow(0, row);
-                return;
+                
                 
             
            
@@ -851,7 +926,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                 row[2]="To be Updated";
                 row[3] ="To be Updated";
                 model.insertRow(0, row);
-                return;
+                
                 }
                 else{
                     
@@ -860,7 +935,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                         row[2]=app.getDate();
                         row[3] =app.getTime();
                         model.insertRow(0, row);
-                        return;
+                        
                     }
                     
                     else{
@@ -869,7 +944,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
                         row[2]=app.getDate();
                         row[3] =app.getTime();
                         model.insertRow(0, row);
-                        return;
+                       
                         
                         
                         
@@ -1049,6 +1124,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     private void btnView2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnView2ActionPerformed
         // TODO add your handling code here:
         populateNutritionistTable();
+        
     }//GEN-LAST:event_btnView2ActionPerformed
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
@@ -1094,14 +1170,246 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     private void btnView1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnView1ActionPerformed
         // TODO add your handling code here:
         
+        DefaultTableModel modelOrder = (DefaultTableModel)tblInstructor.getModel();
+        int selectedIndex = tblInstructor.getSelectedRow();
+        
+        DefaultTableModel model = (DefaultTableModel)tblStudentList1.getModel();
+        model.setRowCount(0);
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select an Instructor!");
+            return;
+            
+        }
+        String therapistid = null;
+        
+        if(selectedIndex!=-1){
+            
+             therapistid = modelOrder.getValueAt(selectedIndex, 0).toString();
+        }
+        
+        for(YogaRequest req: yogarequestqueue.getYogaRequestlist()){
+            
+            if(!(req.isAccept()) && !(req.isReject())){
+                
+                Student student = studentdirectory.RetrieveStudent(req.getStudentid());
+                
+                Object[] row = new Object[5];
+                row[0]= req.getId();
+                row[1]= student.getId();
+                row[4] = "Status to be Updated";
+                row[2]="To be Updated";
+                row[3] ="To be Updated";
+                model.insertRow(0, row);
+                
+                
+            
+           
+                
+            }
+            
+            if(req.isAccept()){
+                
+                Student student = studentdirectory.RetrieveStudent(req.getStudentid());
+                
+                Object[] row = new Object[5];
+                row[0]= req.getId();
+                row[1]= student.getId();
+                
+                YogaAppointment app = yogaqueue.retrieveYogaAppointment(req.getId());
+                if(app==null){
+                row[4] = "Session to be completed";
+                row[2]="To be Updated";
+                row[3] ="To be Updated";
+                model.insertRow(0, row);
+                
+                }
+                else{
+                    
+                    if(app.getTerminate()==true){
+                        row[4] = "Session Completed";
+                        row[2]=app.getDate();
+                        row[3] =app.getTime();
+                        model.insertRow(0, row);
+                        
+                    }
+                    
+                    else{
+                        
+                        row[4] = "Session to be Completed";
+                        row[2]=app.getDate();
+                        row[3] =app.getTime();
+                        model.insertRow(0, row);
+                       
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                }
+                    
+                    
+                }
+            
+            if(req.isReject()){
+                
+                Student student = studentdirectory.RetrieveStudent(req.getStudentid());
+                
+                Object[] row = new Object[5];
+                row[0]= req.getId();
+                row[1]= student.getId();
+                
+                row[4] = "Instructor not Available";
+                row[2]= "Not Applicable";
+                row[3] = "Not Applicable";
+                model.insertRow(0, row);
+                
+                
+            }
+                
+                
+            
+             
+            
+            
+        }
+        
+        
         
     }//GEN-LAST:event_btnView1ActionPerformed
+
+    private void btnConfirm1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirm1ActionPerformed
+        // TODO add your handling code here:
+        Calendar cal = jCalendar1.getCalendar();
+        
+        Date date = cal.getTime();
+        String strDate = DateFormat.getDateInstance().format(date);
+        txtDate.setText(strDate);
+        
+        String slot = cbcSlot1.getSelectedItem().toString();
+        int selectedIndex = tblInstructor.getSelectedRow();
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblInstructor.getModel();
+        DefaultTableModel modelStudent = (DefaultTableModel)tblStudentList1.getModel();
+         if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select an Instructor");
+            return;
+            
+        }
+         String therapistid=null;
+         if(selectedIndex!=-1){
+            
+             therapistid = modelOrder.getValueAt(selectedIndex, 0).toString();
+        }
+        
+        for(YogaAppointment therapy: yogaqueue.getYogaAppointmentlist()){
+            
+            if(therapy.getYogaid().equals(therapistid)){
+                
+            
+            
+            if(therapy.getDate().equals(strDate) && therapy.getTime().equals(slot)){
+                
+                JOptionPane.showMessageDialog(this, "Please pick another slot!");
+                return;
+                
+                
+            }
+        }
+        }
+        
+        int selectedIndex1 = tblStudentList1.getSelectedRow();
+        if(selectedIndex1==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Student!");
+            return;
+            
+        }
+        
+        
+        
+        
+        String studentid = null;
+        String reqid=null;
+        if(selectedIndex1!=-1){
+            
+             studentid = modelStudent.getValueAt(selectedIndex1, 1).toString();
+             reqid = modelStudent.getValueAt(selectedIndex1, 0).toString();
+             
+        }
+        
+        int appid = Integer.parseInt(reqid);
+        
+        
+        
+        YogaAppointment app = yogaqueue.addYogaAppointment();
+        app.setId(appid);
+        app.setDate(strDate);
+        app.setTime(slot);
+        app.setStudentid(studentid);
+        app.setYogaid(therapistid);
+        
+        YogaRequest nutri = yogarequestqueue.retrieveYogaRequest(appid);
+        nutri.setAccept(true);
+        
+         JOptionPane.showMessageDialog(this, "Schedeuled!");
+    }//GEN-LAST:event_btnConfirm1ActionPerformed
+
+    private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
+        // TODO add your handling code here:
+        pay=0;
+         DefaultTableModel modelOrder = (DefaultTableModel)tblStudentList1.getModel();
+         int selectedIndex = tblInstructorPayment.getSelectedRow();
+         int sessionid=0;
+         if(selectedIndex==-1){
+             
+              JOptionPane.showMessageDialog(this, "Please Select a Row");
+               return;
+             
+             
+         }
+         
+                  if(selectedIndex!=-1){
+            
+             String sess = modelOrder.getValueAt(selectedIndex, 0).toString();
+             sessionid = Integer.parseInt(sess);
+        }
+                  
+        YogaAppointment therapy1 = yogaqueue.retrieveYogaAppointment(sessionid);
+        therapy1.setPayment(true);
+        
+        
+         
+        
+        
+       
+        
+        
+        
+        
+        
+        
+        JOptionPane.showMessageDialog(this, "Paid!");
+    }//GEN-LAST:event_btnPayActionPerformed
+
+    private void btnConfirm3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirm3ActionPerformed
+        // TODO add your handling code here:
+        populateYogaInstructorTable();
+    }//GEN-LAST:event_btnConfirm3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnConfirm2;
+    private javax.swing.JButton btnConfirm3;
     private javax.swing.JButton btnManage;
     private javax.swing.JButton btnManagePayNutri;
     private javax.swing.JButton btnPay;
@@ -1111,7 +1419,8 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     private javax.swing.JButton btnView2;
     private com.toedter.calendar.JCalendar calendarSession;
     private javax.swing.JComboBox<String> cbcSlot;
-    private com.toedter.calendar.JCalendar jCalendar2;
+    private javax.swing.JComboBox<String> cbcSlot1;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -1123,7 +1432,6 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
@@ -1131,7 +1439,6 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lblInstructor;
     private javax.swing.JLabel lblInstructors;
     private javax.swing.JLabel lblInstructors1;
     private javax.swing.JLabel lblNutritionist;
@@ -1149,11 +1456,9 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
     private javax.swing.JTable tblNutritionistPayment;
     private javax.swing.JTable tblStudentList;
     private javax.swing.JTable tblStudentList1;
-    private javax.swing.JTable tblTimeslot1;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtDateTime;
     private javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtTotal1;
-    private javax.swing.JLabel valueLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -33,6 +33,7 @@ public class NutritionistAppointment {
         
         Random rand = new Random();
         int random = rand.nextInt(12345);
+        terminate=false;
         
         id=random;
         

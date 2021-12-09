@@ -353,6 +353,10 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblDescription">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;Description&gt;"/>
+                    <Property name="verticalAlignment" type="int" value="1"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
@@ -518,7 +522,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="509" y="60" width="240" height="50"/>
+                      <AbsoluteConstraints x="490" y="60" width="240" height="50"/>
                     </Constraint>
                   </Constraints>
                 </Component>

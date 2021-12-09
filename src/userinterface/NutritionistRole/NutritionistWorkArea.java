@@ -6,8 +6,16 @@
 package userinterface.NutritionistRole;
 
 import Business.EcoSystem;
+import Business.MindFitness.NutrionistDirectory;
+import Business.MindFitness.Nutritionist;
+import Business.University.StudentDirectory;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.NutritionistAppointment;
+import Business.WorkQueue.NutritionistAppointmentQueue;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -18,6 +26,10 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
     private JPanel UserProcessContainer;
     private UserAccount account;
     private EcoSystem system;
+    NutritionistAppointmentQueue nutriqueue;
+    NutrionistDirectory nutridir;
+    StudentDirectory studentdirectory;
+    Nutritionist nutritionist;
 
     /**
      * Creates new form NutritionistWorkArea
@@ -27,6 +39,54 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
         this.UserProcessContainer=UserProcessContainer;
         this.account=account;
         this.system=system;
+        this.nutridir = system.getMindfitnessdir().getNutridir();
+        this.nutriqueue = system.getMindfitnessdir().getNutriqueue();
+        this.studentdirectory = system.getUniversitydirectory().getStudentdir();
+        nutritionist=system.getMindfitnessdir().getNutridir().RetrieveNutritionist(MainJFrame.txtUsernameMain.getText());
+        
+    }
+    
+    public void populateAppointmentTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblAppointmentDetails.getModel();
+        model.setRowCount(0);
+        
+        for(NutritionistAppointment app: nutriqueue.getNutritionistAppointmentlist()){
+            
+            if(app.getNutritionistid().equals(nutritionist.getId())){
+            
+            if(app.getTerminate()==false){
+                
+                Object[] row = new Object[6];
+                row[0]= app.getId();
+                
+                row[1]= app.getStudentid();
+                row[2] = studentdirectory.RetrieveStudent(app.getStudentid()).getName();
+                row[3]= app.getDate();
+                row[4] = app.getTime();
+                row[5] = "Upcoming";
+                
+                
+                model.insertRow(0, row);
+            }
+            
+            else{
+                Object[] row = new Object[6];
+                row[0]= app.getId();
+                
+                row[1]= app.getStudentid();
+                row[2] = studentdirectory.RetrieveStudent(app.getStudentid()).getName();
+                row[3]= app.getDate();
+                row[4] = app.getTime();
+                row[5] = "Session Completed";
+                
+                
+                model.insertRow(0, row);
+                
+            }
+        }
+        }
+        
         
     }
 
@@ -40,7 +100,6 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
     private void initComponents() {
 
         lblWelcome = new javax.swing.JLabel();
-        valueLabel = new javax.swing.JLabel();
         btnTerminate2 = new javax.swing.JButton();
         lblSpecial = new javax.swing.JLabel();
         txtSpecial = new javax.swing.JTextField();
@@ -48,16 +107,13 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAppointmentDetails = new javax.swing.JTable();
         btnTerminate3 = new javax.swing.JButton();
+        btnTerminate4 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 255));
 
         lblWelcome.setBackground(new java.awt.Color(255, 255, 0));
         lblWelcome.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblWelcome.setText("WELCOME:");
-
-        valueLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        valueLabel.setForeground(new java.awt.Color(0, 153, 153));
-        valueLabel.setText("<value>");
 
         btnTerminate2.setText("Refresh Table");
         btnTerminate2.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +144,7 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "SessionID", "StudentID", "Name", "Time", "Location", "Status"
+                "SessionID", "StudentID", "Name", "Date", "Time", "Appointment Status"
             }
         ));
         jScrollPane1.setViewportView(tblAppointmentDetails);
@@ -100,6 +156,13 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
             }
         });
 
+        btnTerminate4.setText("Save");
+        btnTerminate4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerminate4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,43 +170,42 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(176, 176, 176)
                 .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTerminate2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addComponent(lblSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
-                        .addComponent(txtSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnTerminate4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(263, 263, 263)
                         .addComponent(btnTerminate3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(204, 204, 204)
                         .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnTerminate2))
+                    .addComponent(btnTerminate2)
                     .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTerminate4))
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -156,22 +218,58 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
 
     private void btnTerminate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminate2ActionPerformed
         // TODO add your handling code here:
+        
+        populateAppointmentTable();
     }//GEN-LAST:event_btnTerminate2ActionPerformed
 
     private void btnTerminate3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminate3ActionPerformed
         // TODO add your handling code here:
+        
+        System.out.print("I am in button\n");
+        DefaultTableModel modelOrder = (DefaultTableModel)tblAppointmentDetails.getModel();
+        int selectedIndex = tblAppointmentDetails.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a row!");
+            return;
+            
+        }
+        String id=null;
+        
+        if(selectedIndex!=-1){
+            
+             id = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        int intid = Integer.parseInt(id);
+        
+        
+        NutritionistAppointment therapy = nutriqueue.retrieveNutritionistAppointment(intid);
+        //System.out.print(therapy.getTerminate() +" this is terminate\n");
+        therapy.setTerminate(Boolean.TRUE);
+        //system.getUniversitydirectory().getStudentdir().RetrieveStudent(therapy.getStudentid()).setAppointment(Boolean.FALSE);
+        JOptionPane.showMessageDialog(this, "Terminated!");
+        
+        
     }//GEN-LAST:event_btnTerminate3ActionPerformed
+
+    private void btnTerminate4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminate4ActionPerformed
+        // TODO add your handling code here:
+        
+        nutritionist.setSpeciality(txtSpecial.getText());
+        JOptionPane.showMessageDialog(this, "Saved");
+    }//GEN-LAST:event_btnTerminate4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTerminate2;
     private javax.swing.JButton btnTerminate3;
+    private javax.swing.JButton btnTerminate4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblSpecial;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JTable tblAppointmentDetails;
     private javax.swing.JTextField txtSpecial;
-    private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }

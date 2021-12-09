@@ -93,6 +93,29 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
     }
     
+    public void populateNutritionists(){
+        
+        DefaultTableModel modelNutri = (DefaultTableModel) tblNutritionist.getModel();
+        modelNutri.setRowCount(0);
+        
+        for(Nutritionist yoga: nutridir.getnutritionistlist()){
+            
+            Object[] row = new Object[3];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getName();
+                row[2] = yoga.getSpeciality();
+                modelNutri.insertRow(0, row);
+                
+            
+            
+        }
+    }
+    
     public void populateYogaInstructors(){
         
         DefaultTableModel model = (DefaultTableModel) tblYoga.getModel();
@@ -115,25 +138,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
             
         }
         
-        DefaultTableModel modelNutri = (DefaultTableModel) tblNutritionist.getModel();
-        modelNutri.setRowCount(0);
         
-        for(Nutritionist yoga: nutridir.getnutritionistlist()){
-            
-            Object[] row = new Object[3];
-                 row[0]= yoga.getId();
-                 
-                 
-                 
-                
-                
-                row[1] = yoga.getName();
-                row[2] = yoga.getSpeciality();
-                modelNutri.insertRow(0, row);
-                
-            
-            
-        }
         
         
     }
@@ -142,6 +147,15 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
          DefaultTableModel model = (DefaultTableModel) tblMindfitAppoinments.getModel();
          model.setRowCount(0);
+         
+         if(this.yogaqueue==null){
+             
+             YogaAppointmentQueue yogaq = new YogaAppointmentQueue();
+             system.getMindfitnessdir().setYogaqueue(yogaq);
+             
+             
+             this.yogaqueue = system.getMindfitnessdir().getYogaqueue();
+         }
          
          for(YogaAppointment yoga: yogaqueue.getYogaAppointmentlist() ){
              
@@ -179,6 +193,16 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
              
              
          }
+         
+         if(this.nutriqueue==null){
+             
+             NutritionistAppointmentQueue yogaq = new NutritionistAppointmentQueue();
+             system.getMindfitnessdir().setNutriqueue(yogaq);
+             
+             
+             this.nutriqueue = system.getMindfitnessdir().getNutriqueue();
+         }
+         
          for(NutritionistAppointment yoga: nutriqueue.getNutritionistAppointmentlist() ){
              
              if(yoga.getStudentid().equals(student.getId())){
@@ -193,6 +217,11 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 row[1] = yoga.getDate();
                 row[2] = yoga.getTime();
                 row[3]= "Nutritionist";
+                
+                if(yoga.getTerminate()==null){
+                    
+                    yoga.setTerminate(false);
+                }
                 
                 if(yoga.getTerminate()==false){
                     
@@ -1448,7 +1477,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBookYoga)
                 .addGap(28, 28, 28)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBookNutritionist))
                 .addGap(73, 73, 73)
@@ -1870,6 +1899,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid));
         
+        lblForumDescription.setText(forum.getDescription());
+        
         lblForumID.setText(forumid);
         lblCreated.setText(createdby);
         lblWelcome.setText("Welcome to "+ forum.getTitle());
@@ -2083,13 +2114,15 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         populatePetAppointment();
-        populateYogaInstructors();
+        
     }//GEN-LAST:event_btnRefreshpetAppActionPerformed
 
     private void btnRefreshmindfitappttableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshmindfitappttableActionPerformed
         // TODO add your handling code here:
         
         populateMindFitAppointments();
+        populateYogaInstructors();
+        populateNutritionists();
     }//GEN-LAST:event_btnRefreshmindfitappttableActionPerformed
 
     private void tblMindfitAppoinmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMindfitAppoinmentsMouseClicked
@@ -2164,6 +2197,14 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
              //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
         }
         
+        if(this.yogarequestqueue==null){
+            
+            YogaRequestQueue nu = new YogaRequestQueue();
+            system.getMindfitnessdir().setYogarequestqueue(nu);
+            this.yogarequestqueue = system.getMindfitnessdir().getYogarequestqueue();
+        }
+        
+        
         YogaRequest yogareq = yogarequestqueue.addYogaRequest();
         
         yogareq.setYogaid(eventid);
@@ -2198,7 +2239,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
              
              //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
         }
-        
+        if(this.nutrirequestqueue==null){
+            
+            NutritionRequestQueue nu = new NutritionRequestQueue();
+            system.getMindfitnessdir().setNutrirequestqueue(nu);
+            this.nutrirequestqueue = system.getMindfitnessdir().getNutrirequestqueue();
+        }
         NutritionRequest yogareq = nutrirequestqueue.addNutritionRequest();
         
         yogareq.setYogaid(eventid);
