@@ -67,7 +67,9 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         
         for(Student student: studentdirectory.getstudentlist()){
             
-            if(student.getTherapistid().equals(therapist.getId())){
+            if(student.getTherapistid()!=null){
+            
+            if(student.getTherapistid().equals(therapist.getId()) ){
                 Object[] row = new Object[3];
                 row[0]= student.getId();
                 
@@ -75,16 +77,18 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                 
                 for(Therapy therapy: therapyqueue.getTherapylist()){
                     
-                    if(therapy.getStudentid().equals(student.getId())){
+                    if(therapy.getStudentid().equals(student.getId()) && therapy.getTerminate()==true){
                         
                         count++;
                     }
                 }
                 
                 row[2]=count;
-                 model.insertRow(0, row);
+                model.insertRow(0, row);
+                count=0;
                 
                 
+            }
             }
         }
         
@@ -105,7 +109,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
             
             
             
-            if(therapy.getTerminate()==false){
+            if(therapy.getTerminate()==false && therapy.getTherapistid().equals(therapistid)){
                 
                 Object[] row = new Object[4];
                 row[0]= therapy.getId();

@@ -6,33 +6,139 @@
 package userinterface.PetParentRole;
 
 import Business.EcoSystem;
+import Business.PetTherapy.PetParent;
+import Business.PetTherapy.PetParentDirectory;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.PTherapy;
+import Business.WorkQueue.Pet;
+import Business.WorkQueue.PetQueue;
+import Business.WorkQueue.PetTherapyQueue;
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import userinterface.MainJFrame;
 
 /**
  *
  * @author Krish
  */
 public class PetParentJPanel extends javax.swing.JPanel {
+    
 
-    private JPanel UserProcessContainer;
-    private UserAccount account;
-    private EcoSystem system;
     /**
      * Creates new form PetParentJPanel
      */
-    public PetParentJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
+    
+    private EcoSystem system;
+    private PetTherapyQueue pettherapyqueue;
+    private PetParentDirectory petparentdirectory;
+    private PetParent parent;
+    
+        
+    public PetParentJPanel(JPanel UserProcessContainer, UserAccount account, EcoSystem system) {
         initComponents();
-        this.UserProcessContainer = UserProcessContainer;
-        this.account = account;
-        this.system = business;
+        //setLabel();
+        this.system = system;
+        this.petparentdirectory = system.getPettherapydirectory().getPetparentdir();
+        this.pettherapyqueue= system.getPettherapydirectory().getPettherapyqueue();
+        parent = system.getPettherapydirectory().getPetparentdir().RetrievePetParent(MainJFrame.txtUsernameMain.getText());
+        
+        populatepetsTable();
         
         
     }
+    
+    public void populatePetRequests(PTherapy ptherapy, DefaultTableModel model){
+        
+        
+        if(ptherapy.getAccept()!=null){
+        if(ptherapy.getAccept()==false){
+            
+            return;
+        }
+        }
+        
+        
+        
+        
+        Object[] row = new Object[6];
+        row[0]= ptherapy.getId();
+        row[1]= ptherapy.getStudentid();
+        row[2]= ptherapy.getDate();
+        row[3] = ptherapy.getTime();
+        if(ptherapy.getAccept()==null){
+            
+            row[4]= "Please Update Status";
+        }
+        
+        if(ptherapy.getAccept()!=null){
+        if(ptherapy.getAccept()==true){
+            
+            row[4] = "Accepted";
+        }
+        }
+        
+        row[5]= ptherapy.getLocation();
+        model.insertRow(0, row);
+        
+        
+        
+        
+        
+        
+    }
+    
+    public void populatepetsTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblDogList.getModel();
+        model.setRowCount(0);
+        if(parent==null){
+            parent = system.getPettherapydirectory().getPetparentdir().RetrievePetParent(MainJFrame.txtUsernameMain.getText());
+            
+            
+        }
+        
+        if(parent.getPetQueue()==null){
+            
+            PetQueue petqueue = new PetQueue();
+            parent.setPetQueue(petqueue);
+        }
+        
+        if(parent.getPetQueue().getPetlist()==null){
+            
+            ArrayList <Pet> petlist = new ArrayList();
+            parent.getPetQueue().setPetlist(petlist);
+        }
+        
+        for(Pet pet: parent.getPetQueue().getPetlist()){
+            
+            Object[] row = new Object[4];
+            row[0]= pet.getId();
+            row[1]= pet.getName();
+            row[2] = pet.getBreed();
+            row[3] = pet.getAge();
+           
+            
+            model.insertRow(0, row);
+            
+            
+        }
+    }
+    
+    /**public void setLabel(){
+        
+        if(parent==null){
+            parent = system.getPettherapydirectory().getPetparentdir().RetrievePetParent(MainJFrame.txtUsernameMain.getText());
+            
+        }
+        
+        lblValue.setText(parent.getId());
+    }**/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +152,7 @@ public class PetParentJPanel extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
-        valueLabel = new javax.swing.JLabel();
+        lblValue = new javax.swing.JLabel();
         lblCreate = new javax.swing.JLabel();
         lblPetnm = new javax.swing.JLabel();
         lblBreed = new javax.swing.JLabel();
@@ -64,8 +170,6 @@ public class PetParentJPanel extends javax.swing.JPanel {
         txtFood = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblDogList1 = new javax.swing.JTable();
         lblPetDetails = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblWelcome1 = new javax.swing.JLabel();
@@ -85,13 +189,6 @@ public class PetParentJPanel extends javax.swing.JPanel {
         txtReason = new javax.swing.JTextField();
         btnReject = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
-        jPanel2 = new javax.swing.JPanel();
-        lblWelcome2 = new javax.swing.JLabel();
-        valueLabel2 = new javax.swing.JLabel();
-        lblHistory = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tblPetHistory = new javax.swing.JTable();
-        jSeparator4 = new javax.swing.JSeparator();
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -99,9 +196,9 @@ public class PetParentJPanel extends javax.swing.JPanel {
         lblWelcome.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblWelcome.setText("WELCOME:");
 
-        valueLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        valueLabel.setForeground(new java.awt.Color(0, 153, 153));
-        valueLabel.setText("<value>");
+        lblValue.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblValue.setForeground(new java.awt.Color(0, 153, 153));
+        lblValue.setText("<value>");
 
         lblCreate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblCreate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -146,19 +243,6 @@ public class PetParentJPanel extends javax.swing.JPanel {
             }
         });
 
-        tblDogList1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "PET ID", "NAME ", "BREED", "AGE"
-            }
-        ));
-        jScrollPane2.setViewportView(tblDogList1);
-
         lblPetDetails.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPetDetails.setText("PET DETAILS");
         lblPetDetails.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -173,7 +257,7 @@ public class PetParentJPanel extends javax.swing.JPanel {
                         .addGap(99, 99, 99)
                         .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
-                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(lblCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -210,19 +294,15 @@ public class PetParentJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(581, 581, 581)
+                .addComponent(jSeparator2))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnSave)
-                .addGap(283, 283, 283))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(267, 267, 267)
+                .addGap(18, 18, 18)
                 .addComponent(lblPetDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(107, 107, 107))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +310,7 @@ public class PetParentJPanel extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValue, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCreate))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -259,15 +339,13 @@ public class PetParentJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(lblImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42)
-                .addComponent(btnSave)
-                .addGap(30, 30, 30)
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(lblPetDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(lblPetDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(425, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Create Pet Details", jPanel1);
@@ -299,6 +377,11 @@ public class PetParentJPanel extends javax.swing.JPanel {
         jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnRequest.setText("View Requests");
+        btnRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestActionPerformed(evt);
+            }
+        });
 
         enterpriseLabel1.setBackground(new java.awt.Color(255, 255, 0));
         enterpriseLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -308,13 +391,13 @@ public class PetParentJPanel extends javax.swing.JPanel {
 
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "NAME", "TIME REQUESTED", "STATUS", "LOCATION"
+                "REQUEST ID", "NAME", "DATE REQUESTED", "TIME REQUESTED", "STATUS", "LOCATION"
             }
         ));
         jScrollPane3.setViewportView(tblRequest);
@@ -324,10 +407,20 @@ public class PetParentJPanel extends javax.swing.JPanel {
         cbcLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "RICHARDS GARDEN", "CENTENIAL GARDEN", "NEU GROUND AREA" }));
 
         btnAccept.setText("YES !");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
 
         lblReason.setText("REASON");
 
         btnReject.setText("SOME OTHER TIME!");
+        btnReject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRejectActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -371,7 +464,7 @@ public class PetParentJPanel extends javax.swing.JPanel {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtReason, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
             .addComponent(jSeparator3)
         );
         jPanel4Layout.setVerticalGroup(
@@ -400,81 +493,19 @@ public class PetParentJPanel extends javax.swing.JPanel {
                     .addComponent(cbcLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblReason, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtReason, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAccept)
-                    .addComponent(btnReject))
-                .addGap(92, 92, 92)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(btnReject))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(btnAccept)))
+                .addGap(80, 80, 80)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("APPOINTMENT DETAILS", jPanel4);
-
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-
-        lblWelcome2.setBackground(new java.awt.Color(255, 255, 0));
-        lblWelcome2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblWelcome2.setText("WELCOME:");
-
-        valueLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        valueLabel2.setForeground(new java.awt.Color(0, 153, 153));
-        valueLabel2.setText("<value>");
-
-        lblHistory.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblHistory.setForeground(new java.awt.Color(255, 102, 102));
-        lblHistory.setText("~~~~~~PAWSOME HISTORY~~~~~");
-
-        tblPetHistory.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "PET NAME", "STUDENT NAME", "DATE", "TIME", "LOCATION"
-            }
-        ));
-        jScrollPane4.setViewportView(tblPetHistory);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHistory)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblWelcome2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(valueLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
-            .addComponent(jSeparator4)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblWelcome2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(valueLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lblHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(594, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("APPOINTMENT HISTORY", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -484,12 +515,30 @@ public class PetParentJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        
+        Pet pet = parent.getPetQueue().addPet();
+        String name = txtPetnm.getText();
+        String breed = txtBreed.getText();
+        String age = txtAge.getText();
+        
+        String likes = txtlike.getText();
+        String food = txtFood.getText();
+        String filename = txtFilenm1.getText();
+        
+        pet.setAge(age);
+        pet.setBreed(breed);
+        pet.setFilename(filename);
+        pet.setFood(food);
+        pet.setLikes(likes);
+        pet.setName(name);
+         JOptionPane.showMessageDialog(this, "Uploaded dog");
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtFilenm1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFilenm1ActionPerformed
@@ -501,16 +550,111 @@ public class PetParentJPanel extends javax.swing.JPanel {
         JFileChooser chooser1 = new JFileChooser();
         chooser1.showOpenDialog(null);
         File f = chooser1.getSelectedFile();
-        String filename = f.getAbsolutePath();
-        txtFilenm1.setText(filename);
-        Image getAbsolutePath = null;
-        ImageIcon icon = new ImageIcon();
-
-        Image image = icon.getImage().getScaledInstance(lblImage1.getWidth(), lblImage1.getHeight(), Image.SCALE_SMOOTH);
-        lblImage1.setIcon(icon);
+     String filename = f.getAbsolutePath();
+     txtFilenm1.setText(filename);
+     Image getAbsolutePath = null;
+     ImageIcon icon = new ImageIcon(filename);
+     
+     Image image = icon.getImage().getScaledInstance(lblImage1.getWidth(), lblImage1.getHeight(), Image.SCALE_SMOOTH);
+     lblImage1.setIcon(new ImageIcon(image));
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUploadActionPerformed
+
+    private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblDogList.getModel();
+        int selectedIndex = tblDogList.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tblRequest.getModel();
+        model.setRowCount(0);
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Dog");
+            return;
+            
+        }
+        String therapistid = null;
+        
+        if(selectedIndex!=-1){
+            
+             therapistid = modelOrder.getValueAt(selectedIndex, 0).toString();
+        }
+        
+        int petid = Integer.parseInt(therapistid);
+        
+        for(PTherapy student: pettherapyqueue.getPTherapylist()){
+            
+            if(student.getPetid()==petid){
+                
+                populatePetRequests(student,model);
+            }
+        }
+    }//GEN-LAST:event_btnRequestActionPerformed
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblRequest.getModel();
+        int selectedIndex = tblRequest.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Request");
+            return;
+            
+        }
+        String therapistid = null;
+        
+        if(selectedIndex!=-1){
+            
+             therapistid = modelOrder.getValueAt(selectedIndex, 0).toString();
+        }
+        
+        int ptid = Integer.parseInt(therapistid);
+        
+        PTherapy ptherapy = pettherapyqueue.retrievePTherapy(ptid);
+        
+        ptherapy.setAccept(Boolean.TRUE);
+        
+        ptherapy.setLocation(cbcLocation.getSelectedItem().toString());
+        
+        JOptionPane.showMessageDialog(this, "Accepted!");
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void btnRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectActionPerformed
+        // TODO add your handling code here:
+        
+         DefaultTableModel modelOrder = (DefaultTableModel)tblRequest.getModel();
+        int selectedIndex = tblRequest.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Request");
+            return;
+            
+        }
+        String therapistid = null;
+        
+        if(selectedIndex!=-1){
+            
+             therapistid = modelOrder.getValueAt(selectedIndex, 0).toString();
+        }
+        
+        int ptid = Integer.parseInt(therapistid);
+        
+        PTherapy ptherapy = pettherapyqueue.retrievePTherapy(ptid);
+        
+        ptherapy.setAccept(Boolean.FALSE);
+        
+        //ptherapy.setLocation(cbcLocation.getSelectedItem().toString());
+        
+        JOptionPane.showMessageDialog(this, "Rejected");
+    }//GEN-LAST:event_btnRejectActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -523,22 +667,17 @@ public class PetParentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel enterpriseLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblBreed;
     private javax.swing.JLabel lblCreate;
     private javax.swing.JLabel lblFood;
-    private javax.swing.JLabel lblHistory;
     private javax.swing.JLabel lblImage1;
     private javax.swing.JLabel lblLike;
     private javax.swing.JLabel lblLocation;
@@ -546,12 +685,10 @@ public class PetParentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblPetnm;
     private javax.swing.JLabel lblReason;
     private javax.swing.JLabel lblUpload;
+    private javax.swing.JLabel lblValue;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JLabel lblWelcome1;
-    private javax.swing.JLabel lblWelcome2;
     private javax.swing.JTable tblDogList;
-    private javax.swing.JTable tblDogList1;
-    private javax.swing.JTable tblPetHistory;
     private javax.swing.JTable tblRequest;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtBreed;
@@ -560,8 +697,6 @@ public class PetParentJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtPetnm;
     private javax.swing.JTextField txtReason;
     private javax.swing.JTextField txtlike;
-    private javax.swing.JLabel valueLabel;
     private javax.swing.JLabel valueLabel1;
-    private javax.swing.JLabel valueLabel2;
     // End of variables declaration//GEN-END:variables
 }

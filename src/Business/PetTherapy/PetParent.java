@@ -5,6 +5,8 @@
  */
 package Business.PetTherapy;
 
+import Business.WorkQueue.PetQueue;
+
 /**
  *
  * @author Varakumar
@@ -15,7 +17,8 @@ public class PetParent {
     int count =1;
     
     String Id;
-    String petname;
+    
+    
     String employeename;
     String email;
     String phone;
@@ -23,6 +26,23 @@ public class PetParent {
     String city;
     String country;
     String zipcode;
+    PetQueue petqueue;
+    
+    PetParent(){
+        
+        petqueue = new PetQueue();
+        
+    }
+    
+    public PetQueue getPetQueue(){
+        
+        return petqueue;
+    }
+    
+    public void setPetQueue(PetQueue petqueue){
+        
+        this.petqueue=petqueue;
+    }
 
     public String getId() {
         return Id;
@@ -32,21 +52,9 @@ public class PetParent {
         this.Id = Id;
     }
 
-    public String getPetname() {
-        return petname;
-    }
+    
 
-    public void setPetname(String petname) {
-        this.petname = petname;
-    }
-
-    public String getEmployeename() {
-        return employeename;
-    }
-
-    public void setEmployeename(String employeename) {
-        this.employeename = employeename;
-    }
+    
 
     public String getEmail() {
         return email;
@@ -86,6 +94,14 @@ public class PetParent {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getEmployeename() {
+        return employeename;
+    }
+
+    public void setEmployeename(String employeename) {
+        this.employeename = employeename;
     }
 
     public String getZipcode() {

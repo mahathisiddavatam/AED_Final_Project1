@@ -2,6 +2,12 @@ package userinterface.StudentRole;
 
 import Business.Clinic.Therapist;
 import Business.EcoSystem;
+import Business.MindFitness.NutrionistDirectory;
+import Business.MindFitness.Nutritionist;
+import Business.MindFitness.YogaInstructor;
+import Business.MindFitness.YogaInstructorDirectory;
+import Business.PetTherapy.PetParent;
+import Business.PetTherapy.PetParentDirectory;
 import Business.University.Student;
 
 import Business.UserAccount.UserAccount;
@@ -10,10 +16,23 @@ import Business.WorkQueue.Article;
 import Business.WorkQueue.Event;
 import Business.WorkQueue.EventQueue;
 import Business.WorkQueue.Forum;
+import Business.WorkQueue.NutritionRequest;
+import Business.WorkQueue.NutritionRequestQueue;
+import Business.WorkQueue.NutritionistAppointment;
+import Business.WorkQueue.NutritionistAppointmentQueue;
+import Business.WorkQueue.PTherapy;
+import Business.WorkQueue.Pet;
+import Business.WorkQueue.PetTherapyQueue;
 import Business.WorkQueue.Therapy;
 import Business.WorkQueue.TherapyQueue;
+import Business.WorkQueue.YogaAppointment;
+import Business.WorkQueue.YogaAppointmentQueue;
+import Business.WorkQueue.YogaRequest;
+import Business.WorkQueue.YogaRequestQueue;
 import java.awt.Image;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -34,7 +53,14 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     Student student;
     TherapyQueue therapyqueue;
     EventQueue eventqueue;
-    
+    PetParentDirectory petparentdirectory;
+    PetTherapyQueue ptherapyqueue;
+    YogaAppointmentQueue yogaqueue;
+    NutritionistAppointmentQueue nutriqueue;
+    NutrionistDirectory nutridir;
+    YogaInstructorDirectory yogadir;
+    YogaRequestQueue yogarequestqueue;
+    NutritionRequestQueue nutrirequestqueue;
     
     /**
      * Creates new form LabAssistantWorkAreaJPanel
@@ -47,15 +73,277 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         this.system = business;
         populateAppointmentTable();
         populateEventTable();
-        student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
-        therapyqueue = system.getClinicdirectory().getTherapyqueue();
-        eventqueue = system.getUniversitydirectory().getEventqueue();
+        populatePetTable();
+       // populatePetAppointment();
+        this.student = system.getUniversitydirectory().getStudentdir().RetrieveStudent(MainJFrame.txtUsernameMain.getText());
+        this.therapyqueue = system.getClinicdirectory().getTherapyqueue();
+        this.eventqueue = system.getUniversitydirectory().getEventqueue();
+        this.petparentdirectory = system.getPettherapydirectory().getPetparentdir();
+        this.ptherapyqueue = system.getPettherapydirectory().getPettherapyqueue();
+        this.nutridir = system.getMindfitnessdir().getNutridir();
+        this.nutriqueue = system.getMindfitnessdir().getNutriqueue();
+        this.yogaqueue = system.getMindfitnessdir().getYogaqueue();
+        this.yogadir = system.getMindfitnessdir().getYogadir();
+        this.yogarequestqueue = system.getMindfitnessdir().getYogarequestqueue();
+        this.nutrirequestqueue = system.getMindfitnessdir().getNutrirequestqueue();
     
         
       
         
         
     }
+    
+    public void populateNutritionists(){
+        
+        DefaultTableModel modelNutri = (DefaultTableModel) tblNutritionist.getModel();
+        modelNutri.setRowCount(0);
+        
+        for(Nutritionist yoga: nutridir.getnutritionistlist()){
+            
+            Object[] row = new Object[3];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getName();
+                row[2] = yoga.getSpeciality();
+                modelNutri.insertRow(0, row);
+                
+            
+            
+        }
+    }
+    
+    public void populateYogaInstructors(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblYoga.getModel();
+        model.setRowCount(0);
+        
+        for(YogaInstructor yoga: yogadir.getyogainstlist()){
+            
+            Object[] row = new Object[3];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getName();
+                row[2] = yoga.getSpeciality();
+                model.insertRow(0, row);
+                
+            
+            
+        }
+        
+        
+        
+        
+    }
+    
+    public void populateMindFitAppointments(){
+        
+         DefaultTableModel model = (DefaultTableModel) tblMindfitAppoinments.getModel();
+         model.setRowCount(0);
+         
+         if(this.yogaqueue==null){
+             
+             YogaAppointmentQueue yogaq = new YogaAppointmentQueue();
+             system.getMindfitnessdir().setYogaqueue(yogaq);
+             
+             
+             this.yogaqueue = system.getMindfitnessdir().getYogaqueue();
+         }
+         
+         for(YogaAppointment yoga: yogaqueue.getYogaAppointmentlist() ){
+             
+             if(yoga.getStudentid().equals(student.getId())){
+                 
+                 Object[] row = new Object[5];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getDate();
+                row[2] = yoga.getTime();
+                row[3]= "Yoga Instructor";
+                
+                if(yoga.getTerminate()==false){
+                    
+                    row[4] = "Upcoming";
+                }
+                
+                if(yoga.getTerminate()==true){
+                    
+                    row[4] = "Session Completed";
+                }
+                
+                model.insertRow(0, row);
+                
+                
+                
+                
+                 
+                 
+             }
+             
+             
+         }
+         
+         if(this.nutriqueue==null){
+             
+             NutritionistAppointmentQueue yogaq = new NutritionistAppointmentQueue();
+             system.getMindfitnessdir().setNutriqueue(yogaq);
+             
+             
+             this.nutriqueue = system.getMindfitnessdir().getNutriqueue();
+         }
+         
+         for(NutritionistAppointment yoga: nutriqueue.getNutritionistAppointmentlist() ){
+             
+             if(yoga.getStudentid().equals(student.getId())){
+                 
+                 Object[] row = new Object[5];
+                 row[0]= yoga.getId();
+                 
+                 
+                 
+                
+                
+                row[1] = yoga.getDate();
+                row[2] = yoga.getTime();
+                row[3]= "Nutritionist";
+                
+                if(yoga.getTerminate()==null){
+                    
+                    yoga.setTerminate(false);
+                }
+                
+                if(yoga.getTerminate()==false){
+                    
+                    row[4] = "Upcoming";
+                }
+                
+                if(yoga.getTerminate()==true){
+                    
+                    row[4] = "Session Completed";
+                }
+                
+                model.insertRow(0, row);
+                
+                
+                
+                
+                 
+                 
+             }
+             
+             
+         }
+        
+        
+    }
+    
+    public void populatePetAppointment(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblPetAppointments.getModel();
+        model.setRowCount(0);
+        if(this.ptherapyqueue==null){
+            
+            this.ptherapyqueue =system.getPettherapydirectory().getPettherapyqueue();
+        }
+        
+        
+        for(PTherapy ptherapy: ptherapyqueue.getPTherapylist() ){
+            
+            if(ptherapy.getStudentid().equals(MainJFrame.txtUsernameMain.getText())){
+                
+                Object[] row = new Object[4];
+                 row[0]= ptherapy.getDog();
+                 
+                 
+                
+                
+                row[1] = ptherapy.getDate();
+                row[2] = ptherapy.getLocation();
+                if(ptherapy.getAccept()==null){
+                        
+                        row[2]="Will be updated";
+                        row[3]="Waiting for confirmation";
+                        
+                    }
+                
+                if(ptherapy.getAccept()!=null){
+                if(ptherapy.getLocation()==null){
+                    
+                    if(ptherapy.getAccept()==false){
+                        
+                        row[2]="Not valid";
+                        row[3]="Rejected";
+                    }
+                     
+                    
+                    
+                    
+                }
+                
+                if(ptherapy.getAccept()==true){
+                    
+                    row[3] = "Accepted";
+                }
+                }
+                 model.insertRow(0, row);
+                
+                
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    public void populatePetTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tblPet.getModel();
+        model.setRowCount(0);
+        if(petparentdirectory==null){
+            this.petparentdirectory = system.getPettherapydirectory().getPetparentdir();
+        }
+        for(PetParent parent: petparentdirectory.getpetparentlist()){
+            
+            
+            for(Pet pet: parent.getPetQueue().getPetlist()){
+                
+                Object[] row = new Object[3];
+                 row[2]= parent.getId();
+                
+                row[0]= pet.getName();
+                row[1] = pet.getId();
+                 model.insertRow(0, row);
+                
+                
+            }
+            
+            
+        }
+       
+        
+
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+
     
     public void populateEventTable(){
         
@@ -222,6 +510,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cbcSlot = new javax.swing.JComboBox<>();
+        txtDate = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtName = new javax.swing.JTextField();
@@ -318,23 +608,6 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblCreated = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblForumID = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblForums = new javax.swing.JTable();
@@ -353,21 +626,55 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         btnViewEvent = new javax.swing.JButton();
         lblViewDate1 = new javax.swing.JLabel();
         lblViewLocation = new javax.swing.JLabel();
-        lblViewLocation1 = new javax.swing.JLabel();
+        lblDetails = new javax.swing.JLabel();
         lblViewDetails = new javax.swing.JLabel();
-        lblViewDetails1 = new javax.swing.JLabel();
         lblPosterImage = new javax.swing.JLabel();
+        lblViewLocation2 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tblMindfitAppoinments = new javax.swing.JTable();
         lblInstructorName = new javax.swing.JLabel();
         txtInstructorName = new javax.swing.JLabel();
         lblInstSpeciality = new javax.swing.JLabel();
         txtInstructorSpeciality = new javax.swing.JLabel();
         lblInstPhone = new javax.swing.JLabel();
         txtInstPhone = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tblYoga = new javax.swing.JTable();
+        jLabel37 = new javax.swing.JLabel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tblNutritionist = new javax.swing.JTable();
+        jLabel38 = new javax.swing.JLabel();
+        btnBookYoga = new javax.swing.JButton();
+        btnBookNutritionist = new javax.swing.JButton();
+        btnRefreshmindfitappttable = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblPet = new javax.swing.JTable();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        txtPbreed = new javax.swing.JTextField();
+        txtplikes = new javax.swing.JTextField();
+        lblPetPhoto = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        btnBookPet = new javax.swing.JButton();
+        txtPfood = new javax.swing.JTextField();
+        calendarSession = new com.toedter.calendar.JCalendar();
+        cbcSlot1 = new javax.swing.JComboBox<>();
+        txtDate1 = new javax.swing.JTextField();
+        lblDate = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        txtpage = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblPetAppointments = new javax.swing.JTable();
+        btnRefreshpetApp = new javax.swing.JButton();
+
+        cbcSlot.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Slot", "8:00 ", "9:00 ", "10:00 ", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00","17:00","18:00","19:00","20:00","21:00" }));
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -700,6 +1007,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("Counselor details", jPanel7);
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setMinimumSize(new java.awt.Dimension(830, 700));
+        jPanel4.setPreferredSize(new java.awt.Dimension(830, 700));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblWelcome.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
@@ -787,163 +1096,6 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Connect iN.U", jPanel4);
 
-        jPanel6.setBackground(new java.awt.Color(204, 255, 255));
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("WELCOME TO PET THERAPY !");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Pet Name", "Breed", "Gender", "Age"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("");
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("Gender");
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("Age");
-        }
-
-        jLabel24.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jLabel24.setText("Name:");
-
-        jLabel28.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jLabel28.setText("Breed:");
-
-        jLabel30.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jLabel30.setText("Loves food:");
-
-        jLabel31.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jLabel31.setText("Patient name:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jLabel32.setText("<image of the dog chosen>");
-        jLabel32.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel33.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
-        jLabel33.setText("Book To Pet!");
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "TIME"
-            }
-        ));
-        jScrollPane6.setViewportView(jTable2);
-
-        jButton1.setText("Click to book");
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(279, 279, 279)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(30, 30, 30))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField4)
-                                    .addComponent(jTextField5)))
-                            .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(155, 155, 155)
-                                .addComponent(jButton1)))
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(110, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)))
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(229, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Pet Therapy", jPanel6);
-
         jPanel5.setBackground(new java.awt.Color(255, 204, 204));
 
         tblForums.setModel(new javax.swing.table.DefaultTableModel(
@@ -1008,7 +1160,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                         .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblForumDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 390, Short.MAX_VALUE)
                         .addComponent(btnSelectForum, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1028,7 +1180,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                     .addComponent(lblForumDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnSelectForum1)
-                .addContainerGap(444, Short.MAX_VALUE))
+                .addContainerGap(551, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Select Forum", jPanel5);
@@ -1072,15 +1224,15 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         lblViewLocation.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblViewLocation.setText("Location:");
 
-        lblViewLocation1.setText("<location>");
+        lblDetails.setText("<location>");
 
         lblViewDetails.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblViewDetails.setText("Details:");
 
-        lblViewDetails1.setText("<details>");
-
         lblPosterImage.setText("<poster image>");
         lblPosterImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblViewLocation2.setText("<location>");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -1106,12 +1258,12 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                     .addComponent(lblViewLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblViewDate, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblViewLocation1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblViewDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblViewDetails1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 211, Short.MAX_VALUE))))))
+                                    .addComponent(lblViewLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 278, Short.MAX_VALUE))))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1133,14 +1285,14 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblViewLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblViewLocation1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(lblViewLocation2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPosterImage, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblViewDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblViewDetails1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(253, Short.MAX_VALUE))
+                            .addComponent(lblDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(360, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Events", jPanel9);
@@ -1155,18 +1307,26 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel29.setText("MindFit Appointment Details");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tblMindfitAppoinments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Session no.", "Date", "Time", "Session status"
+                "Session no.", "Date", "Time", "Instructor Type", "Session status"
             }
         ));
-        jScrollPane8.setViewportView(jTable4);
+        tblMindfitAppoinments.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMindfitAppoinmentsMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tblMindfitAppoinments);
+        if (tblMindfitAppoinments.getColumnModel().getColumnCount() > 0) {
+            tblMindfitAppoinments.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         lblInstructorName.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblInstructorName.setText("Instructor Name:");
@@ -1183,58 +1343,359 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
 
         txtInstPhone.setText("<contactNo>");
 
+        jLabel36.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel36.setText("Appointments:");
+
+        tblYoga.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Speciality"
+            }
+        ));
+        jScrollPane9.setViewportView(tblYoga);
+
+        jLabel37.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel37.setText("Select new Yoga Instructor:");
+
+        tblNutritionist.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Speciality"
+            }
+        ));
+        jScrollPane10.setViewportView(tblNutritionist);
+
+        jLabel38.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel38.setText("Select new Nutritionist:");
+
+        btnBookYoga.setText("Request Yoga Instructor");
+        btnBookYoga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookYogaActionPerformed(evt);
+            }
+        });
+
+        btnBookNutritionist.setText("Request Nutritionist");
+        btnBookNutritionist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookNutritionistActionPerformed(evt);
+            }
+        });
+
+        btnRefreshmindfitappttable.setText("Refresh");
+        btnRefreshmindfitappttable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshmindfitappttableActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane8)
-                .addContainerGap())
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblInstSpeciality, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblInstPhone))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtInstructorSpeciality, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addComponent(txtInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(60, 60, 60)
+                                        .addComponent(btnRefreshmindfitappttable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtInstPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel36)
+                            .addComponent(jLabel37))
+                        .addGap(323, 323, 323))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane8)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnBookYoga)
+                                    .addComponent(btnBookNutritionist, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
+            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblInstPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblInstSpeciality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblInstructorName, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtInstructorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtInstructorSpeciality, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                    .addComponent(txtInstPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel38)
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel29)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblInstSpeciality, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                    .addComponent(txtInstructorSpeciality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtInstructorName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefreshmindfitappttable))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtInstructorSpeciality, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblInstSpeciality, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblInstPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtInstPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                .addGap(53, 53, 53)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBookYoga)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBookNutritionist))
+                .addGap(73, 73, 73)
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(135, 135, 135))
+                .addGap(36, 36, 36))
         );
 
         jTabbedPane1.addTab("MindFit", jPanel10);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 870));
+        jPanel6.setBackground(new java.awt.Color(204, 255, 255));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("WELCOME TO PET THERAPY !");
+
+        tblPet.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Pet Name", "Pet ID", "Pet Parent ID"
+            }
+        ));
+        tblPet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPetMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tblPet);
+
+        jLabel28.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel28.setText("Breed:");
+
+        jLabel30.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel30.setText("Loves food:");
+
+        jLabel31.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel31.setText("Age");
+
+        txtplikes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtplikesActionPerformed(evt);
+            }
+        });
+
+        lblPetPhoto.setText("<image of the dog chosen>");
+        lblPetPhoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel33.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel33.setText("Book To Pet!");
+
+        btnBookPet.setText("Click to book");
+        btnBookPet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookPetActionPerformed(evt);
+            }
+        });
+
+        txtPfood.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPfoodActionPerformed(evt);
+            }
+        });
+
+        cbcSlot1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Slot", "8:00 ", "9:00 ", "10:00 ", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00","17:00","18:00","19:00","20:00","21:00" }));
+
+        lblDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDate.setText("DATE ");
+
+        jLabel39.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel39.setText("Likes");
+
+        txtpage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpageActionPerformed(evt);
+            }
+        });
+
+        tblPetAppointments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Pet Name", "Time Requested", "Location", "Status"
+            }
+        ));
+        jScrollPane6.setViewportView(tblPetAppointments);
+
+        btnRefreshpetApp.setText("Refresh Table");
+        btnRefreshpetApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshpetAppActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPbreed, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(26, 26, 26))
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(txtpage, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(txtplikes, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(txtPfood, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                                .addComponent(cbcSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(61, 61, 61)
+                                .addComponent(lblPetPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(txtDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBookPet)
+                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRefreshpetApp))
+                        .addContainerGap(38, Short.MAX_VALUE))))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(279, 279, 279)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPbreed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPfood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtplikes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtpage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(calendarSession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(cbcSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(lblPetPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(btnRefreshpetApp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBookPet)
+                        .addGap(72, 72, 72)
+                        .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(271, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Pet Therapy", jPanel6);
+
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 870));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveResponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveResponseActionPerformed
@@ -1438,6 +1899,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid));
         
+        lblForumDescription.setText(forum.getDescription());
+        
         lblForumID.setText(forumid);
         lblCreated.setText(createdby);
         lblWelcome.setText("Welcome to "+ forum.getTitle());
@@ -1480,18 +1943,15 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         
         String post = system.getUniversitydirectory().getForumqueue().retrieveForum(forumid).retrieveArticle(posttid).getPost();
         
-        String parsedPost = post.replaceAll("(.{1000})", "$1\n");
-        lblPost.setText(parsedPost);
+        String parsedPost = post.replaceAll("(.{65})", "$1\n");
+        //System.out.print(parsedPost);
+        lblPost.setText("<html>" + parsedPost.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
         
     }//GEN-LAST:event_btnViewActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtplikesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtplikesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtplikesActionPerformed
 
     private void btnSelectForum1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectForum1ActionPerformed
         // TODO add your handling code here:
@@ -1522,8 +1982,8 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         Event event=eventqueue.retrieveEvent(eventint);
         
         lblViewDate1.setText(event.getDat());
-        lblViewDetails1.setText(event.getForum());
-        lblViewLocation1.setText(event.getLocation());
+        lblDetails.setText(event.getForum());
+        lblViewLocation2.setText(event.getLocation());
         ImageIcon icon = new ImageIcon(event.getFilename());
      
         Image image = icon.getImage().getScaledInstance(lblPosterImage.getWidth(), lblPosterImage.getHeight(), Image.SCALE_SMOOTH);
@@ -1541,12 +2001,269 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblViewDate1FocusGained
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtPfoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPfoodActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtPfoodActionPerformed
+
+    private void tblPetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPetMouseClicked
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPet.getModel();
+        int selectedIndex = tblPet.getSelectedRow();
+        String petid=null;
+        String parentid = null;
+        if(selectedIndex==-1){
+            
+            
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             petid = modelOrder.getValueAt(selectedIndex, 1).toString();
+             parentid =modelOrder.getValueAt(selectedIndex, 2).toString(); 
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        int petid1 = Integer.parseInt(petid);
+        
+        Pet pet = petparentdirectory.RetrievePetParent(parentid).getPetQueue().retrievePet(petid1);
+        
+        txtpage.setText(pet.getAge());
+        txtPbreed.setText(pet.getBreed());
+        txtPfood.setText(pet.getFood());
+        txtplikes.setText(pet.getLikes());
+        ImageIcon icon = new ImageIcon(pet.getFilename());
+     
+        Image image = icon.getImage().getScaledInstance(lblPetPhoto.getWidth(), lblPetPhoto.getHeight(), Image.SCALE_SMOOTH);
+        lblPetPhoto.setIcon(new ImageIcon(image));
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_tblPetMouseClicked
+
+    private void txtpageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpageActionPerformed
+
+    private void btnBookPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookPetActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPet.getModel();
+        int selectedIndex = tblPet.getSelectedRow();
+        String petid=null;
+        String parentid = null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a dog");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             petid = modelOrder.getValueAt(selectedIndex, 1).toString();
+             parentid =modelOrder.getValueAt(selectedIndex, 2).toString(); 
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        int petid1 = Integer.parseInt(petid);
+        
+        Pet pet = petparentdirectory.RetrievePetParent(parentid).getPetQueue().retrievePet(petid1);
+        
+        if(system.getPettherapydirectory().getPettherapyqueue()==null){
+            
+            PetTherapyQueue ptherq = new PetTherapyQueue();
+            
+            system.getPettherapydirectory().setPettherapyqueue(ptherq);
+        }
+        
+        PTherapy ptherapy = system.getPettherapydirectory().getPettherapyqueue().addPTherapy();
+        
+        Random rand = new Random();
+        int random = rand.nextInt(12345);
+        ptherapy.setId(random);
+        
+        ptherapy.setDog(pet.getName());
+        ptherapy.setPetid(pet.getId());
+        ptherapy.setTerminate(Boolean.FALSE);
+        ptherapy.setStudentid(student.getId());
+        Calendar cal = calendarSession.getCalendar();
+        
+        Date date = cal.getTime();
+        String strDate = DateFormat.getDateInstance().format(date);
+        txtDate1.setText(strDate);
+        
+        String slot = cbcSlot1.getSelectedItem().toString();
+        ptherapy.setDate(strDate);
+        ptherapy.setTime(slot);
+        
+        JOptionPane.showMessageDialog(this, "Slot Requested!");
+        populatePetAppointment();
+        
+        
+        
+    }//GEN-LAST:event_btnBookPetActionPerformed
+
+    private void btnRefreshpetAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshpetAppActionPerformed
+        // TODO add your handling code here:
+        
+        populatePetAppointment();
+        
+    }//GEN-LAST:event_btnRefreshpetAppActionPerformed
+
+    private void btnRefreshmindfitappttableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshmindfitappttableActionPerformed
+        // TODO add your handling code here:
+        
+        populateMindFitAppointments();
+        populateYogaInstructors();
+        populateNutritionists();
+    }//GEN-LAST:event_btnRefreshmindfitappttableActionPerformed
+
+    private void tblMindfitAppoinmentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMindfitAppoinmentsMouseClicked
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblMindfitAppoinments.getModel();
+        int selectedIndex = tblMindfitAppoinments.getSelectedRow();
+        String petid=null;
+        String type=null;
+        
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a dog");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             petid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             type = modelOrder.getValueAt(selectedIndex, 3).toString();
+             
+             
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        int id = Integer.parseInt(petid);
+        
+        if(type== "Yoga Instructor"){
+            
+            YogaInstructor yoga = yogadir.RetrieveYogaInstructor(yogaqueue.retrieveYogaAppointment(id).getYogaid());
+            
+            txtInstructorName.setText(yoga.getName());
+            txtInstructorSpeciality.setText(yoga.getSpeciality());
+            txtInstPhone.setText(yoga.getPhone());
+        }
+        
+        if(type== "Nutritionist"){
+            
+            Nutritionist yoga = nutridir.RetrieveNutritionist(nutriqueue.retrieveNutritionistAppointment(id).getNutritionistid());
+            
+            txtInstructorName.setText(yoga.getName());
+            txtInstructorSpeciality.setText(yoga.getSpeciality());
+            txtInstPhone.setText(yoga.getPhone());
+        }
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_tblMindfitAppoinmentsMouseClicked
+
+    private void btnBookYogaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookYogaActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblYoga.getModel();
+        int selectedIndex = tblYoga.getSelectedRow();
+        String eventid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select an Instructor");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             eventid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        if(this.yogarequestqueue==null){
+            
+            YogaRequestQueue nu = new YogaRequestQueue();
+            system.getMindfitnessdir().setYogarequestqueue(nu);
+            this.yogarequestqueue = system.getMindfitnessdir().getYogarequestqueue();
+        }
+        
+        
+        YogaRequest yogareq = yogarequestqueue.addYogaRequest();
+        
+        yogareq.setYogaid(eventid);
+        yogareq.setStudentid(student.getId());
+        Date date = new Date();
+        yogareq.setDate(date);
+        
+        JOptionPane.showMessageDialog(this, "Requested! Please check appointment table for updates");
+                
+        
+        
+        
+        
+    }//GEN-LAST:event_btnBookYogaActionPerformed
+
+    private void btnBookNutritionistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookNutritionistActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblNutritionist.getModel();
+        int selectedIndex = tblNutritionist.getSelectedRow();
+        String eventid=null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a Nutritionist");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             eventid = modelOrder.getValueAt(selectedIndex, 0).toString();
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        if(this.nutrirequestqueue==null){
+            
+            NutritionRequestQueue nu = new NutritionRequestQueue();
+            system.getMindfitnessdir().setNutrirequestqueue(nu);
+            this.nutrirequestqueue = system.getMindfitnessdir().getNutrirequestqueue();
+        }
+        NutritionRequest yogareq = nutrirequestqueue.addNutritionRequest();
+        
+        yogareq.setYogaid(eventid);
+        yogareq.setStudentid(student.getId());
+        Date date = new Date();
+        yogareq.setDate(date);
+        
+        JOptionPane.showMessageDialog(this, "Requested! Please check appointment table for updates");
+        
+        
+    }//GEN-LAST:event_btnBookNutritionistActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBookNutritionist;
+    private javax.swing.JButton btnBookPet;
+    private javax.swing.JButton btnBookYoga;
     private javax.swing.JButton btnPost;
+    private javax.swing.JButton btnRefreshmindfitappttable;
+    private javax.swing.JButton btnRefreshpetApp;
     private javax.swing.JButton btnRequestForumAccess;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSaveResponse;
@@ -1555,6 +2272,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSubmitResponse;
     private javax.swing.JButton btnView;
     private javax.swing.JButton btnViewEvent;
+    private com.toedter.calendar.JCalendar calendarSession;
+    private javax.swing.JComboBox<String> cbcSlot;
+    private javax.swing.JComboBox<String> cbcSlot1;
     private javax.swing.JComboBox<String> cmbEthnicity;
     private javax.swing.JComboBox<String> cmbGender;
     private javax.swing.JComboBox<String> cmbQues1;
@@ -1572,7 +2292,6 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbQues7;
     private javax.swing.JComboBox<String> cmbQues8;
     private javax.swing.JComboBox<String> cmbQues9;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1589,7 +2308,6 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -1598,10 +2316,13 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1619,6 +2340,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1626,21 +2348,17 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lbl;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblComment;
     private javax.swing.JLabel lblCountry;
     private javax.swing.JLabel lblCreated;
+    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblDegree;
     private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblDetails;
     private javax.swing.JLabel lblEthnicity;
     private javax.swing.JLabel lblExp;
     private javax.swing.JLabel lblForumDescription;
@@ -1651,6 +2369,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblInstructorName;
     private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPetPhoto;
     private javax.swing.JLabel lblPost;
     private javax.swing.JLabel lblPosterImage;
     private javax.swing.JLabel lblQues1;
@@ -1673,25 +2392,35 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblViewDate;
     private javax.swing.JLabel lblViewDate1;
     private javax.swing.JLabel lblViewDetails;
-    private javax.swing.JLabel lblViewDetails1;
     private javax.swing.JLabel lblViewLocation;
-    private javax.swing.JLabel lblViewLocation1;
+    private javax.swing.JLabel lblViewLocation2;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JTable tblAppointment;
     private javax.swing.JTable tblAppointment1;
     private javax.swing.JTable tblEvents;
     private javax.swing.JTable tblForums;
+    private javax.swing.JTable tblMindfitAppoinments;
+    private javax.swing.JTable tblNutritionist;
+    private javax.swing.JTable tblPet;
+    private javax.swing.JTable tblPetAppointments;
     private javax.swing.JTable tblPosts;
+    private javax.swing.JTable tblYoga;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtComment;
     private javax.swing.JTextField txtCountry;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtDate1;
     private javax.swing.JLabel txtInstPhone;
     private javax.swing.JLabel txtInstructorName;
     private javax.swing.JLabel txtInstructorSpeciality;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPbreed;
+    private javax.swing.JTextField txtPfood;
     private javax.swing.JLabel txtQues14;
     private javax.swing.JTextField txtStudentPost;
     private javax.swing.JTextField txtTitle;
+    private javax.swing.JTextField txtpage;
+    private javax.swing.JTextField txtplikes;
     // End of variables declaration//GEN-END:variables
 
     private void populatePostTable(Forum forum) {

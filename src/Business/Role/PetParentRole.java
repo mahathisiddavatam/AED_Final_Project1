@@ -10,15 +10,11 @@ import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 import userinterface.PetParentRole.PetParentJPanel;
 
-import userinterface.TherapistRole.TherapistAreaJPanel;
-
 /**
  *
  * @author Varakumar
  */
 public class PetParentRole extends Role {
-    
-    
     
      @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, EcoSystem business) {
