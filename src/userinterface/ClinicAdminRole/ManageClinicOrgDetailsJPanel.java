@@ -147,6 +147,11 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
         });
 
         btnBack.setText("<< Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         lblUsername.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblUsername.setText("UserName:");
@@ -546,6 +551,10 @@ public class ManageClinicOrgDetailsJPanel extends javax.swing.JPanel {
             
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
