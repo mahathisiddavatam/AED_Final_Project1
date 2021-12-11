@@ -8,6 +8,7 @@ package Business.University;
 import Business.WorkQueue.AccessRequestQueue;
 import Business.WorkQueue.ForumQueue;
 import Business.WorkQueue.EventQueue;
+import Business.WorkQueue.RegistrationRequestWorkQueue;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +25,7 @@ public class UniversityDirectory {
     private ForumQueue articlequeue;
     private EventQueue eventqueue;
     private AccessRequestQueue reqaccessq;
+    private RegistrationRequestWorkQueue registrationrequestworkqueue;
     
     
     
@@ -52,6 +54,15 @@ public class UniversityDirectory {
         articlequeue = new ForumQueue();
         eventqueue = new EventQueue();
         reqaccessq = new AccessRequestQueue();
+        registrationrequestworkqueue = new RegistrationRequestWorkQueue();
+    }
+
+    public RegistrationRequestWorkQueue getRegistrationrequestworkqueue() {
+        return registrationrequestworkqueue;
+    }
+
+    public void setRegistrationrequestworkqueue(RegistrationRequestWorkQueue registrationrequestworkqueue) {
+        this.registrationrequestworkqueue = registrationrequestworkqueue;
     }
 
     public ForumQueue getForumqueue() {
