@@ -13,8 +13,14 @@ import Business.University.ForumAdmin;
 import Business.University.Student;
 import Business.University.Volunteer;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.NutritionistAppointment;
+import Business.WorkQueue.NutritionistAppointmentQueue;
 import Business.WorkQueue.RegistrationRequest;
 import Business.WorkQueue.RegistrationRequestWorkQueue;
+import Business.WorkQueue.Therapy;
+import Business.WorkQueue.TherapyQueue;
+import Business.WorkQueue.YogaAppointment;
+import Business.WorkQueue.YogaAppointmentQueue;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -701,8 +707,54 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
                 
                 system.getUniversitydirectory().getStudentdir().DeleteStudent(order);
                 modelOrder.removeRow(selectedIndex);
+                system.getUserAccountDirectory().deleteUserAccount(order);
+                
+                TherapyQueue therapyqueue = system.getClinicdirectory().getTherapyqueue();
+                for(Therapy therapy: therapyqueue.getTherapylist()){
+                    
+                    if(therapy.getStudentid().equals(order)){
+                        
+                        therapyqueue.getTherapylist().remove(therapy);
+                        
+                        
+                    }
+                }
+                
+                NutritionistAppointmentQueue nutri = system.getMindfitnessdir().getNutriqueue();
+                
+                for( NutritionistAppointment therapy: nutri.getNutritionistAppointmentlist()){
+                    
+                    if(therapy.getStudentid().equals(order)){
+                        
+                        nutri.getNutritionistAppointmentlist().remove(therapy);
+                        
+                        
+                    }
+                }
+                
+                YogaAppointmentQueue yoga = system.getMindfitnessdir().getYogaqueue();
+                
+                for( YogaAppointment therapy: yoga.getYogaAppointmentlist()){
+                    
+                    if(therapy.getStudentid().equals(order)){
+                        
+                        yoga.getYogaAppointmentlist().remove(therapy);
+                        
+                        
+                    }
+                }
+                
+                
+                
+                
+                
+                
+                
+                
                 JOptionPane.showMessageDialog(this, "Deleted!");
                 return;
+                
+                
                 
                 
                 

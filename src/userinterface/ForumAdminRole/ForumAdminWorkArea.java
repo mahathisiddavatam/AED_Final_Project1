@@ -71,7 +71,6 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         btnViewForums = new javax.swing.JButton();
         btnDeleteForum = new javax.swing.JButton();
         lblDescription = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -79,6 +78,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         jScrollPane6 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
         btnForumUpload1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
@@ -95,9 +95,10 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
 
         jTabbedPane1.setBackground(new java.awt.Color(204, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Welcome, Forum Admin!");
 
@@ -114,6 +115,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tblAccessRequests);
 
+        btnGrantAccess.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnGrantAccess.setText("Grant Access");
         btnGrantAccess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +123,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
+        btnGrantAccess1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnGrantAccess1.setText("Reject Access");
         btnGrantAccess1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +131,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
+        btnAccessRefresh.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnAccessRefresh.setText("Refresh");
         btnAccessRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,32 +145,39 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(354, 354, 354)
+                .addComponent(btnGrantAccess1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(355, 355, 355)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnGrantAccess1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGrantAccess, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAccessRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(228, Short.MAX_VALUE))
+                    .addComponent(btnAccessRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGrantAccess, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGrantAccess)
-                    .addComponent(btnGrantAccess1)
-                    .addComponent(btnAccessRefresh))
-                .addGap(0, 539, Short.MAX_VALUE))
+                .addComponent(btnGrantAccess1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGrantAccess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAccessRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 428, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Manage Access", jPanel1);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 204));
 
         tblForums.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -181,8 +192,10 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         ));
         jScrollPane5.setViewportView(tblForums);
 
-        jLabel17.setText("Select the forum you want to view");
+        jLabel17.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel17.setText("Select the forum you want to view:");
 
+        btnViewForums.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnViewForums.setText("Select");
         btnViewForums.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +203,7 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteForum.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnDeleteForum.setText("Delete");
         btnDeleteForum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,21 +211,21 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
-        lblDescription.setText("<Description>");
-        lblDescription.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel14.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel14.setText("Upload new forum here!");
 
-        jLabel1.setText("Description:");
+        jLabel18.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel18.setText("Enter name of the forum:");
 
-        jLabel14.setText("Upload New Forum");
-
-        jLabel18.setText("Enter Name of Forum");
-
+        jLabel19.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel19.setText("Description");
 
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
         jScrollPane6.setViewportView(txtDescription);
 
+        btnForumUpload1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         btnForumUpload1.setText("Upload");
         btnForumUpload1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,75 +233,71 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Manage Forum");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(65, 65, 65)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17))
+                        .addGap(80, 80, 80)
+                        .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnViewForums, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDeleteForum, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(btnViewForums)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnDeleteForum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
-                                .addComponent(jLabel1))
-                            .addComponent(jLabel14)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtForumName, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnForumUpload1)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150))))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnForumUpload1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                        .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtForumName)
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)))))
+                        .addGap(0, 59, Short.MAX_VALUE))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel17)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnViewForums)
-                                    .addComponent(btnDeleteForum)))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jLabel1)))
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel14))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(txtForumName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeleteForum)
+                    .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnViewForums))
+                .addGap(13, 13, 13)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtForumName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnForumUpload1)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -296,30 +306,25 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 894, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
+            .addGap(0, 733, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("View Forums", jPanel4);
 
-        jPanel8.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel8.setBackground(new java.awt.Color(255, 255, 204));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblWelcome.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        lblWelcome.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
+        lblWelcome.setForeground(new java.awt.Color(153, 0, 0));
         lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblWelcome.setText("Welcome to the Connect iN.U Forum!");
-        jPanel8.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 830, -1));
+        jPanel8.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 890, -1));
 
         tblPosts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -334,52 +339,51 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblPosts);
 
-        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 370, 110));
+        jPanel8.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 400, 110));
 
+        btnDeletePost.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnDeletePost.setText("Delete");
         btnDeletePost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletePostActionPerformed(evt);
             }
         });
-        jPanel8.add(btnDeletePost, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 250, 100, -1));
+        jPanel8.add(btnDeletePost, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 350, 100, -1));
 
         lblPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel8.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 410, 590));
+        jPanel8.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 410, 610));
 
         jLabel6.setText("IMAGE HERE!");
-        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 240, 50));
+        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 420, 160, 80));
 
-        jLabel4.setText("Created by");
-        jPanel8.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
-        jPanel8.add(lblCreated, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 100, 20));
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel4.setText("Created by:");
+        jPanel8.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 90, 20));
+        jPanel8.add(lblCreated, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, 160, 20));
 
+        jLabel5.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel5.setText("Forum ID:");
-        jPanel8.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, -1, -1));
-        jPanel8.add(lblForumID, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 60, 20));
+        jPanel8.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 100, 20));
+        jPanel8.add(lblForumID, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, 160, 20));
 
+        btnView1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnView1.setText("View");
         btnView1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnView1ActionPerformed(evt);
             }
         });
-        jPanel8.add(btnView1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 100, -1));
+        jPanel8.add(btnView1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 310, 100, -1));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Connect iN.U", jPanel7);
@@ -469,38 +473,6 @@ private void populateAccessRequestTable(){
      
     
 }
-    private void btnViewForumsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewForumsActionPerformed
-        // TODO add your handling code here:
-
-        DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
-        int selectedIndex = tblForums.getSelectedRow();
-        if(selectedIndex==-1){
-
-            JOptionPane.showMessageDialog(this, "Please Select a forum!");
-            return;
-
-        }
-        String forumid=null;
-        String createdby=null;
-        if(selectedIndex!=-1){
-
-            forumid = modelOrder.getValueAt(selectedIndex, 0).toString();
-            createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
-        }
-
-        Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid));
-
-        lblForumID.setText(forumid);
-        lblDescription.setText(forum.getDescription());
-        lblCreated.setText(createdby);
-        lblWelcome.setText("Welcome to "+ forum.getTitle());
-        lblDescription.setText(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)).getDescription());
-
-        populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)));
-        JOptionPane.showMessageDialog(this, "Switch to the next tab to view forum!");
-
-    }//GEN-LAST:event_btnViewForumsActionPerformed
-
     private void btnDeletePostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePostActionPerformed
         // TODO add your handling code here:
 
@@ -558,62 +530,6 @@ private void populateAccessRequestTable(){
         String parsedPost = post.replaceAll("(.{70})", "$1\n");
         lblPost.setText("<html>" + parsedPost.replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
     }//GEN-LAST:event_btnView1ActionPerformed
-
-    private void btnDeleteForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteForumActionPerformed
-        // TODO add your handling code here:
-        
-        DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
-        int selectedIndex = tblForums.getSelectedRow();
-        String postid=null;
-        if(selectedIndex==-1){
-
-            JOptionPane.showMessageDialog(this, "Please Select a Forum!");
-            return;
-
-        }
-        //String createdby=null;
-        if(selectedIndex!=-1){
-
-            postid = modelOrder.getValueAt(selectedIndex, 0).toString();
-            //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
-        }
-       
-        int posttid = Integer.parseInt(postid);
-        system.getUniversitydirectory().getForumqueue().deleteForum(posttid);
-        JOptionPane.showMessageDialog(this, "Deleted!");
-        modelOrder.removeRow(selectedIndex);
-
-        
-        
-    }//GEN-LAST:event_btnDeleteForumActionPerformed
-
-    private void btnForumUpload1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForumUpload1ActionPerformed
-        // TODO add your handling code here:
-        String forumname = txtForumName.getText();
-        String desc = txtDescription.getText();
-        if(forumname==null || desc==null){
-            
-            JOptionPane.showMessageDialog(this, "Fields blank!");
-            return;
-            
-            
-        }
-        
-        Forum forum = system.getUniversitydirectory().getForumqueue().addForum();
-        Random rand = new Random();
-        int up = 12345;
-        int random = rand.nextInt(12345);
-        forum.setId(random);
-        forum.setTitle(forumname);
-        forum.setDescription(desc);
-        Date date = new Date();
-        String usn = MainJFrame.txtUsernameMain.getText();
-        forum.setDate(date);
-        forum.setCreatedby(usn);
-        
-        JOptionPane.showMessageDialog(this, "Uploaded!");
-        populateForumTable();
-    }//GEN-LAST:event_btnForumUpload1ActionPerformed
 
     private void btnGrantAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrantAccessActionPerformed
         // TODO add your handling code here:
@@ -690,6 +606,89 @@ private void populateAccessRequestTable(){
         
         populateAccessRequestTable();
     }//GEN-LAST:event_btnAccessRefreshActionPerformed
+
+    private void btnForumUpload1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForumUpload1ActionPerformed
+        // TODO add your handling code here:
+        String forumname = txtForumName.getText();
+        String desc = txtDescription.getText();
+        if(forumname==null || desc==null){
+
+            JOptionPane.showMessageDialog(this, "Fields blank!");
+            return;
+
+        }
+
+        Forum forum = system.getUniversitydirectory().getForumqueue().addForum();
+        Random rand = new Random();
+        int up = 12345;
+        int random = rand.nextInt(12345);
+        forum.setId(random);
+        forum.setTitle(forumname);
+        forum.setDescription(desc);
+        Date date = new Date();
+        String usn = MainJFrame.txtUsernameMain.getText();
+        forum.setDate(date);
+        forum.setCreatedby(usn);
+
+        JOptionPane.showMessageDialog(this, "Uploaded!");
+        populateForumTable();
+    }//GEN-LAST:event_btnForumUpload1ActionPerformed
+
+    private void btnDeleteForumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteForumActionPerformed
+        // TODO add your handling code here:
+
+        DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
+        int selectedIndex = tblForums.getSelectedRow();
+        String postid=null;
+        if(selectedIndex==-1){
+
+            JOptionPane.showMessageDialog(this, "Please Select a Forum!");
+            return;
+
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+
+            postid = modelOrder.getValueAt(selectedIndex, 0).toString();
+            //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+
+        int posttid = Integer.parseInt(postid);
+        system.getUniversitydirectory().getForumqueue().deleteForum(posttid);
+        JOptionPane.showMessageDialog(this, "Deleted!");
+        modelOrder.removeRow(selectedIndex);
+
+    }//GEN-LAST:event_btnDeleteForumActionPerformed
+
+    private void btnViewForumsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewForumsActionPerformed
+        // TODO add your handling code here:
+
+        DefaultTableModel modelOrder = (DefaultTableModel)tblForums.getModel();
+        int selectedIndex = tblForums.getSelectedRow();
+        if(selectedIndex==-1){
+
+            JOptionPane.showMessageDialog(this, "Please Select a post!");
+            return;
+
+        }
+        String forumid=null;
+        String createdby=null;
+        if(selectedIndex!=-1){
+
+            forumid = modelOrder.getValueAt(selectedIndex, 0).toString();
+            createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+
+        Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid));
+
+        lblForumID.setText(forumid);
+        lblCreated.setText(createdby);
+        lblWelcome.setText("Welcome to "+ forum.getTitle());
+        lblDescription.setText(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)).getDescription());
+
+        populatePostTable(system.getUniversitydirectory().getForumqueue().retrieveForum(Integer.parseInt(forumid)));
+        JOptionPane.showMessageDialog(this, "Switch to the next tab to view forum!");
+    }//GEN-LAST:event_btnViewForumsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
