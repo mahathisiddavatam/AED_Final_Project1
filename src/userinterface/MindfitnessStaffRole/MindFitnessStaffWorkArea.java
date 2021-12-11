@@ -584,9 +584,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
 
         cbcSlot1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Slot", "8:00 ", "9:00 ", "10:00 ", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00" }));
 
-        jCalendar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jCalendar1.setAutoscrolls(true);
-        jCalendar1.setDecorationBordersVisible(true);
 
         btnConfirm3.setText("REFRESH");
         btnConfirm3.addActionListener(new java.awt.event.ActionListener() {
