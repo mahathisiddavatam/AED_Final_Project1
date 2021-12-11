@@ -44,13 +44,17 @@ public class UserAccountDirectory {
     
     public void deleteUserAccount(String username){
         
+        UserAccount u = null;
+        
         for(UserAccount ua: userAccountList){
             
             if(username.equals(ua.getUsername())){
                 
-                userAccountList.remove(ua);
+                u = ua;
+                break;
             }
         }
+        userAccountList.remove(u);
         
         
     }
