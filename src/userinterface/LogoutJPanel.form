@@ -34,6 +34,10 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e1a7756276cb21bd24b58cb5a2074e812812b17d
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="submitJButton" min="-2" pref="230" max="-2" attributes="0"/>
@@ -55,6 +59,61 @@
                   <Component id="txtUnm" min="-2" pref="145" max="-2" attributes="0"/>
                   <Component id="PasswordField" min="-2" pref="145" max="-2" attributes="0"/>
                   <Component id="txtPhone" min="-2" pref="145" max="-2" attributes="0"/>
+<<<<<<< HEAD
+=======
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblImage" min="-2" pref="542" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblName" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" min="-2" pref="80" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtName" min="-2" pref="145" max="-2" attributes="0"/>
+                                  <Component id="txtEmailID" min="-2" pref="145" max="-2" attributes="0"/>
+                                  <Component id="txtUSN" min="-2" pref="145" max="-2" attributes="0"/>
+                                  <Component id="PasswordField" min="-2" pref="145" max="-2" attributes="0"/>
+                                  <Component id="txtPhone" min="-2" pref="145" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtAddress" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
+                                  <Component id="txtCity" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
+                                  <Component id="txtCountry" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="submitJButton" min="-2" pref="230" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtZipcode" min="-2" pref="145" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
+                  </Group>
+>>>>>>> bc14ec1988d1d0b111d053aed4e05c2cb2d6ffda
+=======
+>>>>>>> e1a7756276cb21bd24b58cb5a2074e812812b17d
               </Group>
               <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
           </Group>
@@ -99,11 +158,42 @@
                   <Component id="lblPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPhone" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e1a7756276cb21bd24b58cb5a2074e812812b17d
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="submitJButton" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="31" max="32767" attributes="0"/>
+<<<<<<< HEAD
+=======
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtAddress" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel9" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtCity" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtCountry" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtZipcode" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="submitJButton" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
+>>>>>>> bc14ec1988d1d0b111d053aed4e05c2cb2d6ffda
+=======
+>>>>>>> e1a7756276cb21bd24b58cb5a2074e812812b17d
           </Group>
       </Group>
     </DimensionLayout>
