@@ -1009,9 +1009,9 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel8.setMaximumSize(new java.awt.Dimension(1000, 800));
+        jPanel8.setMaximumSize(new java.awt.Dimension(3200, 1800));
         jPanel8.setMinimumSize(new java.awt.Dimension(1000, 800));
-        jPanel8.setPreferredSize(new java.awt.Dimension(1000, 800));
+        jPanel8.setPreferredSize(new java.awt.Dimension(3200, 1800));
 
         jLabel26.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel26.setText("Specialities:");
@@ -1147,7 +1147,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 850));
+        jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 1920));
 
         jTabbedPane1.addTab("Counselor details", jPanel7);
 
