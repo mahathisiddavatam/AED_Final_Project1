@@ -81,6 +81,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
         txtCountry = new javax.swing.JTextField();
         txtZip = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -168,6 +169,13 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,6 +187,8 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
@@ -219,7 +229,9 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDelete)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelete)
+                    .addComponent(btnUpdate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrgType2)
@@ -642,11 +654,243 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnCreateActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblMindfit.getModel();
+        int selectedIndex = tblMindfit.getSelectedRow();
+        if(selectedIndex!=-1){
+            
+            String order = modelOrder.getValueAt(selectedIndex, 0).toString();
+            String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            txtUsername.setText(order);
+        }
+        
+        if(selectedIndex==-1){
+            
+             JOptionPane.showMessageDialog(this, "Please Select a row");
+            return;
+        }
+        
+        if(system.getMindfitnessdir().getMindstaffdir().RetrieveMindFitStaff(txtUsername.getText())!=null){
+            MindFitStaff mindfitstaff = system.getMindfitnessdir().getMindstaffdir().RetrieveMindFitStaff(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+       
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            mindfitstaff.setName(name);
+            mindfitstaff.setAddress(address);
+            mindfitstaff.setCountry(country);
+            mindfitstaff.setCity(city);
+            mindfitstaff.setEmail(email);
+            mindfitstaff.setPhone(phno);
+            mindfitstaff.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Mindfitness Staff updated!");
+            populateTable();
+            return;
+ 
+            
+        }
+        
+        // Nutritionist
+        if(system.getMindfitnessdir().getNutridir().RetrieveNutritionist(txtUsername.getText())!=null){
+            Nutritionist nutritionist = system.getMindfitnessdir().getNutridir().RetrieveNutritionist(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+       
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            nutritionist.setName(name);
+            nutritionist.setAddress(address);
+            nutritionist.setCountry(country);
+            nutritionist.setCity(city);
+            nutritionist.setEmail(email);
+            nutritionist.setPhone(phno);
+            nutritionist.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Nutritionist Updated!");
+            populateTable();
+            return;
+ 
+            
+        }
+        
+        // Yoga Instructor
+        if(system.getMindfitnessdir().getYogadir().RetrieveYogaInstructor(txtUsername.getText())!=null){
+            YogaInstructor yogainst = system.getMindfitnessdir().getYogadir().RetrieveYogaInstructor(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+       
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            yogainst.setName(name);
+            yogainst.setAddress(address);
+            yogainst.setCountry(country);
+            yogainst.setCity(city);
+            yogainst.setEmail(email);
+            yogainst.setPhone(phno);
+            yogainst.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Yoga Instructor Updated!");
+            populateTable();
+            return;
+ 
+            
+        }
+        
+        if(system.getMindfitnessdir().getMindstaffdir().RetrieveMindFitStaff(txtUsername.getText())==null || system.getMindfitnessdir().getNutridir().RetrieveNutritionist(txtUsername.getText()) ==null || system.getMindfitnessdir().getYogadir().RetrieveYogaInstructor(txtUsername.getText()) == null){
+            
+            JOptionPane.showMessageDialog(this, "Create User Account First!");
+            return;
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbOrgType2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;

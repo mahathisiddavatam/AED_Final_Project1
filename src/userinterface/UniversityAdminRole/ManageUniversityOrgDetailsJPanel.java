@@ -131,6 +131,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         tblRequests = new javax.swing.JTable();
         btnPopulate = new javax.swing.JButton();
         btnDeleteReq = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -256,6 +257,13 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -319,7 +327,10 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
                                         .addComponent(btnDeleteReq)
                                         .addGap(34, 34, 34))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(btnUpdate)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(btnDelete))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(42, 42, 42))))))))
@@ -338,7 +349,8 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrgType)
                     .addComponent(cmbOrgType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete))
+                    .addComponent(btnDelete)
+                    .addComponent(btnUpdate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUserName)
@@ -482,7 +494,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         
         if(system.getUniversitydirectory().getForumdir().RetrieveForumAdmin(txtUsername.getText())!=null){
             ForumAdmin therapist = system.getUniversitydirectory().getForumdir().RetrieveForumAdmin(txtUsername.getText());
-            String name = txtUsername.getText();
+            String name = txtName.getText();
             String email = txtEmail.getText();
             String phno = txtPhoneNo.getText();
             String address = txtAddress.getText();
@@ -549,7 +561,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         
         if(system.getUniversitydirectory().getStudentdir().RetrieveStudent(txtUsername.getText())!=null){
             Student therapist = system.getUniversitydirectory().getStudentdir().RetrieveStudent(txtUsername.getText());
-            String name = txtUsername.getText();
+            String name = txtName.getText();
             String email = txtEmail.getText();
             String phno = txtPhoneNo.getText();
             String address = txtAddress.getText();
@@ -616,7 +628,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         
         if(system.getUniversitydirectory().getVolunteerdir().RetrieveVolunteer(txtUsername.getText())!=null){
             Volunteer therapist = system.getUniversitydirectory().getVolunteerdir().RetrieveVolunteer(txtUsername.getText());
-            String name = txtUsername.getText();
+            String name = txtName.getText();
             String email = txtEmail.getText();
             String phno = txtPhoneNo.getText();
             String address = txtAddress.getText();
@@ -968,6 +980,173 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnDeleteReqActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+         DefaultTableModel modelOrder = (DefaultTableModel)tblStudentDetails.getModel();
+        int selectedIndex = tblStudentDetails.getSelectedRow();
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a row!");
+            return;
+            
+        }
+        String id=null;
+        
+        if(selectedIndex!=-1){
+            
+             id = modelOrder.getValueAt(selectedIndex, 0).toString();
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        
+        txtUsername.setText(id);
+        
+        if(system.getUniversitydirectory().getForumdir().RetrieveForumAdmin(txtUsername.getText())!=null){
+            ForumAdmin therapist = system.getUniversitydirectory().getForumdir().RetrieveForumAdmin(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhno(phno);
+            therapist.setZip(zipcode);
+            JOptionPane.showMessageDialog(this, "Forum Admin Updated!");
+            populateTable();
+            return;
+        }
+        
+        if(system.getUniversitydirectory().getVolunteerdir().RetrieveVolunteer(txtUsername.getText())!=null){
+            Volunteer therapist = system.getUniversitydirectory().getVolunteerdir().RetrieveVolunteer(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhno(phno);
+            therapist.setZip(zipcode);
+            JOptionPane.showMessageDialog(this, "Volunteer Updated!");
+            populateTable();
+            return;
+            
+            
+            
+            
+            
+            
+        }
+        
+        if(system.getUniversitydirectory().getVolunteerdir().RetrieveVolunteer(txtUsername.getText())==null || system.getUniversitydirectory().getStudentdir().RetrieveStudent(txtUsername.getText())==null || 
+                 system.getUniversitydirectory().getForumdir().RetrieveForumAdmin(txtUsername.getText())==null){
+            
+            JOptionPane.showMessageDialog(this, "Create User Account First!");
+            return;
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
@@ -975,6 +1154,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnDeleteReq;
     private javax.swing.JButton btnPopulate;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbOrgType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

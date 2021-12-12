@@ -50,7 +50,6 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        btnBack = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblPetTherapy = new javax.swing.JTable();
@@ -80,14 +79,13 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         lblPetName = new javax.swing.JLabel();
         txtPetName = new javax.swing.JTextField();
         btnRefresh = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Welcome, Pawsitive Admin!");
-
-        btnBack.setText("<< Back");
 
         lblUsername.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblUsername.setText("UserName:");
@@ -148,7 +146,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         lblZip2.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblZip2.setText("Zipcode:");
 
-        cmbOrgType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pet Therapy Staff" }));
+        cmbOrgType2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pet Parent" }));
         cmbOrgType2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbOrgType2ActionPerformed(evt);
@@ -179,6 +177,13 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
             }
         });
 
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -190,12 +195,11 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnBack)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
@@ -261,7 +265,8 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
-                    .addComponent(btnRefresh))
+                    .addComponent(btnRefresh)
+                    .addComponent(btnUpdate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOrgName2)
@@ -296,9 +301,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
                     .addComponent(txtZip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCreate)
-                .addGap(64, 64, 64)
-                .addComponent(btnBack)
-                .addContainerGap())
+                .addGap(98, 98, 98))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(179, 179, 179)
@@ -572,13 +575,167 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
         populateTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        
+        DefaultTableModel modelOrder = (DefaultTableModel)tblPetTherapy.getModel();
+        int selectedIndex = tblPetTherapy.getSelectedRow();
+        
+        if(selectedIndex!=-1){
+            
+            String order = modelOrder.getValueAt(selectedIndex, 0).toString();
+            
+            String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            txtUsername.setText(order);
+        }
+        
+        if(system.getPettherapydirectory().getPetstaffdir().RetrievePetTherapyStaff(txtUsername.getText())!=null){
+            PetTherapyStaff petTherapyStaff = system.getPettherapydirectory().getPetstaffdir().RetrievePetTherapyStaff(txtUsername.getText());
+            String name = txtEmployeeName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            petTherapyStaff.setEmployeename(name);
+            petTherapyStaff.setAddress(address);
+            petTherapyStaff.setCountry(country);
+            petTherapyStaff.setCity(city);
+            petTherapyStaff.setEmail(email);
+            petTherapyStaff.setPhone(phno);
+            petTherapyStaff.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Pat Therapy Staff Updated!");
+            populateTable();
+            return;
+            
+        }
+        
+        if(system.getPettherapydirectory().getPetparentdir().RetrievePetParent(txtUsername.getText())!=null){
+            PetParent petparent = system.getPettherapydirectory().getPetparentdir().RetrievePetParent(txtUsername.getText());
+            String name = txtEmployeeName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zip = txtZip.getText();
+            
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zip==null){
+                
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+            
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+            
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+            
+            f=1;
+            
+            
+            
+            
+            
+         }
+            if(f==0){
+            
+            JOptionPane.showMessageDialog(this, "Invalid Email!");
+            return;
+            
+            
+            }
+            petparent.setEmployeename(name);
+            petparent.setAddress(address);
+            petparent.setCountry(country);
+            petparent.setCity(city);
+            petparent.setEmail(email);
+            petparent.setPhone(phno);
+            petparent.setZipcode(zip);
+            JOptionPane.showMessageDialog(this, "Pet Parent Updated!");
+            
+            populateTable();
+            return;
+            
+        }
+        
+        if(system.getPettherapydirectory().getPetstaffdir().RetrievePetTherapyStaff(txtUsername.getText())==null || system.getPettherapydirectory().getPetparentdir().RetrievePetParent(txtUsername.getText())==null){
+            
+            JOptionPane.showMessageDialog(this, "Create User Account First!");
+            return;
+  
+        }
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbOrgType2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
