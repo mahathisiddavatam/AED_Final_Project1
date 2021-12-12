@@ -651,31 +651,42 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("Active session", jPanel2);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblQues11.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblQues11.setText("1. In the past week, how often have you felt: joy, anxiety, sadness, anger, etc.?");
+        jPanel4.add(lblQues11, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 234, 550, 20));
 
         lblQues12.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblQues12.setText("2. What colour is the best fit for how you feel today? ");
+        jPanel4.add(lblQues12, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 275, 420, 20));
 
         lblQues13.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         lblQues13.setText("3. Have you been feeling physically ill in the past week?");
+        jPanel4.add(lblQues13, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 315, 420, 20));
 
         txtQues14.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         txtQues14.setText("4. How many hours of sleep did you get this week? ");
+        jPanel4.add(txtQues14, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 355, 520, 20));
 
         jLabel10.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         jLabel10.setText("5. Do you feel lethargic?");
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(57, 395, 530, -1));
 
         txtQues1.setText("<ans>");
+        jPanel4.add(txtQues1, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 235, 146, 20));
 
         txtQues2.setText("<ans>");
+        jPanel4.add(txtQues2, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 276, 146, 20));
 
         txtQues3.setText("<ans>");
+        jPanel4.add(txtQues3, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 316, 146, 20));
 
         txtQues4.setText("<ans>");
+        jPanel4.add(txtQues4, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 356, 146, 20));
 
         txtQues5.setText("<ans>");
+        jPanel4.add(txtQues5, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 393, 146, 20));
 
         tblDaily.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -690,10 +701,13 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(tblDaily);
 
+        jPanel4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 63, 846, 95));
+
         jLabel11.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 0, 0));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Daily wellness check for patients");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 941, -1));
 
         btnViewDailyCheck.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnViewDailyCheck.setText("View");
@@ -702,6 +716,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                 btnViewDailyCheckActionPerformed(evt);
             }
         });
+        jPanel4.add(btnViewDailyCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(789, 176, 100, -1));
 
         btnRefreshDailyCheck.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnRefreshDailyCheck.setText("Refresh");
@@ -710,70 +725,7 @@ public class TherapistAreaJPanel extends javax.swing.JPanel {
                 btnRefreshDailyCheckActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblQues11, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblQues12, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblQues13, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQues14, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtQues5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQues4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQues3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQues2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQues1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnRefreshDailyCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnViewDailyCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(52, 52, 52))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRefreshDailyCheck)
-                    .addComponent(btnViewDailyCheck))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQues11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQues1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQues12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQues2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQues13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQues3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtQues14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtQues4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtQues5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(186, Short.MAX_VALUE))
-        );
+        jPanel4.add(btnRefreshDailyCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 176, 96, -1));
 
         jTabbedPane1.addTab("View Daily check for patients", jPanel4);
 

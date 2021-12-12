@@ -86,7 +86,6 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
         tblPosts = new javax.swing.JTable();
         btnDeletePost = new javax.swing.JButton();
         lblPost = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblCreated = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -352,9 +351,6 @@ public class ForumAdminWorkArea extends javax.swing.JPanel {
 
         lblPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel8.add(lblPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 410, 610));
-
-        jLabel6.setText("IMAGE HERE!");
-        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 420, 160, 80));
 
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel4.setText("Created by:");
@@ -708,7 +704,6 @@ private void populateAccessRequestTable(){
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;

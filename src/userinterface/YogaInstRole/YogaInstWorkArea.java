@@ -113,12 +113,14 @@ public class YogaInstWorkArea extends javax.swing.JPanel {
         btnSaveSpec = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblWelcome.setBackground(new java.awt.Color(255, 255, 0));
         lblWelcome.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
         lblWelcome.setForeground(new java.awt.Color(153, 0, 0));
         lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblWelcome.setText("Welcome, Yoga Instructor!");
+        jPanel1.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 695, 30));
 
         tblAppointmentDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,9 +144,12 @@ public class YogaInstWorkArea extends javax.swing.JPanel {
             tblAppointmentDetails.getColumnModel().getColumn(0).setResizable(false);
         }
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 198, 619, 158));
+
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setText("Manage Appointments:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 160, 365, 27));
 
         btnTerminate2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnTerminate2.setText("Refresh Table");
@@ -153,10 +158,13 @@ public class YogaInstWorkArea extends javax.swing.JPanel {
                 btnTerminate2ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnTerminate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(447, 374, 191, 30));
 
         lblSpecial1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblSpecial1.setText("Speciality:");
         lblSpecial1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel1.add(lblSpecial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 75, 140, 27));
+        jPanel1.add(txtSpecial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 77, 161, 27));
 
         btnTerminate3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnTerminate3.setText("Terminate Session");
@@ -165,6 +173,7 @@ public class YogaInstWorkArea extends javax.swing.JPanel {
                 btnTerminate3ActionPerformed(evt);
             }
         });
+        jPanel1.add(btnTerminate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(447, 415, 191, 31));
 
         btnSaveSpec.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnSaveSpec.setText("Save");
@@ -173,49 +182,7 @@ public class YogaInstWorkArea extends javax.swing.JPanel {
                 btnSaveSpecActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnSaveSpec, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblSpecial1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtSpecial1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnTerminate2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnTerminate3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSpecial1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSpecial1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSaveSpec)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnTerminate2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTerminate3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(226, Short.MAX_VALUE))
-        );
+        jPanel1.add(btnSaveSpec, new org.netbeans.lib.awtextra.AbsoluteConstraints(261, 115, 77, -1));
 
         jTabbedPane1.addTab("View Appointments", jPanel1);
 

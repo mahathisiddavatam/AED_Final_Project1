@@ -110,12 +110,14 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
         btnTerminate4 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 204));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblWelcome.setBackground(new java.awt.Color(255, 255, 0));
         lblWelcome.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
         lblWelcome.setForeground(new java.awt.Color(153, 0, 0));
         lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblWelcome.setText("Welcome, Nutritionist!");
+        add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 793, 30));
 
         btnTerminate2.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnTerminate2.setText("Refresh Table");
@@ -124,14 +126,18 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
                 btnTerminate2ActionPerformed(evt);
             }
         });
+        add(btnTerminate2, new org.netbeans.lib.awtextra.AbsoluteConstraints(494, 355, 180, 32));
 
         lblSpecial.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblSpecial.setText("Speciality:");
         lblSpecial.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        add(lblSpecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 74, 140, 27));
+        add(txtSpecial, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 76, 161, 27));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setText("Manage appointments:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 152, 435, 27));
 
         tblAppointmentDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,6 +158,8 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblAppointmentDetails);
 
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 190, 656, 154));
+
         btnTerminate3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnTerminate3.setText("Terminate Session");
         btnTerminate3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -160,6 +168,7 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
                 btnTerminate3ActionPerformed(evt);
             }
         });
+        add(btnTerminate3, new org.netbeans.lib.awtextra.AbsoluteConstraints(494, 398, 180, 32));
 
         btnTerminate4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnTerminate4.setText("Save");
@@ -168,49 +177,7 @@ public class NutritionistWorkArea extends javax.swing.JPanel {
                 btnTerminate4ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnTerminate3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTerminate2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnTerminate4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(119, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSpecial, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTerminate4)
-                .addGap(11, 11, 11)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTerminate2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTerminate3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(270, Short.MAX_VALUE))
-        );
+        add(btnTerminate4, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 114, 84, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTerminate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminate2ActionPerformed
