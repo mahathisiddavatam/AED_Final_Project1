@@ -16,6 +16,10 @@ public class YogaAppointment {
     int id;
     String yogaid;
     Boolean payment;
+    String studentid;
+    Boolean terminate;
+    String date;
+    String time;
 
     public int getId() {
         return id;
@@ -64,10 +68,7 @@ public class YogaAppointment {
     public void setTime(String time) {
         this.time = time;
     }
-    String studentid;
-    Boolean terminate;
-    String date;
-    String time;
+    
     
     public YogaAppointment(){
         

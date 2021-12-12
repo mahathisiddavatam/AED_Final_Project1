@@ -5,7 +5,9 @@
  */
 package Business.MindFitness;
 
+import Business.WorkQueue.YogaRequest;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -40,14 +42,19 @@ public class YogaInstructorDirectory {
     }
     
     public boolean DeleteYogaInstructor(String id){
-         for(YogaInstructor yogainst: yogainstlist){
-             if(id.equals(yogainst.getId())){
-                 yogainstlist.remove(yogainst);
-                 return true;
-             }
-             
-         }
-         return false;
+         
+        Iterator<YogaInstructor> itr7 = yogainstlist.iterator();
+                
+            
+            while(itr7.hasNext()){
+            
+            YogaInstructor ua = itr7.next();
+            if(ua.getId().equals(id)){
+                itr7.remove();
+                return true;
+            }
+        }
+            return false;
     }
     
     public YogaInstructor RetrieveYogaInstructor(String id){

@@ -11,7 +11,9 @@ import Business.PetTherapy.PetTherapyStaff;
 import Business.Role.PetParentRole;
 import Business.Role.PetTherapyStaffRole;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.PTherapy;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -544,6 +546,16 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
             if(type=="Pet Parent"){
                 
                 system.getPettherapydirectory().getPetparentdir().DeletePetParent(order);
+                
+                Iterator<PTherapy> itr5 = system.getPettherapydirectory().getPettherapyqueue().getPTherapylist().iterator();
+            
+            while(itr5.hasNext()){
+            
+            PTherapy ua = itr5.next();
+            if(ua.getParentid().equals(order)){
+                itr5.remove();
+            }
+        }
                
                 modelOrder.removeRow(selectedIndex);
                 JOptionPane.showMessageDialog(this, "Deleted!");

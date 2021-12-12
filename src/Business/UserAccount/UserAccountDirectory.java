@@ -4,9 +4,9 @@
  */
 package Business.UserAccount;
 
-import Business.MindFitness.MindFitness;
 import Business.Role.Role;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -44,17 +44,21 @@ public class UserAccountDirectory {
     
     public void deleteUserAccount(String username){
         
-        UserAccount u = null;
         
-        for(UserAccount ua: userAccountList){
+        Iterator<UserAccount> itr = userAccountList.iterator();
+        
+        while(itr.hasNext()){
             
-            if(username.equals(ua.getUsername())){
-                
-                u = ua;
-                break;
+            UserAccount ua = itr.next();
+            if(ua.getUsername().equals(username)){
+                itr.remove();
             }
         }
-        userAccountList.remove(u);
+        
+        
+       
+
+
         
         
     }

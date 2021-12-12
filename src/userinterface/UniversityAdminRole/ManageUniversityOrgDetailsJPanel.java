@@ -13,15 +13,22 @@ import Business.University.ForumAdmin;
 import Business.University.Student;
 import Business.University.Volunteer;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.AccessRequest;
+import Business.WorkQueue.Event;
+import Business.WorkQueue.Forum;
+import Business.WorkQueue.NutritionRequest;
 import Business.WorkQueue.NutritionistAppointment;
 import Business.WorkQueue.NutritionistAppointmentQueue;
+import Business.WorkQueue.PTherapy;
 import Business.WorkQueue.RegistrationRequest;
 import Business.WorkQueue.RegistrationRequestWorkQueue;
 import Business.WorkQueue.Therapy;
 import Business.WorkQueue.TherapyQueue;
 import Business.WorkQueue.YogaAppointment;
 import Business.WorkQueue.YogaAppointmentQueue;
+import Business.WorkQueue.YogaRequest;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -710,61 +717,129 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
                 system.getUserAccountDirectory().deleteUserAccount(order);
                 
                 TherapyQueue therapyqueue = system.getClinicdirectory().getTherapyqueue();
-                for(Therapy therapy: therapyqueue.getTherapylist()){
-                    
-                    if(therapy.getStudentid().equals(order)){
-                        
-                        therapyqueue.getTherapylist().remove(therapy);
-                        
-                        
-                    }
-                }
                 
-                NutritionistAppointmentQueue nutri = system.getMindfitnessdir().getNutriqueue();
-                
-                for( NutritionistAppointment therapy: nutri.getNutritionistAppointmentlist()){
-                    
-                    if(therapy.getStudentid().equals(order)){
-                        
-                        nutri.getNutritionistAppointmentlist().remove(therapy);
-                        
-                        
-                    }
-                }
-                
-                YogaAppointmentQueue yoga = system.getMindfitnessdir().getYogaqueue();
-                
-                for( YogaAppointment therapy: yoga.getYogaAppointmentlist()){
-                    
-                    if(therapy.getStudentid().equals(order)){
-                        
-                        yoga.getYogaAppointmentlist().remove(therapy);
-                        
-                        
-                    }
-                }
-                
-                
-                
-                
-                
-                
-                
-                
-                JOptionPane.showMessageDialog(this, "Deleted!");
-                return;
+                Iterator<Therapy> itr = therapyqueue.getTherapylist().iterator();
+        
+        while(itr.hasNext()){
+            
+            Therapy ua = itr.next();
+            if(ua.getStudentid().equals(order)){
+                itr.remove();
+            }
+        }
+        
+        Iterator<YogaAppointment> it = system.getMindfitnessdir().getYogaqueue().getYogaAppointmentlist().iterator();
+        
+        while(it.hasNext()){
+            
+            YogaAppointment ua = it.next();
+            if(ua.getStudentid().equals(order)){
+                it.remove();
+            }
+        }
+        
+        Iterator<NutritionistAppointment> itr1 = system.getMindfitnessdir().getNutriqueue().getNutritionistAppointmentlist().iterator();
+        
+        while(itr1.hasNext()){
+            
+            NutritionistAppointment ua = itr1.next();
+            if(ua.getStudentid().equals(order)){
+                itr1.remove();
+            }
+        }
+        
+        Iterator<PTherapy> itr2 = system.getPettherapydirectory().getPettherapyqueue().getPTherapylist().iterator();
+        
+        while(itr2.hasNext()){
+            
+            PTherapy ua = itr2.next();
+            if(ua.getStudentid().equals(order)){
+                itr2.remove();
+            }
+        }
+        
+        Iterator<NutritionRequest> itr3 = system.getMindfitnessdir().getNutrirequestqueue().getNutritionRequestlist().iterator();
+        while(itr3.hasNext()){
+            
+            NutritionRequest ua = itr3.next();
+            if(ua.getStudentid().equals(order)){
+                itr3.remove();
+            }
+        }
+        
+        Iterator<YogaRequest> itr4 = system.getMindfitnessdir().getYogarequestqueue().getYogaRequestlist().iterator();
+            
+            while(itr4.hasNext()){
+            
+            YogaRequest ua = itr4.next();
+            if(ua.getStudentid().equals(order)){
+                itr4.remove();
+            }
+        }
+        
+        Iterator<AccessRequest> itr5 = system.getUniversitydirectory().getReqaccessq().getAccessRequestlist().iterator();
+            
+            while(itr5.hasNext()){
+            
+            AccessRequest ua = itr5.next();
+            if(ua.getStudentid().equals(order)){
+                itr5.remove();
+            }
+        }
+        
+            
+            
+        
+        
+        
+        
+        
+        
+        
+        
                 
                 
                 
                 
                 
             }
-            
-            if(type=="Forum Admin"){
+           
+            if(type.equals("Forum Admin")){
                 
                 system.getUniversitydirectory().getForumdir().DeleteForumAdmin(order);
+                system.getUserAccountDirectory().deleteUserAccount(order);
+                
+                
                 modelOrder.removeRow(selectedIndex);
+                
+                Iterator<Forum> itr = system.getUniversitydirectory().getForumqueue().getForumlist().iterator();
+            
+            while(itr.hasNext()){
+            
+            Forum ua = itr.next();
+            if(ua.getCreatedby().equals(order)){
+                itr.remove();
+            }
+        }
+            
+                    
+                     
+                     
+               
+                    
+                    
+                     
+                    
+                   
+                    
+                    
+                    
+                
+                
+                
                 JOptionPane.showMessageDialog(this, "Deleted!");
+                
+                
                 return;
                 
                 
@@ -773,14 +848,32 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
             
             if(type=="Volunteer"){
                 
+                ArrayList <Integer> ind = new ArrayList();
                 system.getUniversitydirectory().getVolunteerdir().DeleteVolunteer(order);
                 modelOrder.removeRow(selectedIndex);
-                JOptionPane.showMessageDialog(this, "Deleted!");
-                return;
                 
-                
-                
+                Iterator<Event> itr5 = system.getUniversitydirectory().getEventqueue().getEventlist().iterator();
+            
+            while(itr5.hasNext()){
+            
+            Event ua = itr5.next();
+            if(ua.getPostedby().equals(order)){
+                itr5.remove();
             }
+        }
+            
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                
+                
+                
+               
+                return;
+                }
+                
+                
+                
+                
+            
             
             
             
@@ -790,6 +883,7 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
             
             
         }
+    
         
         
         
@@ -836,6 +930,13 @@ public class ManageUniversityOrgDetailsJPanel extends javax.swing.JPanel {
     private void btnPopulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPopulateActionPerformed
         // TODO add your handling code here:
         populateRequestTable();
+        
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_btnPopulateActionPerformed
 
     private void btnDeleteReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteReqActionPerformed

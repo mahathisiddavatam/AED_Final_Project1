@@ -517,10 +517,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
         container.removeAll();
         JPanel blankJP = new JPanel();
-        container.add("blank", blankJP);
+//        container.add("blank", blankJP);
         splitPane.setRightComponent(jTabbedPane2);
-        CardLayout crdLyt = (CardLayout) container.getLayout();
-        crdLyt.next(container);
+//        CardLayout crdLyt = (CardLayout) container.getLayout();
+//        crdLyt.next(container);
         
         
         

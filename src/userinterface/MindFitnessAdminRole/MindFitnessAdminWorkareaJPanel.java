@@ -13,7 +13,12 @@ import Business.Role.MindFitnessStaffRole;
 import Business.Role.NutritionistRole;
 import Business.Role.YogaInstrRole;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.NutritionRequest;
+import Business.WorkQueue.NutritionistAppointment;
+import Business.WorkQueue.YogaAppointment;
+import Business.WorkQueue.YogaRequest;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -76,7 +81,6 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
         txtCountry = new javax.swing.JTextField();
         txtZip = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
-        btnBack = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
 
@@ -164,8 +168,6 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnBack.setText("<< Back");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -206,13 +208,8 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                             .addComponent(txtCountry)
                             .addComponent(txtZip))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
-                                .addGap(56, 56, 56))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnBack)))))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                        .addGap(56, 56, 56)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -267,9 +264,7 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                     .addComponent(lblZip2)
                     .addComponent(txtZip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreate)
-                    .addComponent(btnBack))
+                .addComponent(btnCreate)
                 .addGap(0, 19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -283,10 +278,14 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
             String order = modelOrder.getValueAt(selectedIndex, 0).toString();
             String type = modelOrder.getValueAt(selectedIndex, 1).toString();
             
+            system.getUserAccountDirectory().deleteUserAccount(order);
+            
             if(type=="MindFitness Staff"){
                 
                 system.getMindfitnessdir().getMindstaffdir().DeleteMindFitStaff(order);
                 modelOrder.removeRow(selectedIndex);
+                
+                
                 JOptionPane.showMessageDialog(this, "Deleted!");
                 return;
 
@@ -296,6 +295,28 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
                 
                 system.getMindfitnessdir().getNutridir().DeleteNutritionist(order);
                 modelOrder.removeRow(selectedIndex);
+                
+                Iterator<NutritionistAppointment> itr5 = system.getMindfitnessdir().getNutriqueue().getNutritionistAppointmentlist().iterator();
+            
+            while(itr5.hasNext()){
+            
+            NutritionistAppointment ua = itr5.next();
+            if(ua.getNutritionistid().equals(order)){
+                itr5.remove();
+            }
+        }
+            
+            Iterator<NutritionRequest> itr6 = system.getMindfitnessdir().getNutrirequestqueue().getNutritionRequestlist().iterator();
+            
+            while(itr6.hasNext()){
+            
+            NutritionRequest ua = itr6.next();
+            if(ua.getYogaid().equals(order)){
+                itr6.remove();
+            }
+        }
+            
+            
                 JOptionPane.showMessageDialog(this, "Deleted!");
                 return;
                 
@@ -303,8 +324,30 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
             
             if(type=="Yoga Instructor"){
                 
-                system.getMindfitnessdir().getNutridir().DeleteNutritionist(order);
+                system.getMindfitnessdir().getYogadir().DeleteYogaInstructor(order);
                 modelOrder.removeRow(selectedIndex);
+                
+                Iterator<YogaAppointment> itr6 = system.getMindfitnessdir().getYogaqueue().getYogaAppointmentlist().iterator();
+            
+            while(itr6.hasNext()){
+            
+            YogaAppointment ua = itr6.next();
+            if(ua.getYogaid().equals(order)){
+                itr6.remove();
+            }
+        }
+            
+            Iterator<YogaRequest> itr7 = system.getMindfitnessdir().getYogarequestqueue().getYogaRequestlist().iterator();
+            
+            while(itr7.hasNext()){
+            
+            YogaRequest ua = itr7.next();
+            if(ua.getYogaid().equals(order)){
+                itr7.remove();
+            }
+        }
+                
+                
                 JOptionPane.showMessageDialog(this, "Deleted!");
                 return;
                 
@@ -601,7 +644,6 @@ public class MindFitnessAdminWorkareaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
