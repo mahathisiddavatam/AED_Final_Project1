@@ -1260,7 +1260,7 @@ public class MindFitnessStaffWorkArea extends javax.swing.JPanel {
         
         Date date = cal.getTime();
         String strDate = DateFormat.getDateInstance().format(date);
-        txtDate.setText(strDate);
+        txtDateTime.setText(strDate);
         
         String slot = cbcSlot1.getSelectedItem().toString();
         int selectedIndex = tblInstructor.getSelectedRow();

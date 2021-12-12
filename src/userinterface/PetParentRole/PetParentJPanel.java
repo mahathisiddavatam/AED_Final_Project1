@@ -187,36 +187,45 @@ public class PetParentJPanel extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblWelcome.setBackground(new java.awt.Color(255, 255, 0));
         lblWelcome.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
         lblWelcome.setForeground(new java.awt.Color(153, 0, 51));
         lblWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblWelcome.setText("Welcome, Pet Parent! It's great to see you again!");
+        jPanel1.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 784, 30));
 
         lblCreate.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         lblCreate.setForeground(new java.awt.Color(153, 0, 51));
         lblCreate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCreate.setText("Spread some happiness by registering your pet here!");
+        jPanel1.add(lblCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 59, 784, 25));
 
         lblPetnm.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblPetnm.setText("Name:");
+        jPanel1.add(lblPetnm, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 95, 150, 33));
 
         lblBreed.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblBreed.setText("Breed:");
+        jPanel1.add(lblBreed, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 148, 150, 33));
 
         lblAge.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblAge.setText("Age:");
+        jPanel1.add(lblAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 201, 150, 33));
 
         lblLike.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblLike.setText("Favourite activity:");
+        jPanel1.add(lblLike, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 247, 150, 33));
 
         lblFood.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblFood.setText("Favourite food:");
+        jPanel1.add(lblFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 300, 150, 33));
 
         lblUpload.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         lblUpload.setForeground(new java.awt.Color(153, 0, 51));
         lblUpload.setText("Add a picture here! ");
+        jPanel1.add(lblUpload, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 353, 282, 30));
 
         btnUpload.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnUpload.setText("Upload");
@@ -225,22 +234,30 @@ public class PetParentJPanel extends javax.swing.JPanel {
                 btnUploadActionPerformed(evt);
             }
         });
+        jPanel1.add(btnUpload, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 401, 135, -1));
 
         txtFilenm1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFilenm1ActionPerformed(evt);
             }
         });
+        jPanel1.add(txtFilenm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 446, 135, 29));
 
         lblImage1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage1.setText("Dog Image");
         lblImage1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.add(lblImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 401, 217, 225));
+        jPanel1.add(txtPetnm, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 97, 255, 33));
+        jPanel1.add(txtBreed, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 150, 255, 33));
 
         txtAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAgeActionPerformed(evt);
             }
         });
+        jPanel1.add(txtAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 203, 255, 33));
+        jPanel1.add(txtlike, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 249, 255, 33));
+        jPanel1.add(txtFood, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 302, 255, 33));
 
         btnSave.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         btnSave.setText("Save Details");
@@ -250,91 +267,7 @@ public class PetParentJPanel extends javax.swing.JPanel {
                 btnSaveActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
-            .addComponent(lblCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFilenm1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLike, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFood, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFood, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtlike, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblAge, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPetnm, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPetnm, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtAge, txtBreed, txtFood, txtPetnm, txtlike});
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAge, lblBreed, lblFood, lblLike, lblPetnm});
-
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPetnm, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPetnm, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBreed, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAge, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLike, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtlike, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFood, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFood, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lblUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnUpload)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFilenm1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblImage1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(206, 206, 206))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblAge, lblBreed, lblFood, lblLike, lblPetnm, txtAge, txtBreed, txtFood, txtPetnm, txtlike});
+        jPanel1.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 493, 135, 29));
 
         jTabbedPane1.addTab("Register your pet", jPanel1);
 
