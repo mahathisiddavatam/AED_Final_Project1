@@ -208,7 +208,10 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
 
         valueLabel.setText("<value>");
 
+        setBackground(new java.awt.Color(255, 255, 204));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTabbedPane3.setBackground(new java.awt.Color(255, 255, 204));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -566,48 +569,7 @@ public class ClinicStaffWorkAreaJPanel extends javax.swing.JPanel {
         
         
         
-        DefaultTableModel modelOrd = (DefaultTableModel)tblTherapists.getModel();
-        DefaultTableModel modelStudent = (DefaultTableModel)tblStudent.getModel();
-         int selectedIndex6 = tblTherapists.getSelectedRow();
-         if(selectedIndex6==-1){
-            
-            JOptionPane.showMessageDialog(this, "Please Select a Therapist!");
-            return;
-            
-        }
-         String therapistid=null;
-         if(selectedIndex6!=-1){
-            
-             therapistid = modelOrder.getValueAt(selectedIndex6, 0).toString();
-        }
-         
-        int selectedIndex1 = tblStudent.getSelectedRow();
-        if(selectedIndex1==-1){
-            
-            JOptionPane.showMessageDialog(this, "Please Select a Student!");
-            return;
-            
-        }
         
-        
-        
-        
-        String studentid = null;
-        if(selectedIndex1!=-1){
-            
-             studentid = modelStudent.getValueAt(selectedIndex1, 0).toString();
-        }
-        
-        for(Therapy therapy: therapyqueue.getTherapylist()){
-            
-            if(therapy.getTherapistid().equals(therapistid) && therapy.getStudentid().equals(studentid)){
-                
-                DefaultTableModel model = (DefaultTableModel) tblPaymentStatus.getModel();
-                model.setRowCount(0);
-                
-                populatePaymentTable(therapy,model);
-            }
-        }
         
         JOptionPane.showMessageDialog(this, "Paid!");
         
