@@ -1852,7 +1852,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         String parentid = null;
         if(selectedIndex==-1){
             
-            JOptionPane.showMessageDialog(this, "Please Select a dog");
+            JOptionPane.showMessageDialog(this, "Please Select a pet");
             return;
             
         }
@@ -1886,6 +1886,7 @@ public class StudentWorkAreaPanel extends javax.swing.JPanel {
         ptherapy.setPetid(pet.getId());
         ptherapy.setTerminate(Boolean.FALSE);
         ptherapy.setStudentid(student.getId());
+        //ptherapy.setParentid(parentid);
         Calendar cal = calendarSession.getCalendar();
         
         Date date = cal.getTime();

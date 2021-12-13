@@ -534,6 +534,7 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
             String order = modelOrder.getValueAt(selectedIndex, 0).toString();
             
             String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            system.getUserAccountDirectory().deleteUserAccount(order);
             if(type=="Pet Therapy Staff"){
                 
                 system.getPettherapydirectory().getPetstaffdir().DeletePetTherapyStaff(order);
@@ -572,7 +573,11 @@ public class PetTherapyAdminWorkArea extends javax.swing.JPanel {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
         
+        
+        
         populateTable();
+       // system.getPettherapydirectory().getPettherapyqueue().retrievePTherapy(9174).setParentid("holliparent");
+        //system.getPettherapydirectory().getPettherapyqueue().retrievePTherapy(4317).setParentid("holliparent");
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
