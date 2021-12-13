@@ -86,13 +86,14 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         txtSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 254, 255));
 
         cmbOrgType.setBackground(new java.awt.Color(255, 255, 0));
         cmbOrgType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CLINIC", "UNIVERSITY", "MIND FITNESS", "PET THERAPY" }));
@@ -224,8 +225,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                                                 .addComponent(btnSubmit)))
                                         .addGap(50, 50, 50)
                                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 206, Short.MAX_VALUE)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(0, 211, Short.MAX_VALUE)))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +252,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSubmit)
                             .addComponent(btnDelete))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -298,44 +299,338 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jSplitPane.setLeftComponent(jPanel1);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 9, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 667, Short.MAX_VALUE)
+        );
+
+        jSplitPane.setRightComponent(jPanel4);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 102, Short.MAX_VALUE)
+            .addGap(0, 9, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
+            .addGap(0, 667, Short.MAX_VALUE)
         );
 
         jSplitPane.setRightComponent(jPanel3);
 
-        add(jSplitPane, java.awt.BorderLayout.CENTER);
+        add(jSplitPane, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+
+        DefaultTableModel modelOrder = (DefaultTableModel)tblEnterprises.getModel();
+        int selectedIndex = tblEnterprises.getSelectedRow();
+        if(selectedIndex!=-1){
+
+            String order = modelOrder.getValueAt(selectedIndex, 0).toString();
+            String type = modelOrder.getValueAt(selectedIndex, 1).toString();
+            system.getUserAccountDirectory().deleteUserAccount(order);
+            if(type=="Clinic"){
+
+                system.getClinicdirectory().deleteClinic(order);
+
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+
+            }
+
+            if(type=="University"){
+
+                system.getUniversitydirectory().deleteUniversity(order);
+
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+
+            }
+
+            if(type=="Pet Therapy"){
+
+                system.getPettherapydirectory().DeletePetTherapy(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+
+            }
+
+            if(type=="Mind Fitness"){
+
+                system.getMindfitnessdir().deleteMindFitness(order);
+                modelOrder.removeRow(selectedIndex);
+                JOptionPane.showMessageDialog(this, "Deleted!");
+                return;
+
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void txtSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaveActionPerformed
+        // TODO add your handling code here:
+
+        if(system.getClinicdirectory().RetrieveClinic(txtUsername.getText())!=null){
+            Clinic therapist = system.getClinicdirectory().RetrieveClinic(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+
+                f=1;
+
+            }
+            if(f==0){
+
+                JOptionPane.showMessageDialog(this, "Invalid Email!");
+                return;
+
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhone(phno);
+            therapist.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Clinic Enterprise added!");
+            populateTable();
+            return;
+
+        }
+
+        if(system.getUniversitydirectory().RetrieveUniversity(txtUsername.getText())!=null){
+            University therapist = system.getUniversitydirectory().RetrieveUniversity(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+
+                f=1;
+
+            }
+            if(f==0){
+
+                JOptionPane.showMessageDialog(this, "Invalid Email!");
+                return;
+
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhone(phno);
+            therapist.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "University Enterprise added!");
+            populateTable();
+            return;
+
+        }
+
+        if(system.getMindfitnessdir().RetrieveMindFitness(txtUsername.getText())!=null){
+            MindFitness therapist = system.getMindfitnessdir().RetrieveMindFitness(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+
+                f=1;
+
+            }
+            if(f==0){
+
+                JOptionPane.showMessageDialog(this, "Invalid Email!");
+                return;
+
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhone(phno);
+            therapist.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Mind Fitness Enterprise added!");
+            populateTable();
+            return;
+
+        }
+        if(system.getPettherapydirectory().RetrievePetTherapy(txtUsername.getText())!=null){
+            PetTherapy therapist = system.getPettherapydirectory().RetrievePetTherapy(txtUsername.getText());
+            String name = txtName.getText();
+            String email = txtEmail.getText();
+            String phno = txtPhoneNo.getText();
+            String address = txtAddress.getText();
+            String city = txtCity.getText();
+            String country = txtCountry.getText();
+            String zipcode = txtZip.getText();
+
+            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
+
+                JOptionPane.showMessageDialog(this, "Fields blank!");
+                return;
+
+            }
+
+            String reg= "^\\d{10}$";
+            Pattern pat = Pattern.compile(reg);
+            Matcher mat = pat.matcher(phno);
+
+            if(!(mat.matches())){
+
+                JOptionPane.showMessageDialog(this, "Invalid Phone!");
+                return;
+
+            }
+
+            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+
+            Pattern em = Pattern.compile(regemail);
+            Matcher ma = em.matcher(email);
+            int f=0;
+            if((ma.matches())){
+
+                f=1;
+
+            }
+            if(f==0){
+
+                JOptionPane.showMessageDialog(this, "Invalid Email!");
+                return;
+
+            }
+            therapist.setName(name);
+            therapist.setAddress(address);
+            therapist.setCountry(country);
+            therapist.setCity(city);
+            therapist.setEmail(email);
+            therapist.setPhone(phno);
+            therapist.setZipcode(zipcode);
+            JOptionPane.showMessageDialog(this, "Pet Therapy Enterprise added!");
+            populateTable();
+            return;
+        }
+
+    }//GEN-LAST:event_txtSaveActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        
+
         if((txtUsername.getText().isEmpty())|| (txtPassword.getText().isEmpty())
-                ){
+        ){
 
             JOptionPane.showMessageDialog(this, "Field left Blank!");
         }
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        
+
         String reg = "^(?=.*[0-9])"
         + "(?=.*[a-z])(?=.*[A-Z])"
         + "(?=.*[@#$%^&+=])"
@@ -353,399 +648,60 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             return;
 
         }
-        
+
         if(system.getUserAccountDirectory().checkIfUsernameIsUnique(username)==false){
 
             JOptionPane.showMessageDialog(this, "Username already taken!");
             return;
 
         }
-        
+
         if(cmbOrgType.getSelectedItem().toString()=="CLINIC"){
-            
+
             system.getUserAccountDirectory().createUserAccount(username, password, new ClinicAdminRole());
             Clinic clinic = system.getClinicdirectory().addNewClinic();
             clinic.setId(txtUsername.getText());
             JOptionPane.showMessageDialog(this, "Clinic Admin Added!");
             return;
-            
-            
-            
-            
+
         }
-        
+
         if(cmbOrgType.getSelectedItem().toString()=="UNIVERSITY"){
-            
+
             system.getUserAccountDirectory().createUserAccount(username, password, new UniversityAdminRole());
             University uni = system.getUniversitydirectory().addNewUniversity();
             uni.setId(username);
             JOptionPane.showMessageDialog(this, "University Admin Added!");
             return;
-            
-            
-            
+
         }
-        
+
         if(cmbOrgType.getSelectedItem().toString()=="PET THERAPY"){
-            
+
             system.getUserAccountDirectory().createUserAccount(username, password, new PetTherapyAdminRole());
             PetTherapy pt = system.getPettherapydirectory().AddPetTherapy();
             pt.setId(username);
             JOptionPane.showMessageDialog(this, "Pet Therapy Admin Added!");
             return;
-            
-            
-            
+
         }
-        
+
         if(cmbOrgType.getSelectedItem().toString()=="MIND FITNESS"){
-            
+
             system.getUserAccountDirectory().createUserAccount(username, password, new MindFitnessAdminRole());
             MindFitness mf = system.getMindfitnessdir().addNewMindFitness();
             mf.setId(username);
             JOptionPane.showMessageDialog(this, "Mind Fitness Admin Added!");
             return;
-            
-            
-            
+
         }
-        
-        
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void cmbOrgTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOrgTypeActionPerformed
 
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbOrgTypeActionPerformed
-
-    private void txtSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaveActionPerformed
-        // TODO add your handling code here:
-        
-        if(system.getClinicdirectory().RetrieveClinic(txtUsername.getText())!=null){
-            Clinic therapist = system.getClinicdirectory().RetrieveClinic(txtUsername.getText());
-            String name = txtName.getText();
-            String email = txtEmail.getText();
-            String phno = txtPhoneNo.getText();
-            String address = txtAddress.getText();
-            String city = txtCity.getText();
-            String country = txtCountry.getText();
-            String zipcode = txtZip.getText();
-            
-            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
-                
-                JOptionPane.showMessageDialog(this, "Fields blank!");
-                return;
-
-            }
-            
-            String reg= "^\\d{10}$";
-            Pattern pat = Pattern.compile(reg);
-            Matcher mat = pat.matcher(phno);
-
-            if(!(mat.matches())){
-
-                JOptionPane.showMessageDialog(this, "Invalid Phone!");
-                return;
-
-            }
-            
-            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        
-            Pattern em = Pattern.compile(regemail);
-            Matcher ma = em.matcher(email);
-            int f=0;
-            if((ma.matches())){
-            
-            f=1;
-            
-            
-            
-            
-            
-         }
-            if(f==0){
-            
-            JOptionPane.showMessageDialog(this, "Invalid Email!");
-            return;
-            
-            
-            }
-            therapist.setName(name);
-            therapist.setAddress(address);
-            therapist.setCountry(country);
-            therapist.setCity(city);
-            therapist.setEmail(email);
-            therapist.setPhone(phno);
-            therapist.setZipcode(zipcode);
-            JOptionPane.showMessageDialog(this, "Clinic Enterprise added!");
-            populateTable();
-            return;
-            
-            
-            
-            
-            
-            
-        }
-        
-        if(system.getUniversitydirectory().RetrieveUniversity(txtUsername.getText())!=null){
-            University therapist = system.getUniversitydirectory().RetrieveUniversity(txtUsername.getText());
-            String name = txtName.getText();
-            String email = txtEmail.getText();
-            String phno = txtPhoneNo.getText();
-            String address = txtAddress.getText();
-            String city = txtCity.getText();
-            String country = txtCountry.getText();
-            String zipcode = txtZip.getText();
-            
-            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
-                
-                JOptionPane.showMessageDialog(this, "Fields blank!");
-                return;
-
-            }
-            
-            String reg= "^\\d{10}$";
-            Pattern pat = Pattern.compile(reg);
-            Matcher mat = pat.matcher(phno);
-
-            if(!(mat.matches())){
-
-                JOptionPane.showMessageDialog(this, "Invalid Phone!");
-                return;
-
-            }
-            
-            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        
-            Pattern em = Pattern.compile(regemail);
-            Matcher ma = em.matcher(email);
-            int f=0;
-            if((ma.matches())){
-            
-            f=1;
-            
-            
-            
-            
-            
-         }
-            if(f==0){
-            
-            JOptionPane.showMessageDialog(this, "Invalid Email!");
-            return;
-            
-            
-            }
-            therapist.setName(name);
-            therapist.setAddress(address);
-            therapist.setCountry(country);
-            therapist.setCity(city);
-            therapist.setEmail(email);
-            therapist.setPhone(phno);
-            therapist.setZipcode(zipcode);
-            JOptionPane.showMessageDialog(this, "University Enterprise added!");
-            populateTable();
-            return;
-            
-            
-            
-            
-            
-            
-        }
-        
-        if(system.getMindfitnessdir().RetrieveMindFitness(txtUsername.getText())!=null){
-            MindFitness therapist = system.getMindfitnessdir().RetrieveMindFitness(txtUsername.getText());
-            String name = txtName.getText();
-            String email = txtEmail.getText();
-            String phno = txtPhoneNo.getText();
-            String address = txtAddress.getText();
-            String city = txtCity.getText();
-            String country = txtCountry.getText();
-            String zipcode = txtZip.getText();
-            
-            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
-                
-                JOptionPane.showMessageDialog(this, "Fields blank!");
-                return;
-
-            }
-            
-            String reg= "^\\d{10}$";
-            Pattern pat = Pattern.compile(reg);
-            Matcher mat = pat.matcher(phno);
-
-            if(!(mat.matches())){
-
-                JOptionPane.showMessageDialog(this, "Invalid Phone!");
-                return;
-
-            }
-            
-            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        
-            Pattern em = Pattern.compile(regemail);
-            Matcher ma = em.matcher(email);
-            int f=0;
-            if((ma.matches())){
-            
-            f=1;
-            
-            
-            
-            
-            
-         }
-            if(f==0){
-            
-            JOptionPane.showMessageDialog(this, "Invalid Email!");
-            return;
-            
-            
-            }
-            therapist.setName(name);
-            therapist.setAddress(address);
-            therapist.setCountry(country);
-            therapist.setCity(city);
-            therapist.setEmail(email);
-            therapist.setPhone(phno);
-            therapist.setZipcode(zipcode);
-            JOptionPane.showMessageDialog(this, "Mind Fitness Enterprise added!");
-            populateTable();
-            return;
-            
-            
-            
-            
-            
-            
-            
-            
-        }
-        if(system.getPettherapydirectory().RetrievePetTherapy(txtUsername.getText())!=null){
-            PetTherapy therapist = system.getPettherapydirectory().RetrievePetTherapy(txtUsername.getText());
-            String name = txtName.getText();
-            String email = txtEmail.getText();
-            String phno = txtPhoneNo.getText();
-            String address = txtAddress.getText();
-            String city = txtCity.getText();
-            String country = txtCountry.getText();
-            String zipcode = txtZip.getText();
-            
-            if(name==null || email==null || phno==null || address==null || city==null || country==null || zipcode==null){
-                
-                JOptionPane.showMessageDialog(this, "Fields blank!");
-                return;
-
-            }
-            
-            String reg= "^\\d{10}$";
-            Pattern pat = Pattern.compile(reg);
-            Matcher mat = pat.matcher(phno);
-
-            if(!(mat.matches())){
-
-                JOptionPane.showMessageDialog(this, "Invalid Phone!");
-                return;
-
-            }
-            
-            String regemail = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        
-            Pattern em = Pattern.compile(regemail);
-            Matcher ma = em.matcher(email);
-            int f=0;
-            if((ma.matches())){
-            
-            f=1;
-            
-            
-            
-            
-            
-         }
-            if(f==0){
-            
-            JOptionPane.showMessageDialog(this, "Invalid Email!");
-            return;
-            
-            
-            }
-            therapist.setName(name);
-            therapist.setAddress(address);
-            therapist.setCountry(country);
-            therapist.setCity(city);
-            therapist.setEmail(email);
-            therapist.setPhone(phno);
-            therapist.setZipcode(zipcode);
-            JOptionPane.showMessageDialog(this, "Pet Therapy Enterprise added!");
-            populateTable();
-            return;
-        }
-        
-        
-        
-        
-    }//GEN-LAST:event_txtSaveActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        
-        DefaultTableModel modelOrder = (DefaultTableModel)tblEnterprises.getModel();
-        int selectedIndex = tblEnterprises.getSelectedRow();
-        if(selectedIndex!=-1){
-            
-            String order = modelOrder.getValueAt(selectedIndex, 0).toString();
-            String type = modelOrder.getValueAt(selectedIndex, 1).toString();
-            system.getUserAccountDirectory().deleteUserAccount(order);
-            if(type=="Clinic"){
-                
-                system.getClinicdirectory().deleteClinic(order);
-               
-                modelOrder.removeRow(selectedIndex);
-                JOptionPane.showMessageDialog(this, "Deleted!");
-                return;
-                
-                
-                
-            }
-            
-            if(type=="University"){
-                
-                system.getUniversitydirectory().deleteUniversity(order);
-                
-                modelOrder.removeRow(selectedIndex);
-                JOptionPane.showMessageDialog(this, "Deleted!");
-                return;
-                
-                
-                
-            }
-            
-                        if(type=="Pet Therapy"){
-                
-                system.getPettherapydirectory().DeletePetTherapy(order);
-                modelOrder.removeRow(selectedIndex);
-                JOptionPane.showMessageDialog(this, "Deleted!");
-                return;
-                
-                
-                
-            }
-                        
-            if(type=="Mind Fitness"){
-                
-                system.getMindfitnessdir().deleteMindFitness(order);
-                modelOrder.removeRow(selectedIndex);
-                JOptionPane.showMessageDialog(this, "Deleted!");
-                return;
-                
-                
-                
-            }
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -756,6 +712,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
